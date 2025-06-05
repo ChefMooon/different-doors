@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:warped_door"
+    },
+    "B": {
+      "item": "minecraft:warped_planks"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "ABA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:warped_large_door"
+  }
+}

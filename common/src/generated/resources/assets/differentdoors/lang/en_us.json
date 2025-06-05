@@ -1,0 +1,16 @@
+{
+  "block.differentdoors.acacia_large_door": "Acacia Large Door",
+  "block.differentdoors.bamboo_large_door": "Bamboo Large Door",
+  "block.differentdoors.birch_large_door": "Birch Large Door",
+  "block.differentdoors.cherry_large_door": "Cherry Large Door",
+  "block.differentdoors.crimson_large_door": "Crimson Large Door",
+  "block.differentdoors.dark_oak_large_door": "Dark Oak Large Door",
+  "block.differentdoors.jungle_large_door": "Jungle Large Door",
+  "block.differentdoors.mangrove_large_door": "Mangrove Large Door",
+  "block.differentdoors.oak_large_door": "Oak Large Door",
+  "block.differentdoors.spruce_large_door": "Spruce Large Door",
+  "block.differentdoors.warped_large_door": "Warped Large Door",
+  "differentdoors.subtitles.large_door.close": "Large Door Closing",
+  "differentdoors.subtitles.large_door.open": "Large Door Opening",
+  "itemGroup.differentdoors": "Different Doors"
+}

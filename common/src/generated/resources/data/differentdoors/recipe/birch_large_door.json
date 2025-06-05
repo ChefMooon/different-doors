@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:birch_door"
+    },
+    "B": {
+      "item": "minecraft:birch_planks"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "ABA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:birch_large_door"
+  }
+}

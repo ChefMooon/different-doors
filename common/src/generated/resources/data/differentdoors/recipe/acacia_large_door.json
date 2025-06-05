@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:acacia_door"
+    },
+    "B": {
+      "item": "minecraft:acacia_planks"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "ABA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:acacia_large_door"
+  }
+}

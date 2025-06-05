@@ -1,0 +1,6 @@
+{
+  "parent": "differentdoors:block/template_large_door_flipped",
+  "textures": {
+    "all": "differentdoors:block/acacia_large_door"
+  }
+}

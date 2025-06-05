@@ -1,0 +1,436 @@
+{
+  "variants": {
+    "facing=east,open=false,part=bottom,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=bottom,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=bottom_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=bottom_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=bottom_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=bottom_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=center,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=center,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=top,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=top,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=top_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=top_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=top_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=false,part=top_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=bottom,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=bottom,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=bottom_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=bottom_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=bottom_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=bottom_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=center,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=center,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=top,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=top,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=top_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=top_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=top_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=east,open=true,part=top_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=bottom,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=bottom,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=bottom_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=bottom_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=bottom_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=bottom_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=center,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=center,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=top,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=top,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=top_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=top_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=top_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=false,part=top_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=bottom,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=bottom,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=bottom_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=bottom_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=bottom_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=bottom_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=center,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=center,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=top,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=top,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=top_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=top_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=top_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=north,open=true,part=top_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=bottom,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=bottom,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=bottom_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=bottom_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=bottom_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=bottom_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=center,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=center,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=top,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=top,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=top_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=top_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=top_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=false,part=top_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=bottom,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=bottom,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=bottom_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=bottom_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=bottom_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=bottom_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=center,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=center,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=top,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=top,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=top_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=top_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=top_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=south,open=true,part=top_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=bottom,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=bottom,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=bottom_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=bottom_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=bottom_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=bottom_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=center,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=center,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=top,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=top,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=top_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=top_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=top_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=false,part=top_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=bottom,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=bottom,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=bottom_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=bottom_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=bottom_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=bottom_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=center,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=center,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=top,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=top,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=top_left,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=top_left,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=top_right,powered=false": {
+      "model": "differentdoors:block/jungle_large_door"
+    },
+    "facing=west,open=true,part=top_right,powered=true": {
+      "model": "differentdoors:block/jungle_large_door"
+    }
+  }
+}

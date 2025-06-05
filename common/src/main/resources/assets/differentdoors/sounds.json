@@ -1,0 +1,14 @@
+{
+  "block.large_door.open": {
+    "subtitle": "differentdoors.subtitles.block.large_door.open",
+    "sounds": [
+      "differentdoors:large_door_open"
+    ]
+  },
+    "block.large_door.close": {
+        "subtitle": "differentdoors.subtitles.block.large_door.close",
+        "sounds": [
+        "differentdoors:large_door_close"
+        ]
+    }
+}

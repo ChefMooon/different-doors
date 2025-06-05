@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:dark_oak_door"
+    },
+    "B": {
+      "item": "minecraft:dark_oak_planks"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "ABA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:dark_oak_large_door"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:spruce_door"
+    },
+    "B": {
+      "item": "minecraft:spruce_planks"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "ABA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:spruce_large_door"
+  }
+}
