@@ -1,15 +1,11 @@
 package com.chefmooon.differentdoors.common.block;
 
 import com.chefmooon.differentdoors.DifferentDoors;
-import com.chefmooon.differentdoors.common.block.base.BasicEntityBlock;
-import com.chefmooon.differentdoors.common.block.entity.LargeDoorBlockEntity;
 import com.chefmooon.differentdoors.common.block.properties.DoorPartProperty;
 import com.chefmooon.differentdoors.common.data.types.DoorType;
-import com.chefmooon.differentdoors.common.registry.ModBlockEntities;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
@@ -22,9 +18,6 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -40,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 
-public class LargeDoorBlock extends BasicEntityBlock {
+public class LargeDoorBlock extends Block {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final BooleanProperty LOCKED = BlockStateProperties.LOCKED;
@@ -99,7 +92,7 @@ public class LargeDoorBlock extends BasicEntityBlock {
 
     @Override
     protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.ENTITYBLOCK_ANIMATED;
+        return RenderShape.MODEL;
     }
 
     @Override
@@ -118,11 +111,6 @@ public class LargeDoorBlock extends BasicEntityBlock {
     }
 
     @Override
-    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return state.getValue(PART).isController() ? BuiltInRegistries.BLOCK_ENTITY_TYPE.get(ModBlockEntities.LARGE_DOOR).create(pos, state) : null;
-    }
-
-    @Override
     public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         BlockPos controllerPos = getController(state, pos);
         BlockState controllerState = level.getBlockState(controllerPos);
@@ -130,6 +118,13 @@ public class LargeDoorBlock extends BasicEntityBlock {
         boolean locked = controllerState.getValue(LOCKED);
         if (level.isClientSide()) return locked ? ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION : ItemInteractionResult.SUCCESS;
         if (locked) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+
+        boolean isOpen = controllerState.getValue(OPEN);
+        if (isOpen) {
+            playSound(level, controllerPos, false);
+        } else {
+            playSound(level, controllerPos, true);
+        }
 
         Direction direction = controllerState.getValue(FACING).getClockWise();
         for (DoorPartProperty part : DoorPartProperty.values()) {
@@ -231,20 +226,10 @@ public class LargeDoorBlock extends BasicEntityBlock {
     public void playSound(Level level, BlockPos blockPos, boolean isOpen) {
         if (!level.isClientSide()) {
             if (isOpen) {
-                level.playSound(null, blockPos, doorType.getOpenSound().get(), SoundSource.BLOCKS, 0.5f, 1);
+                level.playSound(null, blockPos, doorType.getOpenSound(), SoundSource.BLOCKS, 0.5f, 1);
             } else {
-                level.playSound(null, blockPos, doorType.getCloseSound().get(), SoundSource.BLOCKS, 0.5f, 1);
+                level.playSound(null, blockPos, doorType.getCloseSound(), SoundSource.BLOCKS, 0.5f, 1);
             }
         }
-    }
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, getBlockEntityType(), LargeDoorBlockEntity::tick);
-    }
-
-    @ExpectPlatform
-    public static BlockEntityType<LargeDoorBlockEntity> getBlockEntityType() {
-        throw new AssertionError();
     }
 }

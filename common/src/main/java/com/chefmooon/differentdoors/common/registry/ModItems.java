@@ -14,8 +14,9 @@ public class ModItems {
         return new Item.Properties().stacksTo(1);
     }
 
-    public static final ResourceLocation TEST_ITEM = item("test_item");
+//    public static final ResourceLocation TEST_ITEM = item("test_item");
     public static final ResourceLocation LARGE_DOOR = item("large_door");
+    public static final ResourceLocation SIMPLE_LARGE_DOOR = item("simple_large_door");
 
     private static ResourceLocation item(String string) {
         return TextUtil.res(string);

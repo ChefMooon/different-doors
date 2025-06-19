@@ -1,436 +1,274 @@
 {
   "variants": {
-    "facing=east,open=false,part=bottom,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=false,part=bottom": {
+      "model": "differentdoors:block/bamboo_large_door_bottom",
+      "y": 90
     },
-    "facing=east,open=false,part=bottom,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=false,part=bottom_left": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_left",
+      "y": 90
     },
-    "facing=east,open=false,part=bottom_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=false,part=bottom_right": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_right",
+      "y": 90
     },
-    "facing=east,open=false,part=bottom_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=false,part=center": {
+      "model": "differentdoors:block/bamboo_large_door_center",
+      "y": 90
     },
-    "facing=east,open=false,part=bottom_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=false,part=left": {
+      "model": "differentdoors:block/bamboo_large_door_left",
+      "y": 90
     },
-    "facing=east,open=false,part=bottom_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=false,part=right": {
+      "model": "differentdoors:block/bamboo_large_door_right",
+      "y": 90
     },
-    "facing=east,open=false,part=center,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=false,part=top": {
+      "model": "differentdoors:block/bamboo_large_door_top",
+      "y": 90
     },
-    "facing=east,open=false,part=center,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=false,part=top_left": {
+      "model": "differentdoors:block/bamboo_large_door_top_left",
+      "y": 90
     },
-    "facing=east,open=false,part=left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=false,part=top_right": {
+      "model": "differentdoors:block/bamboo_large_door_top_right",
+      "y": 90
     },
-    "facing=east,open=false,part=left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=true,part=bottom": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_open",
+      "y": 90
     },
-    "facing=east,open=false,part=right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=true,part=bottom_left": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_left_open",
+      "y": 90
     },
-    "facing=east,open=false,part=right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=true,part=bottom_right": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_right_open",
+      "y": 90
     },
-    "facing=east,open=false,part=top,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=true,part=center": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_open",
+      "y": 90
     },
-    "facing=east,open=false,part=top,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=true,part=left": {
+      "model": "differentdoors:block/bamboo_large_door_left_open",
+      "y": 90
     },
-    "facing=east,open=false,part=top_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=true,part=right": {
+      "model": "differentdoors:block/bamboo_large_door_right_open",
+      "y": 90
     },
-    "facing=east,open=false,part=top_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=true,part=top": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_open",
+      "y": 90
     },
-    "facing=east,open=false,part=top_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=true,part=top_left": {
+      "model": "differentdoors:block/bamboo_large_door_top_left_open",
+      "y": 90
     },
-    "facing=east,open=false,part=top_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=east,open=true,part=top_right": {
+      "model": "differentdoors:block/bamboo_large_door_top_right_open",
+      "y": 90
     },
-    "facing=east,open=true,part=bottom,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=false,part=bottom": {
+      "model": "differentdoors:block/bamboo_large_door_bottom"
     },
-    "facing=east,open=true,part=bottom,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=false,part=bottom_left": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_left"
     },
-    "facing=east,open=true,part=bottom_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=false,part=bottom_right": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_right"
     },
-    "facing=east,open=true,part=bottom_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=false,part=center": {
+      "model": "differentdoors:block/bamboo_large_door_center"
     },
-    "facing=east,open=true,part=bottom_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=false,part=left": {
+      "model": "differentdoors:block/bamboo_large_door_left"
     },
-    "facing=east,open=true,part=bottom_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=false,part=right": {
+      "model": "differentdoors:block/bamboo_large_door_right"
     },
-    "facing=east,open=true,part=center,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=false,part=top": {
+      "model": "differentdoors:block/bamboo_large_door_top"
     },
-    "facing=east,open=true,part=center,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=false,part=top_left": {
+      "model": "differentdoors:block/bamboo_large_door_top_left"
     },
-    "facing=east,open=true,part=left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=false,part=top_right": {
+      "model": "differentdoors:block/bamboo_large_door_top_right"
     },
-    "facing=east,open=true,part=left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=true,part=bottom": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_open"
     },
-    "facing=east,open=true,part=right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=true,part=bottom_left": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_left_open"
     },
-    "facing=east,open=true,part=right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=true,part=bottom_right": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_right_open"
     },
-    "facing=east,open=true,part=top,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=true,part=center": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_open"
     },
-    "facing=east,open=true,part=top,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=true,part=left": {
+      "model": "differentdoors:block/bamboo_large_door_left_open"
     },
-    "facing=east,open=true,part=top_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=true,part=right": {
+      "model": "differentdoors:block/bamboo_large_door_right_open"
     },
-    "facing=east,open=true,part=top_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=true,part=top": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_open"
     },
-    "facing=east,open=true,part=top_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=true,part=top_left": {
+      "model": "differentdoors:block/bamboo_large_door_top_left_open"
     },
-    "facing=east,open=true,part=top_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=north,open=true,part=top_right": {
+      "model": "differentdoors:block/bamboo_large_door_top_right_open"
     },
-    "facing=north,open=false,part=bottom,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=false,part=bottom": {
+      "model": "differentdoors:block/bamboo_large_door_bottom",
+      "y": 180
     },
-    "facing=north,open=false,part=bottom,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=false,part=bottom_left": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_left",
+      "y": 180
     },
-    "facing=north,open=false,part=bottom_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=false,part=bottom_right": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_right",
+      "y": 180
     },
-    "facing=north,open=false,part=bottom_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=false,part=center": {
+      "model": "differentdoors:block/bamboo_large_door_center",
+      "y": 180
     },
-    "facing=north,open=false,part=bottom_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=false,part=left": {
+      "model": "differentdoors:block/bamboo_large_door_left",
+      "y": 180
     },
-    "facing=north,open=false,part=bottom_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=false,part=right": {
+      "model": "differentdoors:block/bamboo_large_door_right",
+      "y": 180
     },
-    "facing=north,open=false,part=center,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=false,part=top": {
+      "model": "differentdoors:block/bamboo_large_door_top",
+      "y": 180
     },
-    "facing=north,open=false,part=center,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=false,part=top_left": {
+      "model": "differentdoors:block/bamboo_large_door_top_left",
+      "y": 180
     },
-    "facing=north,open=false,part=left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=false,part=top_right": {
+      "model": "differentdoors:block/bamboo_large_door_top_right",
+      "y": 180
     },
-    "facing=north,open=false,part=left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=true,part=bottom": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_open",
+      "y": 180
     },
-    "facing=north,open=false,part=right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=true,part=bottom_left": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_left_open",
+      "y": 180
     },
-    "facing=north,open=false,part=right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=true,part=bottom_right": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_right_open",
+      "y": 180
     },
-    "facing=north,open=false,part=top,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=true,part=center": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_open",
+      "y": 180
     },
-    "facing=north,open=false,part=top,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=true,part=left": {
+      "model": "differentdoors:block/bamboo_large_door_left_open",
+      "y": 180
     },
-    "facing=north,open=false,part=top_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=true,part=right": {
+      "model": "differentdoors:block/bamboo_large_door_right_open",
+      "y": 180
     },
-    "facing=north,open=false,part=top_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=true,part=top": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_open",
+      "y": 180
     },
-    "facing=north,open=false,part=top_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=true,part=top_left": {
+      "model": "differentdoors:block/bamboo_large_door_top_left_open",
+      "y": 180
     },
-    "facing=north,open=false,part=top_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=south,open=true,part=top_right": {
+      "model": "differentdoors:block/bamboo_large_door_top_right_open",
+      "y": 180
     },
-    "facing=north,open=true,part=bottom,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=false,part=bottom": {
+      "model": "differentdoors:block/bamboo_large_door_bottom",
+      "y": 270
     },
-    "facing=north,open=true,part=bottom,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=false,part=bottom_left": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_left",
+      "y": 270
     },
-    "facing=north,open=true,part=bottom_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=false,part=bottom_right": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_right",
+      "y": 270
     },
-    "facing=north,open=true,part=bottom_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=false,part=center": {
+      "model": "differentdoors:block/bamboo_large_door_center",
+      "y": 270
     },
-    "facing=north,open=true,part=bottom_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=false,part=left": {
+      "model": "differentdoors:block/bamboo_large_door_left",
+      "y": 270
     },
-    "facing=north,open=true,part=bottom_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=false,part=right": {
+      "model": "differentdoors:block/bamboo_large_door_right",
+      "y": 270
     },
-    "facing=north,open=true,part=center,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=false,part=top": {
+      "model": "differentdoors:block/bamboo_large_door_top",
+      "y": 270
     },
-    "facing=north,open=true,part=center,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=false,part=top_left": {
+      "model": "differentdoors:block/bamboo_large_door_top_left",
+      "y": 270
     },
-    "facing=north,open=true,part=left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=false,part=top_right": {
+      "model": "differentdoors:block/bamboo_large_door_top_right",
+      "y": 270
     },
-    "facing=north,open=true,part=left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=true,part=bottom": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_open",
+      "y": 270
     },
-    "facing=north,open=true,part=right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=true,part=bottom_left": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_left_open",
+      "y": 270
     },
-    "facing=north,open=true,part=right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=true,part=bottom_right": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_right_open",
+      "y": 270
     },
-    "facing=north,open=true,part=top,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=true,part=center": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_open",
+      "y": 270
     },
-    "facing=north,open=true,part=top,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=true,part=left": {
+      "model": "differentdoors:block/bamboo_large_door_left_open",
+      "y": 270
     },
-    "facing=north,open=true,part=top_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=true,part=right": {
+      "model": "differentdoors:block/bamboo_large_door_right_open",
+      "y": 270
     },
-    "facing=north,open=true,part=top_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=true,part=top": {
+      "model": "differentdoors:block/bamboo_large_door_bottom_open",
+      "y": 270
     },
-    "facing=north,open=true,part=top_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=true,part=top_left": {
+      "model": "differentdoors:block/bamboo_large_door_top_left_open",
+      "y": 270
     },
-    "facing=north,open=true,part=top_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=bottom,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=bottom,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=bottom_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=bottom_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=bottom_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=bottom_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=center,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=center,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=top,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=top,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=top_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=top_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=top_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=false,part=top_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=bottom,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=bottom,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=bottom_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=bottom_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=bottom_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=bottom_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=center,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=center,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=top,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=top,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=top_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=top_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=top_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=south,open=true,part=top_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=bottom,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=bottom,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=bottom_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=bottom_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=bottom_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=bottom_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=center,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=center,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=top,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=top,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=top_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=top_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=top_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=false,part=top_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=bottom,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=bottom,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=bottom_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=bottom_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=bottom_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=bottom_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=center,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=center,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=top,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=top,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=top_left,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=top_left,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=top_right,powered=false": {
-      "model": "differentdoors:block/bamboo_large_door"
-    },
-    "facing=west,open=true,part=top_right,powered=true": {
-      "model": "differentdoors:block/bamboo_large_door"
+    "facing=west,open=true,part=top_right": {
+      "model": "differentdoors:block/bamboo_large_door_top_right_open",
+      "y": 270
     }
   }
 }

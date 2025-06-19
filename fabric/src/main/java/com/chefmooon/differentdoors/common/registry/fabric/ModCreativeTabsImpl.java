@@ -1,6 +1,7 @@
 package com.chefmooon.differentdoors.common.registry.fabric;
 
 import com.chefmooon.differentdoors.DifferentDoors;
+import com.chefmooon.differentdoors.common.data.types.DoorType;
 import com.chefmooon.differentdoors.common.util.TextUtil;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.core.Registry;
@@ -18,7 +19,7 @@ public class ModCreativeTabsImpl {
     public static void register() {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ITEM_GROUP, FabricItemGroup.builder()
                 .title(Component.translatable("itemGroup." + DifferentDoors.MOD_ID))
-                .icon(() -> new ItemStack(Items.STICK))
+                .icon(() -> new ItemStack(ModItemsImpl.LARGE_DOOR_VARIANTS.get(DoorType.OAK).get()))
                 .build());
     }
 }
