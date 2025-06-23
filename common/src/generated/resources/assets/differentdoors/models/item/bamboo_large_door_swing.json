@@ -1,0 +1,6 @@
+{
+  "parent": "differentdoors:item/template_large_door_item",
+  "textures": {
+    "all": "differentdoors:block/bamboo_large_door_swing"
+  }
+}

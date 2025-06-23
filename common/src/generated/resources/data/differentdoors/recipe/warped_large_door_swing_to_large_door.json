@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "large_door",
+  "ingredients": [
+    {
+      "item": "differentdoors:warped_large_door"
+    },
+    {
+      "item": "minecraft:flint"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:warped_large_door"
+  }
+}

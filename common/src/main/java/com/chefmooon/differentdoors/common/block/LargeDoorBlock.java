@@ -3,15 +3,25 @@ package com.chefmooon.differentdoors.common.block;
 import com.chefmooon.differentdoors.DifferentDoors;
 import com.chefmooon.differentdoors.common.block.properties.DoorPartProperty;
 import com.chefmooon.differentdoors.common.data.types.DoorType;
+import com.chefmooon.differentdoors.common.registry.ModDataComponentTypes;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
@@ -31,6 +41,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 
 public class LargeDoorBlock extends Block {
@@ -38,6 +50,7 @@ public class LargeDoorBlock extends Block {
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final BooleanProperty LOCKED = BlockStateProperties.LOCKED;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final BooleanProperty SWING = BooleanProperty.create("swing");
     public static final EnumProperty<DoorPartProperty> PART  = EnumProperty.create("part", DoorPartProperty.class);
     public final DoorType doorType;
 
@@ -53,12 +66,13 @@ public class LargeDoorBlock extends Block {
                 .setValue(OPEN, false)
                 .setValue(LOCKED, false)
                 .setValue(POWERED, false)
+                .setValue(SWING, false)
                 .setValue(PART, DoorPartProperty.BOTTOM));
     }
 
     @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, OPEN, LOCKED, POWERED, PART);
+        builder.add(FACING, OPEN, LOCKED, POWERED, SWING, PART);
     }
 
     @Override
@@ -107,7 +121,14 @@ public class LargeDoorBlock extends Block {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        boolean swing = false;
+        BlockItemStateProperties blockStateProperties = context.getItemInHand().get(DataComponents.BLOCK_STATE);
+        if (blockStateProperties != null && blockStateProperties.get(SWING) != null) {
+            swing = Boolean.TRUE.equals(blockStateProperties.get(SWING));
+        }
+        return this.defaultBlockState()
+                .setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(SWING, swing);
     }
 
     @Override
@@ -118,6 +139,15 @@ public class LargeDoorBlock extends Block {
         boolean locked = controllerState.getValue(LOCKED);
         if (level.isClientSide()) return locked ? ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION : ItemInteractionResult.SUCCESS;
         if (locked) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+
+        ItemStack heldItem = player.getItemInHand(hand); // TODO: make this only happen when crouching?
+        if (heldItem.is(Items.IRON_NUGGET) && !controllerState.getValue(SWING)) {
+            setSwing(level, controllerPos, controllerState, heldItem, player, hand, true);
+            return ItemInteractionResult.SUCCESS;
+        } else if (heldItem.is(ItemTags.AXES) && controllerState.getValue(SWING)) {
+            setSwing(level, controllerPos, controllerState, heldItem, player, hand, false);
+            return ItemInteractionResult.SUCCESS;
+        }
 
         boolean isOpen = controllerState.getValue(OPEN);
         if (isOpen) {
@@ -167,6 +197,28 @@ public class LargeDoorBlock extends Block {
     }
 
     @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        BlockItemStateProperties blockStateProperties = stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY);
+        if (blockStateProperties.get(SWING) != null) {
+            boolean isSwinging = Boolean.TRUE.equals((blockStateProperties.get(SWING)));
+            if (isSwinging) {
+//                tooltipComponents.add(Component.translatable("itemGroup." + DifferentDoors.MOD_ID).withStyle(ChatFormatting.BLUE)); // TODO: decide if this is needed, matches vanilla items
+                tooltipComponents.add(Component.translatable(DifferentDoors.MOD_ID + ".tooltip.large_door.swinging").withStyle(ChatFormatting.GRAY));
+            } else {
+                tooltipComponents.add(Component.translatable(DifferentDoors.MOD_ID + ".tooltip.large_door.sliding").withStyle(ChatFormatting.GRAY));
+            }
+        }
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+        ItemStack stack = super.getCloneItemStack(level, pos, state);
+        stack.set(DataComponents.BLOCK_STATE, stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY).with(LargeDoorBlock.SWING, state.getValue(SWING)));
+        return stack;
+    }
+
+    @Override
     protected void onExplosionHit(BlockState blockState, Level level, BlockPos blockPos, Explosion explosion, BiConsumer<ItemStack, BlockPos> biConsumer) {
         if (explosion.canTriggerBlocks() && !blockState.getValue(LOCKED)) {
             BlockPos controllerPos = getController(blockState, blockPos);
@@ -189,6 +241,7 @@ public class LargeDoorBlock extends Block {
 
     @Override
     public void wasExploded(Level level, BlockPos pos, Explosion explosion) {
+        // TODO: fix tnt explosion not destroying the door
         DifferentDoors.LOGGER.info("I go Boom!");
         if (!level.isClientSide()) {
 
@@ -202,6 +255,29 @@ public class LargeDoorBlock extends Block {
             }
         }
         super.wasExploded(level, pos, explosion);
+    }
+
+    private void setSwing(Level level, BlockPos controllerPos, BlockState controllerState, ItemStack heldItem, Player player, InteractionHand hand, Boolean swing) {
+        Direction direction = controllerState.getValue(FACING).getClockWise();
+        for (DoorPartProperty part : DoorPartProperty.values()) {
+            BlockPos partPos = controllerPos.relative(direction.getOpposite(), part.xOffset()).above(part.yOffset());
+            BlockState partState = level.getBlockState(partPos);
+            level.setBlockAndUpdate(partPos, swing ?
+                partState.setValue(SWING, true) :
+                partState.setValue(SWING, false));
+        }
+        playSetSwingSound(level, controllerPos, swing);
+        if (!player.getAbilities().instabuild) {
+            if (swing) {
+                heldItem.shrink(1);
+            } else {
+                EquipmentSlot slot = player.getUsedItemHand() == hand ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+                heldItem.hurtAndBreak(1, player, slot);
+                if (!player.getInventory().add(Items.IRON_NUGGET.getDefaultInstance())) {
+                    player.drop(Items.IRON_NUGGET.getDefaultInstance(), false);
+                }
+            }
+        }
     }
 
     private void destroy(Level level, BlockPos pos, BlockState state, boolean dropBlock) {
@@ -221,6 +297,16 @@ public class LargeDoorBlock extends Block {
         DoorPartProperty part = state.getValue(PART);
         Direction direction = state.getValue(FACING).getClockWise();
         return pos.relative(direction.getOpposite(), -part.xOffset()).below(part.yOffset());
+    }
+
+    public void playSetSwingSound(Level level, BlockPos blockPos, boolean swing) {
+        if (!level.isClientSide()) {
+            if (swing) {
+                level.playSound(null, blockPos, doorType.getAddSwingSound(), SoundSource.BLOCKS, 0.5f, 1);
+            } else {
+                level.playSound(null, blockPos, doorType.getRemoveSwingSound(), SoundSource.BLOCKS, 0.5f, 1);
+            }
+        }
     }
 
     public void playSound(Level level, BlockPos blockPos, boolean isOpen) {

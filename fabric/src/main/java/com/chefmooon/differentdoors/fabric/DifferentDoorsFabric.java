@@ -12,6 +12,7 @@ public class DifferentDoorsFabric implements ModInitializer {
         ModBlocksImpl.register();
         ModItemsImpl.register();
 //        ModBlockEntitiesImpl.register();
+//        ModDataComponentTypesImpl.register();
         ModCreativeTabsImpl.register();
         ModSoundsImpl.register();
     }

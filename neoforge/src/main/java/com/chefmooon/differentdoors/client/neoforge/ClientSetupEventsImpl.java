@@ -1,9 +1,11 @@
 package com.chefmooon.differentdoors.client.neoforge;
 
 import com.chefmooon.differentdoors.DifferentDoors;
+import com.chefmooon.differentdoors.common.util.neoforge.ModItemPropertiesImpl;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 
@@ -12,6 +14,13 @@ public class ClientSetupEventsImpl {
     @SubscribeEvent
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
 //        event.registerBlockEntityRenderer(ModBlockEntitiesImpl.LARGE_DOOR_VARIANTS.get(), LargeDoorBlockEntityRendererImpl::new);
+    }
+
+    @SubscribeEvent
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            ModItemPropertiesImpl.addCustomItemProperties();
+        });
     }
 
     @SubscribeEvent

@@ -12,5 +12,7 @@
   "block.differentdoors.warped_large_door": "Warped Large Door",
   "differentdoors.subtitles.large_door.close": "Large Door Closing",
   "differentdoors.subtitles.large_door.open": "Large Door Opening",
+  "differentdoors.tooltip.large_door.sliding": "Slide",
+  "differentdoors.tooltip.large_door.swinging": "Swing",
   "itemGroup.differentdoors": "Different Doors"
 }

@@ -17,6 +17,7 @@ public class TranslationGenerator extends FabricLanguageProvider {
     public void generateTranslations(HolderLookup.Provider provider, TranslationBuilder translationBuilder) {
         String MOD_ID = DifferentDoors.MOD_ID;
         String SUBTITLE = MOD_ID + ".subtitles.";
+        String TOOLTIP = MOD_ID + ".tooltip.";
 
         translationBuilder.add("itemGroup." + MOD_ID, "Different Doors");
 
@@ -26,6 +27,9 @@ public class TranslationGenerator extends FabricLanguageProvider {
 
         translationBuilder.add(SUBTITLE + "large_door.open", "Large Door Opening");
         translationBuilder.add(SUBTITLE + "large_door.close", "Large Door Closing");
+
+        translationBuilder.add(TOOLTIP + "large_door.swinging", "Swing");
+        translationBuilder.add(TOOLTIP + "large_door.sliding", "Slide");
     }
 
     private static String capitalize(String name) {

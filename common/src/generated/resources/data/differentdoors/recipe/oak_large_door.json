@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "redstone",
+  "group": "large_door",
   "key": {
     "A": {
       "item": "minecraft:oak_door"

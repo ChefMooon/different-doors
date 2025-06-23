@@ -12,17 +12,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Locale;
 
 public enum DoorType implements StringRepresentable {
-    OAK(MapColor.WOOD, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundType.WOOD, Items.OAK_DOOR, Items.OAK_PLANKS),
-    SPRUCE(MapColor.PLANT, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundType.WOOD, Items.SPRUCE_DOOR, Items.SPRUCE_PLANKS),
-    BIRCH(MapColor.PLANT, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundType.WOOD, Items.BIRCH_DOOR, Items.BIRCH_PLANKS),
-    JUNGLE(MapColor.PLANT, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundType.WOOD, Items.JUNGLE_DOOR, Items.JUNGLE_PLANKS),
-    ACACIA(MapColor.COLOR_ORANGE, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundType.WOOD, Items.ACACIA_DOOR, Items.ACACIA_PLANKS),
-    DARK_OAK(MapColor.COLOR_BROWN, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundType.WOOD, Items.DARK_OAK_DOOR, Items.DARK_OAK_PLANKS),
-    MANGROVE(MapColor.PLANT, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundType.WOOD, Items.MANGROVE_DOOR, Items.MANGROVE_PLANKS),
-    CHERRY(MapColor.TERRACOTTA_WHITE, 3.0F, 3.0F, SoundEvents.CHERRY_WOOD_DOOR_OPEN, SoundEvents.CHERRY_WOOD_DOOR_CLOSE, SoundType.CHERRY_WOOD, Items.CHERRY_DOOR, Items.CHERRY_PLANKS),
-    BAMBOO(MapColor.COLOR_YELLOW, 3.0F, 3.0F, SoundEvents.BAMBOO_WOOD_DOOR_OPEN, SoundEvents.BAMBOO_WOOD_DOOR_CLOSE, SoundType.BAMBOO_WOOD, Items.BAMBOO_DOOR, Items.BAMBOO_BLOCK),
-    CRIMSON(MapColor.CRIMSON_STEM, 3.0F, 3.0F, SoundEvents.NETHER_WOOD_DOOR_OPEN, SoundEvents.NETHER_WOOD_DOOR_CLOSE, SoundType.NETHER_WOOD, Items.CRIMSON_DOOR, Items.CRIMSON_PLANKS),
-    WARPED(MapColor.WARPED_STEM, 3.0F, 3.0F, SoundEvents.NETHER_WOOD_DOOR_OPEN, SoundEvents.NETHER_WOOD_DOOR_CLOSE, SoundType.NETHER_WOOD, Items.WARPED_DOOR, Items.WARPED_PLANKS),
+    OAK(MapColor.WOOD, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, Items.OAK_DOOR, Items.OAK_PLANKS),
+    SPRUCE(MapColor.PLANT, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, Items.SPRUCE_DOOR, Items.SPRUCE_PLANKS),
+    BIRCH(MapColor.PLANT, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, Items.BIRCH_DOOR, Items.BIRCH_PLANKS),
+    JUNGLE(MapColor.PLANT, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, Items.JUNGLE_DOOR, Items.JUNGLE_PLANKS),
+    ACACIA(MapColor.COLOR_ORANGE, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, Items.ACACIA_DOOR, Items.ACACIA_PLANKS),
+    DARK_OAK(MapColor.COLOR_BROWN, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, Items.DARK_OAK_DOOR, Items.DARK_OAK_PLANKS),
+    MANGROVE(MapColor.PLANT, 3.0F, 3.0F, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, Items.MANGROVE_DOOR, Items.MANGROVE_PLANKS),
+    CHERRY(MapColor.TERRACOTTA_WHITE, 3.0F, 3.0F, SoundEvents.CHERRY_WOOD_DOOR_OPEN, SoundEvents.CHERRY_WOOD_HIT, SoundEvents.CHERRY_WOOD_HIT, SoundEvents.CHERRY_WOOD_DOOR_CLOSE, SoundType.CHERRY_WOOD, Items.CHERRY_DOOR, Items.CHERRY_PLANKS),
+    BAMBOO(MapColor.COLOR_YELLOW, 3.0F, 3.0F, SoundEvents.BAMBOO_WOOD_DOOR_OPEN, SoundEvents.BAMBOO_WOOD_HIT, SoundEvents.BAMBOO_WOOD_HIT, SoundEvents.BAMBOO_WOOD_DOOR_CLOSE, SoundType.BAMBOO_WOOD, Items.BAMBOO_DOOR, Items.BAMBOO_BLOCK),
+    CRIMSON(MapColor.CRIMSON_STEM, 3.0F, 3.0F, SoundEvents.NETHER_WOOD_DOOR_OPEN, SoundEvents.NETHER_WOOD_HIT, SoundEvents.NETHER_WOOD_HIT, SoundEvents.NETHER_WOOD_DOOR_CLOSE, SoundType.NETHER_WOOD, Items.CRIMSON_DOOR, Items.CRIMSON_PLANKS),
+    WARPED(MapColor.WARPED_STEM, 3.0F, 3.0F, SoundEvents.NETHER_WOOD_DOOR_OPEN, SoundEvents.NETHER_WOOD_HIT, SoundEvents.NETHER_WOOD_HIT, SoundEvents.NETHER_WOOD_DOOR_CLOSE, SoundType.NETHER_WOOD, Items.WARPED_DOOR, Items.WARPED_PLANKS),
     
 //    IRON(MapColor.METAL, 5.0F, 5.0F, ModSounds.LARGE_DOOR_OPEN_METAL, ModSounds.LARGE_DOOR_CLOSE_METAL, SoundType.METAL, Items.IRON_DOOR, Items.IRON_INGOT),
 //    COPPER(MapColor.COLOR_ORANGE, 3.0F, 6.0F, ModSounds.LARGE_DOOR_OPEN_METAL, ModSounds.LARGE_DOOR_CLOSE_METAL, SoundType.COPPER, Items.COPPER_DOOR, Items.COPPER_INGOT),
@@ -33,6 +33,8 @@ public enum DoorType implements StringRepresentable {
     private final float strength;
     private final SoundEvent openSound;
     private final SoundEvent closeSound;
+    private final SoundEvent addSwingSound;
+    private final SoundEvent removeSwingSound;
     private final SoundType soundType;
     private final Item primaryCraftingIngredient;
     private final Item secondaryCraftingIngredient;
@@ -42,6 +44,8 @@ public enum DoorType implements StringRepresentable {
             float strength,
             SoundEvent openSound,
             SoundEvent closeSound,
+            SoundEvent addSwingSound,
+            SoundEvent removeSwingSound,
             SoundType soundType,
             Item primaryCraftingIngredient,
             Item secondaryCraftingIngredient
@@ -51,6 +55,8 @@ public enum DoorType implements StringRepresentable {
         this.strength = strength;
         this.openSound = openSound;
         this.closeSound = closeSound;
+        this.addSwingSound = addSwingSound;
+        this.removeSwingSound = removeSwingSound;
         this.soundType = soundType;
         this.primaryCraftingIngredient = primaryCraftingIngredient;
         this.secondaryCraftingIngredient = secondaryCraftingIngredient;
@@ -74,6 +80,14 @@ public enum DoorType implements StringRepresentable {
 
     public SoundEvent getCloseSound() {
         return closeSound;
+    }
+
+    public SoundEvent getAddSwingSound() {
+        return addSwingSound;
+    }
+
+    public SoundEvent getRemoveSwingSound() {
+        return removeSwingSound;
     }
     
     public SoundType getSoundType() {

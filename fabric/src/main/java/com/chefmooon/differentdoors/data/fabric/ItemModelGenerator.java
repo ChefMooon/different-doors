@@ -19,8 +19,10 @@ public class ItemModelGenerator {
     }
 
     private static void registerLargeDoorItemModel(String string) {
-        ResourceLocation location = TextUtil.res("item/" + string + "_large_door");
-        ResourceLocation textureLocation = TextUtil.res("block/" + string + "_large_door");
-        ModTemplates.LARGE_DOOR_ITEM.create(location, TextureMapping.singleSlot(TextureSlot.ALL, textureLocation), GENERATOR.output);
+        ModTemplates.LARGE_DOOR_ITEM.create(TextUtil.res("item/" + string + "_large_door_slide"),
+                TextureMapping.singleSlot(TextureSlot.ALL, TextUtil.res("block/" + string + "_large_door")), GENERATOR.output);
+
+        ModTemplates.LARGE_DOOR_ITEM.create(TextUtil.res("item/" + string + "_large_door_swing"),
+                TextureMapping.singleSlot(TextureSlot.ALL, TextUtil.res("block/" + string + "_large_door_swing")), GENERATOR.output);
     }
 }

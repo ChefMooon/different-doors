@@ -14,6 +14,15 @@
           "name": "differentdoors:oak_large_door"
         }
       ],
+      "functions": [
+        {
+          "block": "differentdoors:oak_large_door",
+          "function": "minecraft:copy_state",
+          "properties": [
+            "swing"
+          ]
+        }
+      ],
       "rolls": 1.0
     }
   ]

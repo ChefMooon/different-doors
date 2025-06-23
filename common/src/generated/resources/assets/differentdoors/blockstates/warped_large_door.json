@@ -1,273 +1,543 @@
 {
   "variants": {
-    "facing=east,open=false,part=bottom": {
+    "facing=east,open=false,part=bottom,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom",
       "y": 90
     },
-    "facing=east,open=false,part=bottom_left": {
+    "facing=east,open=false,part=bottom,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing",
+      "y": 90
+    },
+    "facing=east,open=false,part=bottom_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_left",
       "y": 90
     },
-    "facing=east,open=false,part=bottom_right": {
+    "facing=east,open=false,part=bottom_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_left_swing",
+      "y": 90
+    },
+    "facing=east,open=false,part=bottom_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_right",
       "y": 90
     },
-    "facing=east,open=false,part=center": {
+    "facing=east,open=false,part=bottom_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_right_swing",
+      "y": 90
+    },
+    "facing=east,open=false,part=center,swing=false": {
       "model": "differentdoors:block/warped_large_door_center",
       "y": 90
     },
-    "facing=east,open=false,part=left": {
+    "facing=east,open=false,part=center,swing=true": {
+      "model": "differentdoors:block/warped_large_door_center_swing",
+      "y": 90
+    },
+    "facing=east,open=false,part=left,swing=false": {
       "model": "differentdoors:block/warped_large_door_left",
       "y": 90
     },
-    "facing=east,open=false,part=right": {
+    "facing=east,open=false,part=left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_left_swing",
+      "y": 90
+    },
+    "facing=east,open=false,part=right,swing=false": {
       "model": "differentdoors:block/warped_large_door_right",
       "y": 90
     },
-    "facing=east,open=false,part=top": {
+    "facing=east,open=false,part=right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_right_swing",
+      "y": 90
+    },
+    "facing=east,open=false,part=top,swing=false": {
       "model": "differentdoors:block/warped_large_door_top",
       "y": 90
     },
-    "facing=east,open=false,part=top_left": {
+    "facing=east,open=false,part=top,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_swing",
+      "y": 90
+    },
+    "facing=east,open=false,part=top_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_left",
       "y": 90
     },
-    "facing=east,open=false,part=top_right": {
+    "facing=east,open=false,part=top_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_left_swing",
+      "y": 90
+    },
+    "facing=east,open=false,part=top_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_right",
       "y": 90
     },
-    "facing=east,open=true,part=bottom": {
+    "facing=east,open=false,part=top_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_right_swing",
+      "y": 90
+    },
+    "facing=east,open=true,part=bottom,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_open",
       "y": 90
     },
-    "facing=east,open=true,part=bottom_left": {
+    "facing=east,open=true,part=bottom,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing_open",
+      "y": 90
+    },
+    "facing=east,open=true,part=bottom_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_left_open",
       "y": 90
     },
-    "facing=east,open=true,part=bottom_right": {
+    "facing=east,open=true,part=bottom_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_left_swing_open",
+      "y": 90
+    },
+    "facing=east,open=true,part=bottom_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_right_open",
       "y": 90
     },
-    "facing=east,open=true,part=center": {
+    "facing=east,open=true,part=bottom_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_right_swing_open",
+      "y": 90
+    },
+    "facing=east,open=true,part=center,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_open",
       "y": 90
     },
-    "facing=east,open=true,part=left": {
+    "facing=east,open=true,part=center,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing_open",
+      "y": 90
+    },
+    "facing=east,open=true,part=left,swing=false": {
       "model": "differentdoors:block/warped_large_door_left_open",
       "y": 90
     },
-    "facing=east,open=true,part=right": {
+    "facing=east,open=true,part=left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_left_swing_open",
+      "y": 90
+    },
+    "facing=east,open=true,part=right,swing=false": {
       "model": "differentdoors:block/warped_large_door_right_open",
       "y": 90
     },
-    "facing=east,open=true,part=top": {
+    "facing=east,open=true,part=right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_right_swing_open",
+      "y": 90
+    },
+    "facing=east,open=true,part=top,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_open",
       "y": 90
     },
-    "facing=east,open=true,part=top_left": {
+    "facing=east,open=true,part=top,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing_open",
+      "y": 90
+    },
+    "facing=east,open=true,part=top_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_left_open",
       "y": 90
     },
-    "facing=east,open=true,part=top_right": {
+    "facing=east,open=true,part=top_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_left_swing_open",
+      "y": 90
+    },
+    "facing=east,open=true,part=top_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_right_open",
       "y": 90
     },
-    "facing=north,open=false,part=bottom": {
+    "facing=east,open=true,part=top_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_right_swing_open",
+      "y": 90
+    },
+    "facing=north,open=false,part=bottom,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom"
     },
-    "facing=north,open=false,part=bottom_left": {
+    "facing=north,open=false,part=bottom,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing"
+    },
+    "facing=north,open=false,part=bottom_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_left"
     },
-    "facing=north,open=false,part=bottom_right": {
+    "facing=north,open=false,part=bottom_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_left_swing"
+    },
+    "facing=north,open=false,part=bottom_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_right"
     },
-    "facing=north,open=false,part=center": {
+    "facing=north,open=false,part=bottom_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_right_swing"
+    },
+    "facing=north,open=false,part=center,swing=false": {
       "model": "differentdoors:block/warped_large_door_center"
     },
-    "facing=north,open=false,part=left": {
+    "facing=north,open=false,part=center,swing=true": {
+      "model": "differentdoors:block/warped_large_door_center_swing"
+    },
+    "facing=north,open=false,part=left,swing=false": {
       "model": "differentdoors:block/warped_large_door_left"
     },
-    "facing=north,open=false,part=right": {
+    "facing=north,open=false,part=left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_left_swing"
+    },
+    "facing=north,open=false,part=right,swing=false": {
       "model": "differentdoors:block/warped_large_door_right"
     },
-    "facing=north,open=false,part=top": {
+    "facing=north,open=false,part=right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_right_swing"
+    },
+    "facing=north,open=false,part=top,swing=false": {
       "model": "differentdoors:block/warped_large_door_top"
     },
-    "facing=north,open=false,part=top_left": {
+    "facing=north,open=false,part=top,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_swing"
+    },
+    "facing=north,open=false,part=top_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_left"
     },
-    "facing=north,open=false,part=top_right": {
+    "facing=north,open=false,part=top_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_left_swing"
+    },
+    "facing=north,open=false,part=top_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_right"
     },
-    "facing=north,open=true,part=bottom": {
+    "facing=north,open=false,part=top_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_right_swing"
+    },
+    "facing=north,open=true,part=bottom,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_open"
     },
-    "facing=north,open=true,part=bottom_left": {
+    "facing=north,open=true,part=bottom,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing_open"
+    },
+    "facing=north,open=true,part=bottom_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_left_open"
     },
-    "facing=north,open=true,part=bottom_right": {
+    "facing=north,open=true,part=bottom_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_left_swing_open"
+    },
+    "facing=north,open=true,part=bottom_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_right_open"
     },
-    "facing=north,open=true,part=center": {
+    "facing=north,open=true,part=bottom_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_right_swing_open"
+    },
+    "facing=north,open=true,part=center,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_open"
     },
-    "facing=north,open=true,part=left": {
+    "facing=north,open=true,part=center,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing_open"
+    },
+    "facing=north,open=true,part=left,swing=false": {
       "model": "differentdoors:block/warped_large_door_left_open"
     },
-    "facing=north,open=true,part=right": {
+    "facing=north,open=true,part=left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_left_swing_open"
+    },
+    "facing=north,open=true,part=right,swing=false": {
       "model": "differentdoors:block/warped_large_door_right_open"
     },
-    "facing=north,open=true,part=top": {
+    "facing=north,open=true,part=right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_right_swing_open"
+    },
+    "facing=north,open=true,part=top,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_open"
     },
-    "facing=north,open=true,part=top_left": {
+    "facing=north,open=true,part=top,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing_open"
+    },
+    "facing=north,open=true,part=top_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_left_open"
     },
-    "facing=north,open=true,part=top_right": {
+    "facing=north,open=true,part=top_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_left_swing_open"
+    },
+    "facing=north,open=true,part=top_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_right_open"
     },
-    "facing=south,open=false,part=bottom": {
+    "facing=north,open=true,part=top_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_right_swing_open"
+    },
+    "facing=south,open=false,part=bottom,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom",
       "y": 180
     },
-    "facing=south,open=false,part=bottom_left": {
+    "facing=south,open=false,part=bottom,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing",
+      "y": 180
+    },
+    "facing=south,open=false,part=bottom_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_left",
       "y": 180
     },
-    "facing=south,open=false,part=bottom_right": {
+    "facing=south,open=false,part=bottom_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_left_swing",
+      "y": 180
+    },
+    "facing=south,open=false,part=bottom_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_right",
       "y": 180
     },
-    "facing=south,open=false,part=center": {
+    "facing=south,open=false,part=bottom_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_right_swing",
+      "y": 180
+    },
+    "facing=south,open=false,part=center,swing=false": {
       "model": "differentdoors:block/warped_large_door_center",
       "y": 180
     },
-    "facing=south,open=false,part=left": {
+    "facing=south,open=false,part=center,swing=true": {
+      "model": "differentdoors:block/warped_large_door_center_swing",
+      "y": 180
+    },
+    "facing=south,open=false,part=left,swing=false": {
       "model": "differentdoors:block/warped_large_door_left",
       "y": 180
     },
-    "facing=south,open=false,part=right": {
+    "facing=south,open=false,part=left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_left_swing",
+      "y": 180
+    },
+    "facing=south,open=false,part=right,swing=false": {
       "model": "differentdoors:block/warped_large_door_right",
       "y": 180
     },
-    "facing=south,open=false,part=top": {
+    "facing=south,open=false,part=right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_right_swing",
+      "y": 180
+    },
+    "facing=south,open=false,part=top,swing=false": {
       "model": "differentdoors:block/warped_large_door_top",
       "y": 180
     },
-    "facing=south,open=false,part=top_left": {
+    "facing=south,open=false,part=top,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_swing",
+      "y": 180
+    },
+    "facing=south,open=false,part=top_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_left",
       "y": 180
     },
-    "facing=south,open=false,part=top_right": {
+    "facing=south,open=false,part=top_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_left_swing",
+      "y": 180
+    },
+    "facing=south,open=false,part=top_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_right",
       "y": 180
     },
-    "facing=south,open=true,part=bottom": {
+    "facing=south,open=false,part=top_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_right_swing",
+      "y": 180
+    },
+    "facing=south,open=true,part=bottom,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_open",
       "y": 180
     },
-    "facing=south,open=true,part=bottom_left": {
+    "facing=south,open=true,part=bottom,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing_open",
+      "y": 180
+    },
+    "facing=south,open=true,part=bottom_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_left_open",
       "y": 180
     },
-    "facing=south,open=true,part=bottom_right": {
+    "facing=south,open=true,part=bottom_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_left_swing_open",
+      "y": 180
+    },
+    "facing=south,open=true,part=bottom_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_right_open",
       "y": 180
     },
-    "facing=south,open=true,part=center": {
+    "facing=south,open=true,part=bottom_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_right_swing_open",
+      "y": 180
+    },
+    "facing=south,open=true,part=center,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_open",
       "y": 180
     },
-    "facing=south,open=true,part=left": {
+    "facing=south,open=true,part=center,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing_open",
+      "y": 180
+    },
+    "facing=south,open=true,part=left,swing=false": {
       "model": "differentdoors:block/warped_large_door_left_open",
       "y": 180
     },
-    "facing=south,open=true,part=right": {
+    "facing=south,open=true,part=left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_left_swing_open",
+      "y": 180
+    },
+    "facing=south,open=true,part=right,swing=false": {
       "model": "differentdoors:block/warped_large_door_right_open",
       "y": 180
     },
-    "facing=south,open=true,part=top": {
+    "facing=south,open=true,part=right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_right_swing_open",
+      "y": 180
+    },
+    "facing=south,open=true,part=top,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_open",
       "y": 180
     },
-    "facing=south,open=true,part=top_left": {
+    "facing=south,open=true,part=top,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing_open",
+      "y": 180
+    },
+    "facing=south,open=true,part=top_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_left_open",
       "y": 180
     },
-    "facing=south,open=true,part=top_right": {
+    "facing=south,open=true,part=top_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_left_swing_open",
+      "y": 180
+    },
+    "facing=south,open=true,part=top_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_right_open",
       "y": 180
     },
-    "facing=west,open=false,part=bottom": {
+    "facing=south,open=true,part=top_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_right_swing_open",
+      "y": 180
+    },
+    "facing=west,open=false,part=bottom,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom",
       "y": 270
     },
-    "facing=west,open=false,part=bottom_left": {
+    "facing=west,open=false,part=bottom,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing",
+      "y": 270
+    },
+    "facing=west,open=false,part=bottom_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_left",
       "y": 270
     },
-    "facing=west,open=false,part=bottom_right": {
+    "facing=west,open=false,part=bottom_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_left_swing",
+      "y": 270
+    },
+    "facing=west,open=false,part=bottom_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_right",
       "y": 270
     },
-    "facing=west,open=false,part=center": {
+    "facing=west,open=false,part=bottom_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_right_swing",
+      "y": 270
+    },
+    "facing=west,open=false,part=center,swing=false": {
       "model": "differentdoors:block/warped_large_door_center",
       "y": 270
     },
-    "facing=west,open=false,part=left": {
+    "facing=west,open=false,part=center,swing=true": {
+      "model": "differentdoors:block/warped_large_door_center_swing",
+      "y": 270
+    },
+    "facing=west,open=false,part=left,swing=false": {
       "model": "differentdoors:block/warped_large_door_left",
       "y": 270
     },
-    "facing=west,open=false,part=right": {
+    "facing=west,open=false,part=left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_left_swing",
+      "y": 270
+    },
+    "facing=west,open=false,part=right,swing=false": {
       "model": "differentdoors:block/warped_large_door_right",
       "y": 270
     },
-    "facing=west,open=false,part=top": {
+    "facing=west,open=false,part=right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_right_swing",
+      "y": 270
+    },
+    "facing=west,open=false,part=top,swing=false": {
       "model": "differentdoors:block/warped_large_door_top",
       "y": 270
     },
-    "facing=west,open=false,part=top_left": {
+    "facing=west,open=false,part=top,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_swing",
+      "y": 270
+    },
+    "facing=west,open=false,part=top_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_left",
       "y": 270
     },
-    "facing=west,open=false,part=top_right": {
+    "facing=west,open=false,part=top_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_left_swing",
+      "y": 270
+    },
+    "facing=west,open=false,part=top_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_right",
       "y": 270
     },
-    "facing=west,open=true,part=bottom": {
+    "facing=west,open=false,part=top_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_right_swing",
+      "y": 270
+    },
+    "facing=west,open=true,part=bottom,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_open",
       "y": 270
     },
-    "facing=west,open=true,part=bottom_left": {
+    "facing=west,open=true,part=bottom,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing_open",
+      "y": 270
+    },
+    "facing=west,open=true,part=bottom_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_left_open",
       "y": 270
     },
-    "facing=west,open=true,part=bottom_right": {
+    "facing=west,open=true,part=bottom_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_left_swing_open",
+      "y": 270
+    },
+    "facing=west,open=true,part=bottom_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_right_open",
       "y": 270
     },
-    "facing=west,open=true,part=center": {
+    "facing=west,open=true,part=bottom_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_right_swing_open",
+      "y": 270
+    },
+    "facing=west,open=true,part=center,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_open",
       "y": 270
     },
-    "facing=west,open=true,part=left": {
+    "facing=west,open=true,part=center,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing_open",
+      "y": 270
+    },
+    "facing=west,open=true,part=left,swing=false": {
       "model": "differentdoors:block/warped_large_door_left_open",
       "y": 270
     },
-    "facing=west,open=true,part=right": {
+    "facing=west,open=true,part=left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_left_swing_open",
+      "y": 270
+    },
+    "facing=west,open=true,part=right,swing=false": {
       "model": "differentdoors:block/warped_large_door_right_open",
       "y": 270
     },
-    "facing=west,open=true,part=top": {
+    "facing=west,open=true,part=right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_right_swing_open",
+      "y": 270
+    },
+    "facing=west,open=true,part=top,swing=false": {
       "model": "differentdoors:block/warped_large_door_bottom_open",
       "y": 270
     },
-    "facing=west,open=true,part=top_left": {
+    "facing=west,open=true,part=top,swing=true": {
+      "model": "differentdoors:block/warped_large_door_bottom_swing_open",
+      "y": 270
+    },
+    "facing=west,open=true,part=top_left,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_left_open",
       "y": 270
     },
-    "facing=west,open=true,part=top_right": {
+    "facing=west,open=true,part=top_left,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_left_swing_open",
+      "y": 270
+    },
+    "facing=west,open=true,part=top_right,swing=false": {
       "model": "differentdoors:block/warped_large_door_top_right_open",
+      "y": 270
+    },
+    "facing=west,open=true,part=top_right,swing=true": {
+      "model": "differentdoors:block/warped_large_door_top_right_swing_open",
       "y": 270
     }
   }

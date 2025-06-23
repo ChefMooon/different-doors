@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_large_door_top_left",
+  "textures": {
+    "all": "differentdoors:block/birch_large_door_swing",
+    "particle": "differentdoors:block/particle/birch_large_door"
+  }
+}

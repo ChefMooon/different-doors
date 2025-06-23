@@ -7,7 +7,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 import java.util.HashMap;
@@ -16,7 +18,7 @@ import java.util.function.Supplier;
 public class ModBlocksImpl {
     public static final HashMap<DoorType, Supplier<Block>> LARGE_DOOR_VARIANTS = registerLargeDoorVariantsAll();
 
-//    public static final Supplier<Block> LARGE_DOOR = registerBlock(ModBlocks.LARGE_DOOR, new LargeDoorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
+//    public static final Supplier<Block> SIMPLE_LARGE_DOOR = registerBlock(ModBlocks.SIMPLE_LARGE_DOOR, new LargeDoorBlock(DoorType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR))); // TODO : remove after testing
 
     private static HashMap<DoorType, Supplier<Block>> registerLargeDoorVariantsAll() {
         HashMap<DoorType, Supplier<Block>> hashMap = new HashMap<>();

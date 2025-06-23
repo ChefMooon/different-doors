@@ -27,6 +27,14 @@ public class ModTemplates {
     public static final ModelTemplate LARGE_DOOR_RIGHT_OPEN = block("template_large_door_right_open", TextureSlot.PARTICLE, TextureSlot.ALL);
     public static final ModelTemplate LARGE_DOOR_TOP_RIGHT_OPEN = block("template_large_door_top_right_open", TextureSlot.PARTICLE, TextureSlot.ALL);
 
+    public static final ModelTemplate LARGE_DOOR_SWING_BOTTOM_OPEN = block("template_large_door_swing_bottom_open", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate LARGE_DOOR_SWING_BOTTOM_LEFT_OPEN = block("template_large_door_swing_bottom_left_open", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate LARGE_DOOR_SWING_LEFT_OPEN = block("template_large_door_swing_left_open", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate LARGE_DOOR_SWING_TOP_LEFT_OPEN = block("template_large_door_swing_top_left_open", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate LARGE_DOOR_SWING_BOTTOM_RIGHT_OPEN = block("template_large_door_swing_bottom_right_open", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate LARGE_DOOR_SWING_RIGHT_OPEN = block("template_large_door_swing_right_open", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate LARGE_DOOR_SWING_TOP_RIGHT_OPEN = block("template_large_door_swing_top_right_open", TextureSlot.PARTICLE, TextureSlot.ALL);
+
     public static final ModelTemplate LARGE_DOOR_ITEM = item("template_large_door_item", TextureSlot.ALL);
 
     private static ModelTemplate item(String string, TextureSlot... textureSlots) {

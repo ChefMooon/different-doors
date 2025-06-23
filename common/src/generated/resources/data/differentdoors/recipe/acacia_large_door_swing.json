@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "large_door_swing",
+  "key": {
+    "A": {
+      "item": "minecraft:acacia_door"
+    },
+    "B": {
+      "item": "minecraft:acacia_planks"
+    },
+    "C": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    "CBC",
+    "ABA",
+    "CBC"
+  ],
+  "result": {
+    "components": {
+      "minecraft:block_state": {
+        "swing": "true"
+      }
+    },
+    "count": 1,
+    "id": "differentdoors:acacia_large_door"
+  }
+}

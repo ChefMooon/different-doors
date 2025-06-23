@@ -1,13 +1,16 @@
 package com.chefmooon.differentdoors.common.registry.neoforge;
 
 import com.chefmooon.differentdoors.DifferentDoors;
+import com.chefmooon.differentdoors.common.block.LargeDoorBlock;
 import com.chefmooon.differentdoors.common.data.types.DoorType;
 import com.chefmooon.differentdoors.common.registry.ModItems;
 import com.google.common.collect.Sets;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -28,7 +31,8 @@ public class ModItemsImpl {
 
     private static void registerLargeDoorVariants() {
         for (DoorType doorType : DoorType.values()) {
-            Supplier<Item> item = registerItemWithTab(ModItems.LARGE_DOOR.withPrefix(doorType.name().toLowerCase() + "_"), () -> new BlockItem(ModBlocksImpl.LARGE_DOOR_VARIANTS.get(doorType).get(), basicItem()));
+            Supplier<Item> item = registerItemWithTab(ModItems.LARGE_DOOR.withPrefix(doorType.name().toLowerCase() + "_"), () -> new BlockItem(ModBlocksImpl.LARGE_DOOR_VARIANTS.get(doorType).get(),
+                    basicItem().component(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(LargeDoorBlock.SWING, Boolean.FALSE))));
             LARGE_DOOR_VARIANTS.put(doorType, item);
         }
     }
