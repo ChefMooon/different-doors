@@ -51,9 +51,9 @@ public class RecipeGenerator extends FabricRecipeProvider {
     }
     private void buildLargeDoorSwingRecipe(DoorType doorType, Item item) {
         LargeSwingDoorShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, item)
-                .pattern("CBC")
-                .pattern("ABA")
-                .pattern("CBC")
+                .pattern("BBB")
+                .pattern("ACA")
+                .pattern("BBB")
                 .define('A', doorType.getPrimaryCraftingIngredient())
                 .define('B', doorType.getSecondaryCraftingIngredient())
                 .define('C', Items.IRON_NUGGET)
@@ -78,7 +78,7 @@ public class RecipeGenerator extends FabricRecipeProvider {
     private void buildLargeDoorToLargeSwingDoorRecipe(Item item) {
         LargeSwingDoorShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, item)
                 .requires(item)
-                .requires(Items.IRON_NUGGET, 4)
+                .requires(Items.IRON_NUGGET)
                 .group("large_door_swing")
                 .setSwing(Boolean.TRUE)
                 .unlockedBy("has_any", RecipeProvider.inventoryTrigger(ItemPredicate.Builder.item().of(item)))

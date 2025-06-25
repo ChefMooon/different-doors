@@ -14,9 +14,9 @@
     }
   },
   "pattern": [
-    "CBC",
-    "ABA",
-    "CBC"
+    "BBB",
+    "ACA",
+    "BBB"
   ],
   "result": {
     "components": {
