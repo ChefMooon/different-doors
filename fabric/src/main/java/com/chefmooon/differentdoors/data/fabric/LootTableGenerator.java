@@ -33,6 +33,7 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
     private void dropLargeDoor(Block block) {
         this.add(block, LootTable.lootTable().withPool(
                 (LootPool.Builder)this.applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block))
+                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LargeDoorBlock.PART, DoorPartProperty.BOTTOM)))
                         .apply(CopyBlockState.copyState(block).copy(LargeDoorBlock.SWING))
                 )));
     }

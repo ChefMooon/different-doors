@@ -1,15 +1,15 @@
 {
   "values": [
-    "differentdoors:dark_oak_large_door",
-    "differentdoors:jungle_large_door",
-    "differentdoors:bamboo_large_door",
-    "differentdoors:crimson_large_door",
-    "differentdoors:oak_large_door",
     "differentdoors:acacia_large_door",
+    "differentdoors:dark_oak_large_door",
+    "differentdoors:crimson_large_door",
     "differentdoors:spruce_large_door",
-    "differentdoors:warped_large_door",
-    "differentdoors:mangrove_large_door",
     "differentdoors:cherry_large_door",
-    "differentdoors:birch_large_door"
+    "differentdoors:mangrove_large_door",
+    "differentdoors:warped_large_door",
+    "differentdoors:jungle_large_door",
+    "differentdoors:oak_large_door",
+    "differentdoors:birch_large_door",
+    "differentdoors:bamboo_large_door"
   ]
 }

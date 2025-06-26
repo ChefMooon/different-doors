@@ -5,6 +5,13 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
+          "block": "differentdoors:cherry_large_door",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "part": "bottom"
+          }
+        },
+        {
           "condition": "minecraft:survives_explosion"
         }
       ],
