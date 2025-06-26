@@ -55,6 +55,24 @@ public class LargeDoorBlock extends Block {
     private static final VoxelShape EAST_SHAPE = Block.box(12, 0, 0, 15, 16, 16);
     private static final VoxelShape SOUTH_SHAPE = Block.box(0, 0, 12, 16, 16, 15);
     private static final VoxelShape WEST_SHAPE = Block.box(1, 0, 0, 4, 16, 16);
+
+    private static final VoxelShape NORTH_LEFT_SWING_OPEN = Block.box(13, 0, 1, 16, 16, 16);
+    private static final VoxelShape NORTH_RIGHT_SWING_OPEN = Block.box(0, 0, 1, 3, 16, 16);
+    private static final VoxelShape EAST_LEFT_SWING_OPEN = Block.box(0, 0, 13, 15, 16, 16);
+    private static final VoxelShape EAST_RIGHT_SWING_OPEN = Block.box(0, 0, 0, 15, 16, 3);
+    private static final VoxelShape SOUTH_LEFT_SWING_OPEN = Block.box(0, 0, 0, 3, 16, 15);
+    private static final VoxelShape SOUTH_RIGHT_SWING_OPEN = Block.box(13, 0, 0, 16, 16, 15);
+    private static final VoxelShape WEST_LEFT_SWING_OPEN = Block.box(1, 0, 0, 16, 16, 3);
+    private static final VoxelShape WEST_RIGHT_SWING_OPEN = Block.box(1, 0, 13, 16, 16, 16);
+
+    private static final VoxelShape NORTH_LEFT_SLIDE_OPEN = Block.box(8, 0, 1, 16, 16, 4);
+    private static final VoxelShape NORTH_RIGHT_SLIDE_OPEN = Block.box(0, 0, 1, 8, 16, 4);
+    private static final VoxelShape EAST_LEFT_SLIDE_OPEN = Block.box(12, 0, 8, 15, 16, 16);
+    private static final VoxelShape EAST_RIGHT_SLIDE_OPEN = Block.box(12, 0, 0, 15, 16, 8);
+    private static final VoxelShape SOUTH_LEFT_SLIDE_OPEN = Block.box(0, 0, 12, 8, 16, 15);
+    private static final VoxelShape SOUTH_RIGHT_SLIDE_OPEN = Block.box(8, 0, 12, 16, 16, 15);
+    private static final VoxelShape WEST_LEFT_SLIDE_OPEN = Block.box(1, 0, 0, 4, 16, 8);
+    private static final VoxelShape WEST_RIGHT_SLIDE_OPEN = Block.box(1, 0, 8, 4, 16, 16);
     public LargeDoorBlock(DoorType doorType, Properties properties) {
         super(properties);
         this.doorType = doorType;
@@ -74,12 +92,39 @@ public class LargeDoorBlock extends Block {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return switch (state.getValue(FACING)) {
-            default -> NORTH_SHAPE;
-            case EAST -> EAST_SHAPE;
-            case SOUTH -> SOUTH_SHAPE;
-            case WEST -> WEST_SHAPE;
-        };
+        if (state.getValue(OPEN)) {
+            DoorPartProperty part = state.getValue(PART);
+            boolean swing = state.getValue(SWING);
+            int xOffset = part.xOffset();
+            Direction facing = state.getValue(FACING);
+
+            if (xOffset == -1 || xOffset == 1) {
+                if (swing) {
+                    return switch (facing) {
+                        default -> xOffset == -1 ? NORTH_LEFT_SWING_OPEN : NORTH_RIGHT_SWING_OPEN;
+                        case EAST -> xOffset == -1 ? EAST_LEFT_SWING_OPEN : EAST_RIGHT_SWING_OPEN;
+                        case SOUTH -> xOffset == -1 ? SOUTH_LEFT_SWING_OPEN : SOUTH_RIGHT_SWING_OPEN;
+                        case WEST -> xOffset == -1 ? WEST_LEFT_SWING_OPEN : WEST_RIGHT_SWING_OPEN;
+                    };
+                } else {
+                    return switch (facing) {
+                        default -> xOffset == -1 ? NORTH_LEFT_SLIDE_OPEN : NORTH_RIGHT_SLIDE_OPEN;
+                        case EAST -> xOffset == -1 ? EAST_LEFT_SLIDE_OPEN : EAST_RIGHT_SLIDE_OPEN;
+                        case SOUTH -> xOffset == -1 ? SOUTH_LEFT_SLIDE_OPEN : SOUTH_RIGHT_SLIDE_OPEN;
+                        case WEST -> xOffset == -1 ? WEST_LEFT_SLIDE_OPEN : WEST_RIGHT_SLIDE_OPEN;
+                    };
+                }
+            } else {
+                return Shapes.empty();
+            }
+        } else {
+            return switch (state.getValue(FACING)) {
+                default -> NORTH_SHAPE;
+                case EAST -> EAST_SHAPE;
+                case SOUTH -> SOUTH_SHAPE;
+                case WEST -> WEST_SHAPE;
+            };
+        }
     }
 
     @Override
