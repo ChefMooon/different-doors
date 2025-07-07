@@ -22,11 +22,11 @@ public class TranslationGenerator extends FabricLanguageProvider {
         translationBuilder.add("itemGroup." + MOD_ID, "Different Doors");
 
         for (WoodType type : WoodType.values().toList()) {
-            translationBuilder.add("block." + MOD_ID + "." + type.name() + "_large_door", capitalize(type.name()) + " Large Door");
+            translationBuilder.add("block." + MOD_ID + "." + type.name() + "_large_door", capitalize(type.name()) + " Large Double Door");
         }
 
-        translationBuilder.add(SUBTITLE + "large_door.open", "Large Door Opening");
-        translationBuilder.add(SUBTITLE + "large_door.close", "Large Door Closing");
+        translationBuilder.add(SUBTITLE + "large_door.open", "Large Double Door Opening");
+        translationBuilder.add(SUBTITLE + "large_door.close", "Large Double Door Closing");
 
         translationBuilder.add(TOOLTIP + "large_door.swinging", "Swing");
         translationBuilder.add(TOOLTIP + "large_door.sliding", "Slide");
