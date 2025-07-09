@@ -25,12 +25,21 @@ public class ModBlocksImpl {
     private static HashMap<DoorType, Supplier<Block>> registerLargeDoorVariantsAll() {
         HashMap<DoorType, Supplier<Block>> hashMap = new HashMap<>();
         for (DoorType doorType : DoorType.values()) {
-            Supplier<Block> block = registerBlock(ModBlocks.LARGE_DOOR.withPrefix(doorType.name().toLowerCase() + "_"),
-                    () -> new LargeDoorBlock(doorType, BlockBehaviour.Properties.of()
-                            .mapColor(doorType.getMapColor())
-                            .strength(doorType.getDestroyTime(), doorType.getStrength())
-                            .sound(doorType.getSoundType())
-                            .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY))); // TODO : add instrument for wood doors? does not apply to metal doors));
+            BlockBehaviour.Properties properties = BlockBehaviour.Properties.of()
+                    .mapColor(doorType.getMapColor())
+                    .strength(doorType.getDestroyTime(), doorType.getStrength())
+                    .sound(doorType.getSoundType())
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY);
+
+            if (doorType.getNoteBlockInstrument() != null) {
+                properties = properties.instrument(doorType.getNoteBlockInstrument());
+            }
+
+            BlockBehaviour.Properties finalProperties = properties;
+            Supplier<Block> block = registerBlock(
+                    ModBlocks.LARGE_DOOR.withPrefix(doorType.name().toLowerCase() + "_"),
+                    () -> new LargeDoorBlock(doorType, finalProperties)
+            );
             hashMap.put(doorType, block);
         }
         return hashMap;

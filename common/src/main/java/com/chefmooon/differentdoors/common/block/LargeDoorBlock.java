@@ -50,29 +50,34 @@ public class LargeDoorBlock extends Block {
     public static final BooleanProperty SWING = BooleanProperty.create("swing");
     public static final EnumProperty<DoorPartProperty> PART  = EnumProperty.create("part", DoorPartProperty.class);
     public final DoorType doorType;
+    private static final VoxelShape[] SHAPES = {
+            Block.box(0, 0, 12, 16, 16, 15), // South
+            Block.box(1, 0, 0, 4, 16, 16), // West
+            Block.box(0, 0, 1, 16, 16, 4), // North
+            Block.box(12, 0, 0, 15, 16, 16), // East
+    };
 
-    private static final VoxelShape NORTH_SHAPE = Block.box(0, 0, 1, 16, 16, 4);
-    private static final VoxelShape EAST_SHAPE = Block.box(12, 0, 0, 15, 16, 16);
-    private static final VoxelShape SOUTH_SHAPE = Block.box(0, 0, 12, 16, 16, 15);
-    private static final VoxelShape WEST_SHAPE = Block.box(1, 0, 0, 4, 16, 16);
+    private static final VoxelShape[][] SWING_OPEN_SHAPES = {
+            {Block.box(0, 0, 0, 3, 16, 15), // South Left Swing Open
+                    Block.box(13, 0, 0, 16, 16, 15)}, // South Right Swing Open
+            {Block.box(1, 0, 0, 16, 16, 3), // West Left Swing Open
+                    Block.box(1, 0, 13, 16, 16, 16)}, // West Right Swing Open
+            {Block.box(13, 0, 1, 16, 16, 16), // North Left Swing Open
+                    Block.box(0, 0, 1, 3, 16, 16)}, // North Right Swing Open
+            {Block.box(0, 0, 13, 15, 16, 16), // East Left Swing Open
+                    Block.box(0, 0, 0, 15, 16, 3)}, // East Right Swing Open
+    };
 
-    private static final VoxelShape NORTH_LEFT_SWING_OPEN = Block.box(13, 0, 1, 16, 16, 16);
-    private static final VoxelShape NORTH_RIGHT_SWING_OPEN = Block.box(0, 0, 1, 3, 16, 16);
-    private static final VoxelShape EAST_LEFT_SWING_OPEN = Block.box(0, 0, 13, 15, 16, 16);
-    private static final VoxelShape EAST_RIGHT_SWING_OPEN = Block.box(0, 0, 0, 15, 16, 3);
-    private static final VoxelShape SOUTH_LEFT_SWING_OPEN = Block.box(0, 0, 0, 3, 16, 15);
-    private static final VoxelShape SOUTH_RIGHT_SWING_OPEN = Block.box(13, 0, 0, 16, 16, 15);
-    private static final VoxelShape WEST_LEFT_SWING_OPEN = Block.box(1, 0, 0, 16, 16, 3);
-    private static final VoxelShape WEST_RIGHT_SWING_OPEN = Block.box(1, 0, 13, 16, 16, 16);
-
-    private static final VoxelShape NORTH_LEFT_SLIDE_OPEN = Block.box(8, 0, 1, 16, 16, 4);
-    private static final VoxelShape NORTH_RIGHT_SLIDE_OPEN = Block.box(0, 0, 1, 8, 16, 4);
-    private static final VoxelShape EAST_LEFT_SLIDE_OPEN = Block.box(12, 0, 8, 15, 16, 16);
-    private static final VoxelShape EAST_RIGHT_SLIDE_OPEN = Block.box(12, 0, 0, 15, 16, 8);
-    private static final VoxelShape SOUTH_LEFT_SLIDE_OPEN = Block.box(0, 0, 12, 8, 16, 15);
-    private static final VoxelShape SOUTH_RIGHT_SLIDE_OPEN = Block.box(8, 0, 12, 16, 16, 15);
-    private static final VoxelShape WEST_LEFT_SLIDE_OPEN = Block.box(1, 0, 0, 4, 16, 8);
-    private static final VoxelShape WEST_RIGHT_SLIDE_OPEN = Block.box(1, 0, 8, 4, 16, 16);
+    private static final VoxelShape[][] SLIDE_OPEN_SHAPES = {
+            {Block.box(0, 0, 12, 8, 16, 15), // South Left Slide Open
+                    Block.box(8, 0, 12, 16, 16, 15)}, // South Right Slide Open
+            {Block.box(1, 0, 0, 4, 16, 8),  // West Left Slide Open
+                    Block.box(1, 0, 8, 4, 16, 16)}, // West Right Slide Open
+            {Block.box(8, 0, 1, 16, 16, 4), // North Left Slide Open
+                    Block.box(0, 0, 1, 8, 16, 4)}, // North Right Slide Open
+            {Block.box(12, 0, 8, 15, 16, 16), // East Left Slide Open
+                    Block.box(12, 0, 0, 15, 16, 8)}, // East Right Slide Open
+    };
     public LargeDoorBlock(DoorType doorType, Properties properties) {
         super(properties);
         this.doorType = doorType;
@@ -100,30 +105,15 @@ public class LargeDoorBlock extends Block {
 
             if (xOffset == -1 || xOffset == 1) {
                 if (swing) {
-                    return switch (facing) {
-                        default -> xOffset == -1 ? NORTH_LEFT_SWING_OPEN : NORTH_RIGHT_SWING_OPEN;
-                        case EAST -> xOffset == -1 ? EAST_LEFT_SWING_OPEN : EAST_RIGHT_SWING_OPEN;
-                        case SOUTH -> xOffset == -1 ? SOUTH_LEFT_SWING_OPEN : SOUTH_RIGHT_SWING_OPEN;
-                        case WEST -> xOffset == -1 ? WEST_LEFT_SWING_OPEN : WEST_RIGHT_SWING_OPEN;
-                    };
+                    return SWING_OPEN_SHAPES[facing.get2DDataValue()][xOffset == -1 ? 0 : 1]; // 0 for left, 1 for right
                 } else {
-                    return switch (facing) {
-                        default -> xOffset == -1 ? NORTH_LEFT_SLIDE_OPEN : NORTH_RIGHT_SLIDE_OPEN;
-                        case EAST -> xOffset == -1 ? EAST_LEFT_SLIDE_OPEN : EAST_RIGHT_SLIDE_OPEN;
-                        case SOUTH -> xOffset == -1 ? SOUTH_LEFT_SLIDE_OPEN : SOUTH_RIGHT_SLIDE_OPEN;
-                        case WEST -> xOffset == -1 ? WEST_LEFT_SLIDE_OPEN : WEST_RIGHT_SLIDE_OPEN;
-                    };
+                    return SLIDE_OPEN_SHAPES[facing.get2DDataValue()][xOffset == -1 ? 0 : 1]; // 0 for left, 1 for right
                 }
             } else {
                 return Shapes.empty();
             }
         } else {
-            return switch (state.getValue(FACING)) {
-                default -> NORTH_SHAPE;
-                case EAST -> EAST_SHAPE;
-                case SOUTH -> SOUTH_SHAPE;
-                case WEST -> WEST_SHAPE;
-            };
+            return SHAPES[state.getValue(FACING).get2DDataValue()];
         }
     }
 
