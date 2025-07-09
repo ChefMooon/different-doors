@@ -320,7 +320,8 @@ public class LargeDoorBlock extends Block {
         Direction facing = state.getValue(FACING);
         if (direction.getAxis() == Direction.Axis.Y) {
             if (direction == Direction.DOWN) {
-                if (part == DoorPartProperty.BOTTOM || part == DoorPartProperty.BOTTOM_LEFT || part == DoorPartProperty.BOTTOM_RIGHT) {
+                if (part.yOffset() == 0) {
+//                if (part == DoorPartProperty.BOTTOM || part == DoorPartProperty.BOTTOM_LEFT || part == DoorPartProperty.BOTTOM_RIGHT) {
                     BlockPos controllerPos = getController(state, pos);
                     BlockState controllerState = level.getBlockState(controllerPos);
                     BlockPos bottomLeftPos = controllerPos.relative(facing.getClockWise().getOpposite(), DoorPartProperty.BOTTOM_LEFT.xOffset()).above(DoorPartProperty.BOTTOM_LEFT.yOffset());
@@ -334,9 +335,8 @@ public class LargeDoorBlock extends Block {
                         return Blocks.AIR.defaultBlockState();
                     }
                 }
-            }
-            else if (direction == Direction.UP) {
-                if (!level.getBlockState(pos.above()).is(this)) {
+            } else if (direction == Direction.UP) {
+                if (part.yOffset() != 2 && !level.getBlockState(pos.above()).is(this)) {
                     return Blocks.AIR.defaultBlockState();
                 }
             }
