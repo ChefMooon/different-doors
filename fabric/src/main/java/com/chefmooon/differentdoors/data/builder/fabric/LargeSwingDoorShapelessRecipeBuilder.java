@@ -1,6 +1,8 @@
 package com.chefmooon.differentdoors.data.builder.fabric;
 
 import com.chefmooon.differentdoors.common.block.LargeDoorBlock;
+import com.chefmooon.differentdoors.common.crafting.SlideToSwingShapelessRecipe;
+import com.chefmooon.differentdoors.common.crafting.SwingToSlideShapelessRecipe;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -17,7 +19,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
 
@@ -103,8 +104,15 @@ public class LargeSwingDoorShapelessRecipeBuilder implements RecipeBuilder {
         this.criteria.forEach(builder::addCriterion);
         ItemStack itemStack = new ItemStack(this.result, this.count);
         itemStack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(LargeDoorBlock.SWING, swing));
-        ShapelessRecipe shapelessRecipe = new ShapelessRecipe((String)Objects.requireNonNullElse(this.group, ""), RecipeBuilder.determineBookCategory(this.category), itemStack, this.ingredients);
-        recipeOutput.accept(id, shapelessRecipe, builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
+        if (swing) {
+            SlideToSwingShapelessRecipe slideToSwingShapelessRecipe = new SlideToSwingShapelessRecipe((String)Objects.requireNonNullElse(this.group, ""), RecipeBuilder.determineBookCategory(this.category), itemStack, this.ingredients);
+            recipeOutput.accept(id, slideToSwingShapelessRecipe, builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
+        } else {
+            SwingToSlideShapelessRecipe swingToSlideShapelessRecipe = new SwingToSlideShapelessRecipe((String)Objects.requireNonNullElse(this.group, ""), RecipeBuilder.determineBookCategory(this.category), itemStack, this.ingredients);
+            recipeOutput.accept(id, swingToSlideShapelessRecipe, builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
+        }
+//        SlideToSwingShapelessRecipe recipe = new SlideToSwingShapelessRecipe((String)Objects.requireNonNullElse(this.group, ""), RecipeBuilder.determineBookCategory(this.category), itemStack, this.ingredients);
+//        recipeOutput.accept(id, recipe, builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
     private void ensureValid(ResourceLocation id) {

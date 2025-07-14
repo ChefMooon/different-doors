@@ -1,0 +1,14 @@
+{
+  "type": "differentdoors:swing_to_slide",
+  "category": "redstone",
+  "group": "large_door",
+  "ingredients": [
+    {
+      "item": "differentdoors:bamboo_large_door"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:bamboo_large_door"
+  }
+}

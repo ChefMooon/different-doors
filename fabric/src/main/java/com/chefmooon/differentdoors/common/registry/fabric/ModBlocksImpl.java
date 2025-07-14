@@ -1,6 +1,7 @@
 package com.chefmooon.differentdoors.common.registry.fabric;
 
 import com.chefmooon.differentdoors.common.block.LargeDoorBlock;
+import com.chefmooon.differentdoors.common.block.fabric.LargeDoorBlockImpl;
 import com.chefmooon.differentdoors.common.data.types.DoorType;
 import com.chefmooon.differentdoors.common.registry.ModBlocks;
 import net.minecraft.core.Registry;
@@ -36,7 +37,7 @@ public class ModBlocksImpl {
             BlockBehaviour.Properties finalProperties = properties;
             Supplier<Block> block = registerBlock(
                 ModBlocks.LARGE_DOOR.withPrefix(doorType.name().toLowerCase() + "_"),
-                new LargeDoorBlock(doorType, finalProperties)
+                new LargeDoorBlockImpl(doorType, finalProperties)
             );
             hashMap.put(doorType, block);
         }

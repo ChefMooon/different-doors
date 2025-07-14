@@ -17,5 +17,6 @@ public class DifferentDoorsNeoForge {
 //        ModDataComponentTypesImpl.register(modEventBus);
         ModCreativeTabsImpl.register(modEventBus);
         ModSoundsImpl.register(modEventBus);
+        ModRecipeSerializersImpl.register(modEventBus);
     }
 }

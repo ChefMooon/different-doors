@@ -12,14 +12,12 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -194,26 +192,6 @@ public class LargeDoorBlock extends Block {
         this.playSound(player, level, pos, state.getValue(OPEN));
         level.gameEvent(player, this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
         return InteractionResult.sidedSuccess(level.isClientSide);
-    }
-
-    @Override
-    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        BlockPos controllerPos = getController(state, pos);
-        BlockState controllerState = level.getBlockState(controllerPos);
-        if (controllerState.isAir()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-        boolean locked = controllerState.getValue(LOCKED);
-        if (level.isClientSide()) return locked ? ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION : ItemInteractionResult.SUCCESS;
-        if (locked) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-
-        ItemStack heldItem = player.getItemInHand(hand); // TODO: make this only happen when crouching?
-        if (heldItem.is(Items.IRON_NUGGET) && !controllerState.getValue(SWING)) {
-            setSwing(level, controllerPos, controllerState, heldItem, player, hand, true);
-            return ItemInteractionResult.sidedSuccess(true);
-        } else if (heldItem.is(ItemTags.AXES) && controllerState.getValue(SWING)) {
-            setSwing(level, controllerPos, controllerState, heldItem, player, hand, false);
-            return ItemInteractionResult.sidedSuccess(true);
-        }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     public boolean isOpen(BlockState blockState) {
@@ -392,7 +370,7 @@ public class LargeDoorBlock extends Block {
         super.wasExploded(level, pos, explosion);
     }
 
-    private void setSwing(Level level, BlockPos controllerPos, BlockState controllerState, ItemStack heldItem, Player player, InteractionHand hand, Boolean swing) {
+    public void setSwing(Level level, BlockPos controllerPos, BlockState controllerState, ItemStack heldItem, Player player, InteractionHand hand, Boolean swing) {
         Direction direction = controllerState.getValue(FACING).getClockWise();
         for (DoorPartProperty part : DoorPartProperty.values()) {
             BlockPos partPos = controllerPos.relative(direction.getOpposite(), part.xOffset()).above(part.yOffset());
@@ -403,14 +381,9 @@ public class LargeDoorBlock extends Block {
         }
         playSetSwingSound(level, controllerPos, swing);
         if (!player.getAbilities().instabuild) {
-            if (swing) {
-                heldItem.shrink(1);
-            } else {
+            if (heldItem.is(ItemTags.AXES)) { // TODO: review before final release, is this check needed?
                 EquipmentSlot slot = player.getUsedItemHand() == hand ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
                 heldItem.hurtAndBreak(1, player, slot);
-                if (!player.getInventory().add(Items.IRON_NUGGET.getDefaultInstance())) {
-                    player.drop(Items.IRON_NUGGET.getDefaultInstance(), false);
-                }
             }
         }
     }
@@ -426,7 +399,7 @@ public class LargeDoorBlock extends Block {
         if (player != null) level.levelEvent(player, 2001, controllerPos, Block.getId(controllerState));
     }
 
-    private BlockPos getController(BlockState state, BlockPos pos) {
+    public static BlockPos getController(BlockState state, BlockPos pos) {
         DoorPartProperty part = state.getValue(PART);
         Direction direction = state.getValue(FACING).getClockWise();
         return pos.relative(direction.getOpposite(), -part.xOffset()).below(part.yOffset());

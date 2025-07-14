@@ -69,19 +69,17 @@ public class RecipeGenerator extends FabricRecipeProvider {
     private void buildLargeSwingDoorToLargeDoorRecipe(Item item) {
         LargeSwingDoorShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, item)
                 .requires(item)
-                .requires(Items.FLINT)
                 .group("large_door")
                 .unlockedBy("has_any", RecipeProvider.inventoryTrigger(ItemPredicate.Builder.item().of(item)))
-                .save(OUTPUT, RecipeProvider.getSimpleRecipeName(item) + "_swing_to_large_door");
+                .save(OUTPUT, RecipeProvider.getSimpleRecipeName(item) + "_swing_to_" + RecipeProvider.getSimpleRecipeName(item) + "_slide");
     }
 
     private void buildLargeDoorToLargeSwingDoorRecipe(Item item) {
         LargeSwingDoorShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, item)
                 .requires(item)
-                .requires(Items.IRON_NUGGET)
                 .group("large_door_swing")
                 .setSwing(Boolean.TRUE)
                 .unlockedBy("has_any", RecipeProvider.inventoryTrigger(ItemPredicate.Builder.item().of(item)))
-                .save(OUTPUT, RecipeProvider.getSimpleRecipeName(item) + "_to_large_door_swing");
+                .save(OUTPUT, RecipeProvider.getSimpleRecipeName(item) + "_slide_to_" + RecipeProvider.getSimpleRecipeName(item) + "_swing");
     }
 }
