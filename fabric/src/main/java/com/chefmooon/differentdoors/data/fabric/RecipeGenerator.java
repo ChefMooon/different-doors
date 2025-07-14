@@ -82,6 +82,6 @@ public class RecipeGenerator extends FabricRecipeProvider {
                 .group("large_door_swing")
                 .setSwing(Boolean.TRUE)
                 .unlockedBy("has_any", RecipeProvider.inventoryTrigger(ItemPredicate.Builder.item().of(item)))
-                .save(OUTPUT, RecipeProvider.getSimpleRecipeName(item) + "large_door_to_large_swing_door");
+                .save(OUTPUT, RecipeProvider.getSimpleRecipeName(item) + "_to_large_door_swing");
     }
 }
