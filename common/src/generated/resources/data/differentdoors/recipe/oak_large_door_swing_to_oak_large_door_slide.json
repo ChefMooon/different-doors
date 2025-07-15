@@ -1,7 +1,7 @@
 {
   "type": "differentdoors:swing_to_slide",
   "category": "redstone",
-  "group": "large_door",
+  "group": "large_door_slide",
   "ingredients": [
     {
       "item": "differentdoors:oak_large_door"

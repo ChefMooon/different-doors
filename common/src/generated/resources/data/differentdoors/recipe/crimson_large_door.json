@@ -1,17 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
-  "group": "large_door",
+  "group": "large_door_slide",
   "key": {
     "A": {
       "item": "minecraft:crimson_door"
     },
     "B": {
       "item": "minecraft:crimson_planks"
+    },
+    "C": {
+      "item": "minecraft:iron_nugget"
     }
   },
   "pattern": [
-    "BBB",
+    "BCB",
     "ABA",
     "BBB"
   ],

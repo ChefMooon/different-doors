@@ -7,7 +7,8 @@
           {
             "items": [
               "minecraft:jungle_door",
-              "minecraft:jungle_planks"
+              "minecraft:jungle_planks",
+              "minecraft:iron_nugget"
             ]
           }
         ]

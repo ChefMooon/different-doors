@@ -7,7 +7,8 @@
           {
             "items": [
               "minecraft:bamboo_door",
-              "minecraft:bamboo_block"
+              "minecraft:bamboo_block",
+              "minecraft:iron_nugget"
             ]
           }
         ]
