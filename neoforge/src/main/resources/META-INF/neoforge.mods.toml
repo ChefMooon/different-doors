@@ -12,7 +12,7 @@ authors = "${mod_authors}"
 description = '''
 ${mod_description}
 '''
-#logoFile = ""
+logoFile = "assets/differentdoors/icon.png"
 
 [[dependencies.${mod_id}]]
 modId = "neoforge"
