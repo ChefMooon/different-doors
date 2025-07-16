@@ -27,7 +27,7 @@
     ]
   },
   "mixins": [
-    "${mod_id}.mixins.json"
+    "differentdoors.mixins.json"
   ],
   "depends": {
     "fabric": "*",

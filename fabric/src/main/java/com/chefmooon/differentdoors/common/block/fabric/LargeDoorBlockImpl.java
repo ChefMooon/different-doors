@@ -38,6 +38,7 @@ public class LargeDoorBlockImpl extends LargeDoorBlock {
                         if (controllerState.isAir()) return InteractionResult.PASS;
 
                         largeDoorBlock.setSwing(level, controllerPos, controllerState, heldItem, player, hand, !state.getValue(LargeDoorBlock.SWING));
+                        return InteractionResult.SUCCESS;
                     }
                 }
             }

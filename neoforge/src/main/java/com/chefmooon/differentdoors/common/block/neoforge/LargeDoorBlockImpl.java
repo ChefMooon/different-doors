@@ -6,6 +6,7 @@ import com.chefmooon.differentdoors.common.data.types.DoorType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -40,6 +41,8 @@ public class LargeDoorBlockImpl extends LargeDoorBlock {
                         if (controllerState.isAir()) return;
 
                         largeDoorBlock.setSwing(level, controllerPos, controllerState, heldItem, player, hand, !state.getValue(LargeDoorBlock.SWING));
+                        event.setCanceled(true);
+                        event.setCancellationResult(InteractionResult.SUCCESS);
                     }
                 }
             }

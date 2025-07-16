@@ -408,10 +408,6 @@ public class LargeDoorBlock extends Block {
     }
 
     public void playSound(@Nullable Entity entity, Level level, BlockPos blockPos, boolean isOpen) {
-        if (isOpen) {
-            level.playSound(entity, blockPos, doorType.getOpenSound(), SoundSource.BLOCKS, 0.5f, 1);
-        } else {
-            level.playSound(entity, blockPos, doorType.getCloseSound(), SoundSource.BLOCKS, 0.5f, 1);
-        }
+        level.playSound(entity, blockPos, isOpen ? doorType.getOpenSound() : doorType.getCloseSound(), SoundSource.BLOCKS, 0.5f, 1);
     }
 }
