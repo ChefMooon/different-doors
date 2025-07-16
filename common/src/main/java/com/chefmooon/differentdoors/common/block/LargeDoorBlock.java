@@ -267,7 +267,6 @@ public class LargeDoorBlock extends Block {
         if (blockStateProperties.get(SWING) != null) {
             boolean isSwinging = Boolean.TRUE.equals((blockStateProperties.get(SWING)));
             if (isSwinging) {
-//                tooltipComponents.add(Component.translatable("itemGroup." + DifferentDoors.MOD_ID).withStyle(ChatFormatting.BLUE)); // TODO: decide if this is needed, matches vanilla items
                 tooltipComponents.add(Component.translatable(DifferentDoors.MOD_ID + ".tooltip.large_door.swinging").withStyle(ChatFormatting.GRAY));
             } else {
                 tooltipComponents.add(Component.translatable(DifferentDoors.MOD_ID + ".tooltip.large_door.sliding").withStyle(ChatFormatting.GRAY));
@@ -289,7 +288,6 @@ public class LargeDoorBlock extends Block {
         if (direction.getAxis() == Direction.Axis.Y) {
             if (direction == Direction.DOWN) {
                 if (part.yOffset() == 0) {
-//                if (part == DoorPartProperty.BOTTOM || part == DoorPartProperty.BOTTOM_LEFT || part == DoorPartProperty.BOTTOM_RIGHT) {
                     BlockPos controllerPos = getController(state, pos);
                     BlockState controllerState = level.getBlockState(controllerPos);
                     BlockPos bottomLeftPos = controllerPos.relative(facing.getClockWise().getOpposite(), DoorPartProperty.BOTTOM_LEFT.xOffset()).above(DoorPartProperty.BOTTOM_LEFT.yOffset());
