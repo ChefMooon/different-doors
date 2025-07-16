@@ -404,13 +404,7 @@ public class LargeDoorBlock extends Block {
     }
 
     public void playSetSwingSound(Level level, BlockPos blockPos, boolean swing) {
-        if (!level.isClientSide()) {
-            if (swing) {
-                level.playSound(null, blockPos, doorType.getAddSwingSound(), SoundSource.BLOCKS, 0.5f, 1);
-            } else {
-                level.playSound(null, blockPos, doorType.getRemoveSwingSound(), SoundSource.BLOCKS, 0.5f, 1);
-            }
-        }
+        level.playSound(null, blockPos, swing ? doorType.getAddSwingSound() : doorType.getRemoveSwingSound(), SoundSource.BLOCKS, 0.5f, 1);
     }
 
     public void playSound(@Nullable Entity entity, Level level, BlockPos blockPos, boolean isOpen) {
