@@ -378,12 +378,6 @@ public class LargeDoorBlock extends Block {
                 partState.setValue(SWING, false));
         }
         playSetSwingSound(level, controllerPos, swing);
-        if (!player.getAbilities().instabuild) {
-            if (heldItem.is(ItemTags.AXES)) { // TODO: review before final release, is this check needed?
-                EquipmentSlot slot = player.getUsedItemHand() == hand ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
-                heldItem.hurtAndBreak(1, player, slot);
-            }
-        }
     }
 
     private void destroy(Level level, BlockPos pos, BlockState state, boolean dropBlock, @Nullable Player player) {
