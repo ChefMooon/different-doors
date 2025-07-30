@@ -5,6 +5,8 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.loading.LoadingModList;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
 public class LoaderUtilImpl {
@@ -19,5 +21,10 @@ public class LoaderUtilImpl {
                 event.insertAfter(doorType.getPrimaryCraftingIngredient().getDefaultInstance(), itemSupplier.get().getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             }
         }));
+    }
+
+    public static boolean isModLoaded(String modId) {
+        if (LoadingModList.get().getModFileById(modId) != null) return true;
+        return ModList.get().isLoaded(modId);
     }
 }
