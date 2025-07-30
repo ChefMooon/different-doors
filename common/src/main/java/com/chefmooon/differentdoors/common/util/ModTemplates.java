@@ -35,8 +35,6 @@ public class ModTemplates {
     public static final ModelTemplate LARGE_DOOR_SWING_RIGHT_OPEN = block("template_large_door_swing_right_open", TextureSlot.PARTICLE, TextureSlot.ALL);
     public static final ModelTemplate LARGE_DOOR_SWING_TOP_RIGHT_OPEN = block("template_large_door_swing_top_right_open", TextureSlot.PARTICLE, TextureSlot.ALL);
 
-    public static final ModelTemplate LARGE_DOOR_ITEM = item("template_large_door_item", TextureSlot.ALL);
-
     private static ModelTemplate item(String string, TextureSlot... textureSlots) {
         return new ModelTemplate(Optional.of(TextUtil.res("item/" + string)), Optional.empty(), textureSlots);
     }

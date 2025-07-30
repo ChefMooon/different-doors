@@ -1,14 +1,14 @@
 {
-  "parent": "differentdoors:item/mangrove_large_door_slide",
+  "parent": "differentdoors:block/mangrove_large_door_slide",
   "overrides": [
     {
-      "model": "differentdoors:item/mangrove_large_door_slide",
+      "model": "differentdoors:block/mangrove_large_door_slide",
       "predicate": {
         "differentdoors:large_door_swing": 0.0
       }
     },
     {
-      "model": "differentdoors:item/mangrove_large_door_swing",
+      "model": "differentdoors:block/mangrove_large_door_swing",
       "predicate": {
         "differentdoors:large_door_swing": 1.0
       }
