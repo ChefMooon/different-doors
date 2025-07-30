@@ -2,6 +2,7 @@ package com.chefmooon.differentdoors.neoforge;
 
 import com.chefmooon.differentdoors.DifferentDoors;
 import com.chefmooon.differentdoors.common.registry.neoforge.*;
+import com.chefmooon.differentdoors.common.util.neoforge.LoaderUtilImpl;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -18,5 +19,7 @@ public class DifferentDoorsNeoForge {
         ModCreativeTabsImpl.register(modEventBus);
 //        ModSoundsImpl.register(modEventBus);
         ModRecipeSerializersImpl.register(modEventBus);
+
+        LoaderUtilImpl.init(modEventBus);
     }
 }

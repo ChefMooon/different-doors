@@ -3,6 +3,7 @@ package com.chefmooon.differentdoors.fabric;
 import com.chefmooon.differentdoors.DifferentDoors;
 import com.chefmooon.differentdoors.common.block.fabric.LargeDoorBlockImpl;
 import com.chefmooon.differentdoors.common.registry.fabric.*;
+import com.chefmooon.differentdoors.common.util.fabric.LoaderUtilImpl;
 import net.fabricmc.api.ModInitializer;
 
 public class DifferentDoorsFabric implements ModInitializer {
@@ -19,5 +20,6 @@ public class DifferentDoorsFabric implements ModInitializer {
         ModRecipeSerializersImpl.register();
 
         LargeDoorBlockImpl.init();
+        LoaderUtilImpl.init();
     }
 }
