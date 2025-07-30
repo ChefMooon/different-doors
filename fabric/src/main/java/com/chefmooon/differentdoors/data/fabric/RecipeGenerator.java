@@ -36,7 +36,6 @@ public class RecipeGenerator extends FabricRecipeProvider {
 
     private void buildLargeDoorRecipe(DoorType doorType, Item item) {
         LargeSwingDoorShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, item)
-                .pattern("   ")
                 .pattern("ABA")
                 .pattern("BBB")
                 .define('A', doorType.getPrimaryCraftingIngredient())
@@ -49,7 +48,6 @@ public class RecipeGenerator extends FabricRecipeProvider {
     }
     private void buildLargeDoorSwingRecipe(DoorType doorType, Item item) {
         LargeSwingDoorShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, item)
-                .pattern("   ")
                 .pattern("BBB")
                 .pattern("ABA")
                 .define('A', doorType.getPrimaryCraftingIngredient())
