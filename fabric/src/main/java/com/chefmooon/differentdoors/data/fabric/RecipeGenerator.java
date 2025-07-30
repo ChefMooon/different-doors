@@ -36,33 +36,29 @@ public class RecipeGenerator extends FabricRecipeProvider {
 
     private void buildLargeDoorRecipe(DoorType doorType, Item item) {
         LargeSwingDoorShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, item)
-                .pattern("BCB")
+                .pattern("   ")
                 .pattern("ABA")
                 .pattern("BBB")
                 .define('A', doorType.getPrimaryCraftingIngredient())
                 .define('B', doorType.getSecondaryCraftingIngredient())
-                .define('C', Items.IRON_NUGGET)
                 .group("large_door_slide")
                 .unlockedBy("has_any", RecipeProvider.inventoryTrigger(ItemPredicate.Builder.item().of(
                         doorType.getPrimaryCraftingIngredient(),
-                        doorType.getSecondaryCraftingIngredient(),
-                        Items.IRON_NUGGET))
+                        doorType.getSecondaryCraftingIngredient()))
                 ).save(OUTPUT, RecipeProvider.getSimpleRecipeName(item));
     }
     private void buildLargeDoorSwingRecipe(DoorType doorType, Item item) {
         LargeSwingDoorShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, item)
+                .pattern("   ")
                 .pattern("BBB")
-                .pattern("ACA")
-                .pattern("BBB")
+                .pattern("ABA")
                 .define('A', doorType.getPrimaryCraftingIngredient())
                 .define('B', doorType.getSecondaryCraftingIngredient())
-                .define('C', Items.IRON_NUGGET)
                 .group("large_door_swing")
                 .setSwing(Boolean.TRUE)
                 .unlockedBy("has_any", RecipeProvider.inventoryTrigger(ItemPredicate.Builder.item().of(
                         doorType.getPrimaryCraftingIngredient(),
-                        doorType.getSecondaryCraftingIngredient(),
-                        Items.IRON_NUGGET))
+                        doorType.getSecondaryCraftingIngredient()))
                 ).save(OUTPUT, RecipeProvider.getSimpleRecipeName(item) + "_swing");
     }
 

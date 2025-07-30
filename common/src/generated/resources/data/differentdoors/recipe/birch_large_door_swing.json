@@ -8,15 +8,12 @@
     },
     "B": {
       "item": "minecraft:birch_planks"
-    },
-    "C": {
-      "item": "minecraft:iron_nugget"
     }
   },
   "pattern": [
+    "   ",
     "BBB",
-    "ACA",
-    "BBB"
+    "ABA"
   ],
   "result": {
     "components": {

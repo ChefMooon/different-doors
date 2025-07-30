@@ -8,13 +8,10 @@
     },
     "B": {
       "item": "minecraft:bamboo_block"
-    },
-    "C": {
-      "item": "minecraft:iron_nugget"
     }
   },
   "pattern": [
-    "BCB",
+    "   ",
     "ABA",
     "BBB"
   ],
