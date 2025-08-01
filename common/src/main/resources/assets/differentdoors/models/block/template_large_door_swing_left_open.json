@@ -6,13 +6,11 @@
 	"elements": [
 		{
 			"from": [13, 0, 1],
-			"to": [16, 16, 25],
-			"rotation": {"angle": 0, "axis": "y", "origin": [14, 0, 1]},
+			"to": [16, 16, 16],
 			"faces": {
 				"north": {"uv": [1, 5, 1.75, 9], "texture": "#all"},
-				"east": {"uv": [8, 5, 14, 9], "texture": "#all"},
-				"south": {"uv": [14.25, 5, 15, 9], "texture": "#all"},
-				"west": {"uv": [2, 5, 8, 9], "texture": "#all"}
+				"east": {"uv": [10.25, 5, 14, 9], "texture": "#all"},
+				"west": {"uv": [2, 5, 5.75, 9], "texture": "#all"}
 			}
 		}
 	]

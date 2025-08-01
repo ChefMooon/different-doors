@@ -5,14 +5,12 @@
 	"texture_size": [64, 64],
 	"elements": [
 		{
-			"from": [-16, 0, 1],
+			"from": [0, 0, 1],
 			"to": [8, 16, 4],
-			"rotation": {"angle": 0, "axis": "y", "origin": [6, 0, 1]},
 			"faces": {
-				"north": {"uv": [8, 5, 14, 9], "texture": "#all"},
+				"north": {"uv": [8, 5, 10, 9], "texture": "#all"},
 				"east": {"uv": [1, 5, 1.75, 9], "texture": "#all"},
-				"south": {"uv": [2, 5, 8, 9], "texture": "#all"},
-				"west": {"uv": [14.25, 5, 15, 9], "texture": "#all"}
+				"south": {"uv": [6, 5, 8, 9], "texture": "#all"}
 			}
 		}
 	]
