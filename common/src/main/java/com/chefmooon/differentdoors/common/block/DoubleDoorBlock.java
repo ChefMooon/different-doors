@@ -39,10 +39,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class DoubleDoorBlock extends Block {
+    public enum OpenType { CLOSED, SWING, SLIDE }
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final BooleanProperty LOCKED = BlockStateProperties.LOCKED;
@@ -50,98 +51,42 @@ public class DoubleDoorBlock extends Block {
     public static final BooleanProperty SWING = BooleanProperty.create("swing");
     public static final EnumProperty<DoorPartProperty> PART  = EnumProperty.create("part", DoorPartProperty.class);
     public final DoorMaterialType doorMaterialType;
-    private static final VoxelShape[] SHAPES = {
-            Block.box(0, 0, 12, 16, 16, 15), // South
-            Block.box(1, 0, 0, 4, 16, 16), // West
-            Block.box(0, 0, 1, 16, 16, 4), // North
-            Block.box(12, 0, 0, 15, 16, 16), // East
+    private static final VoxelShape[] CLOSED_SHAPES = {
+            Block.box(0, 0, 12, 16, 16, 15), // SOUTH (index 0 when facing NORTH? -> we map via get2DDataValue)
+            Block.box(1, 0, 0, 4, 16, 16),   // WEST
+            Block.box(0, 0, 1, 16, 16, 4),   // NORTH
+            Block.box(12, 0, 0, 15, 16, 16)  // EAST
     };
 
-    private static final VoxelShape[][] SWING_OPEN_SHAPES = {
-            {Block.box(0, 0, 0, 3, 16, 15), // South Left Swing Open
-                    Block.box(13, 0, 0, 16, 16, 15)}, // South Right Swing Open
-            {Block.box(1, 0, 0, 16, 16, 3), // West Left Swing Open
-                    Block.box(1, 0, 13, 16, 16, 16)}, // West Right Swing Open
-            {Block.box(13, 0, 1, 16, 16, 16), // North Left Swing Open
-                    Block.box(0, 0, 1, 3, 16, 16)}, // North Right Swing Open
-            {Block.box(0, 0, 13, 15, 16, 16), // East Left Swing Open
-                    Block.box(0, 0, 0, 15, 16, 3)}, // East Right Swing Open
+    private static final DoorPartProperty[] LEFT_PARTS = {
+            DoorPartProperty.TOP_LEFT, DoorPartProperty.LEFT, DoorPartProperty.BOTTOM_LEFT
     };
-
-    private static final Map<Direction, Map<DoorPartProperty, VoxelShape>> SWING_OPEN_SHAPES_NEW = Map.of(
-            Direction.NORTH, makeSwingShapeMap(
-                    Block.box(13, 0, 1, 16, 16, 16),  // left
-                    Block.box(0, 0, 1, 3, 16, 16),    // right
-                    Block.box(13, 0, 0, 16, 16, 9),   // left ext
-                    Block.box(0, 0, 0, 3, 16, 9)      // right ext
-            ),
-            Direction.EAST, makeSwingShapeMap(
-                    Block.box(0, 0, 13, 15, 16, 16),  // left
-                    Block.box(0, 0, 0, 15, 16, 3),    // right
-                    Block.box(7, 0, 13, 16, 16, 16),  // left ext
-                    Block.box(7, 0, 0, 16, 16, 3)     // right ext
-            ),
-            Direction.SOUTH, makeSwingShapeMap(
-                    Block.box(0, 0, 0, 3, 16, 15),    // left
-                    Block.box(13, 0, 0, 16, 16, 15),  // right
-                    Block.box(0, 0, 7, 3, 16, 16),    // left ext
-                    Block.box(13, 0, 7, 16, 16, 16)   // right ext
-            ),
-            Direction.WEST, makeSwingShapeMap(
-                    Block.box(1, 0, 0, 16, 16, 3),    // left
-                    Block.box(1, 0, 13, 16, 16, 16),  // right
-                    Block.box(0, 0, 0, 9, 16, 3),     // left ext
-                    Block.box(0, 0, 13, 9, 16, 16)    // right ext
-            )
-    );
-
-    private static final VoxelShape[][] SLIDE_OPEN_SHAPES = {
-            {Block.box(0, 0, 12, 8, 16, 15), // South Left Slide Open
-                    Block.box(8, 0, 12, 16, 16, 15)}, // South Right Slide Open
-            {Block.box(1, 0, 0, 4, 16, 8),  // West Left Slide Open
-                    Block.box(1, 0, 8, 4, 16, 16)}, // West Right Slide Open
-            {Block.box(8, 0, 1, 16, 16, 4), // North Left Slide Open
-                    Block.box(0, 0, 1, 8, 16, 4)}, // North Right Slide Open
-            {Block.box(12, 0, 8, 15, 16, 16), // East Left Slide Open
-                    Block.box(12, 0, 0, 15, 16, 8)}, // East Right Slide Open
+    private static final DoorPartProperty[] RIGHT_PARTS = {
+            DoorPartProperty.TOP_RIGHT, DoorPartProperty.RIGHT, DoorPartProperty.BOTTOM_RIGHT
     };
+    private static final DoorPartProperty[] LEFT_EXT_PARTS = {
+            DoorPartProperty.TOP_LEFT_OPEN_EXT, DoorPartProperty.LEFT_OPEN_EXT, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT
+    };
+    private static final DoorPartProperty[] RIGHT_EXT_PARTS = {
+            DoorPartProperty.TOP_RIGHT_OPEN_EXT, DoorPartProperty.RIGHT_OPEN_EXT, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT
+    };
+    private static final DoorPartProperty[] MIDDLE_EMPTY_PARTS = {
+            DoorPartProperty.TOP, DoorPartProperty.CENTER, DoorPartProperty.BOTTOM
+    };
+    private static final DoorPartProperty[] ALL_PARTS = DoorPartProperty.values();
 
-    private static final Map<Direction, Map<DoorPartProperty, VoxelShape>> SLIDE_OPEN_SHAPES_NEW = Map.of(
-            Direction.NORTH, makeSlideShapeMap(
-                    Block.box(8, 0, 1, 16, 16, 4),   // left
-                    Block.box(0, 0, 1, 8, 16, 4),    // right
-                    Block.box(0, 0, 1, 16, 16, 4)    // ext
-            ),
-            Direction.EAST, makeSlideShapeMap(
-                    Block.box(12, 0, 8, 15, 16, 16), // left
-                    Block.box(12, 0, 0, 15, 16, 8),  // right
-                    Block.box(12, 0, 0, 15, 16, 16)  // ext
-            ),
-            Direction.SOUTH, makeSlideShapeMap(
-                    Block.box(0, 0, 12, 8, 16, 15),  // left
-                    Block.box(8, 0, 12, 16, 16, 15), // right
-                    Block.box(0, 0, 12, 16, 16, 15)  // ext
-            ),
-            Direction.WEST, makeSlideShapeMap(
-                    Block.box(1, 0, 0, 4, 16, 8),    // left
-                    Block.box(1, 0, 8, 4, 16, 16),   // right
-                    Block.box(1, 0, 0, 4, 16, 16)    // ext
-            )
-    );
+    private final EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>> swingOpenShapes;
+    private final EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>> slideOpenShapes;
+    private final EnumMap<OpenType, EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>>> shapeMap;
+    private final EnumMap<DoorPartProperty, DoorPartProperty> extensionMap;
 
-    private static final Map<DoorPartProperty, DoorPartProperty> EXTENSION_MAP = Map.of(
-            DoorPartProperty.BOTTOM_LEFT, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT,
-            DoorPartProperty.LEFT, DoorPartProperty.LEFT_OPEN_EXT,
-            DoorPartProperty.TOP_LEFT, DoorPartProperty.TOP_LEFT_OPEN_EXT,
-            DoorPartProperty.BOTTOM_RIGHT, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT,
-            DoorPartProperty.RIGHT, DoorPartProperty.RIGHT_OPEN_EXT,
-            DoorPartProperty.TOP_RIGHT, DoorPartProperty.TOP_RIGHT_OPEN_EXT
-    );
-
-    // TODO: optimize this class
     public DoubleDoorBlock(DoorMaterialType doorMaterialType, Properties properties) {
         super(properties);
         this.doorMaterialType = doorMaterialType;
+        this.swingOpenShapes = initSwingOpenShapes();
+        this.slideOpenShapes = initSlideOpenShapes();
+        this.shapeMap = initShapeMap();
+        this.extensionMap = initExtensionMap();
         registerDefaultState(getStateDefinition().any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(OPEN, false)
@@ -156,52 +101,115 @@ public class DoubleDoorBlock extends Block {
         builder.add(FACING, OPEN, LOCKED, POWERED, SWING, PART);
     }
 
-    private static Map<DoorPartProperty, VoxelShape> makeSwingShapeMap(VoxelShape left, VoxelShape right, VoxelShape leftExt, VoxelShape rightExt) {
-        Map<DoorPartProperty, VoxelShape> map = new EnumMap<>(DoorPartProperty.class);
-        DoorPartProperty[] leftParts = {DoorPartProperty.TOP_LEFT, DoorPartProperty.LEFT, DoorPartProperty.BOTTOM_LEFT};
-        DoorPartProperty[] rightParts = {DoorPartProperty.TOP_RIGHT, DoorPartProperty.RIGHT, DoorPartProperty.BOTTOM_RIGHT};
-        DoorPartProperty[] leftExtParts = {DoorPartProperty.TOP_LEFT_OPEN_EXT, DoorPartProperty.LEFT_OPEN_EXT, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT};
-        DoorPartProperty[] rightExtParts = {DoorPartProperty.TOP_RIGHT_OPEN_EXT, DoorPartProperty.RIGHT_OPEN_EXT, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT};
-        DoorPartProperty[] emptyParts = {DoorPartProperty.TOP, DoorPartProperty.CENTER, DoorPartProperty.BOTTOM};
+    private EnumMap<OpenType, EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>>> initShapeMap() {
+        EnumMap<OpenType, EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>>> map = new EnumMap<>(OpenType.class);
 
-        for (DoorPartProperty p : leftParts) map.put(p, left);
-        for (DoorPartProperty p : rightParts) map.put(p, right);
-        for (DoorPartProperty p : leftExtParts) map.put(p, leftExt);
-        for (DoorPartProperty p : rightExtParts) map.put(p, rightExt);
-        for (DoorPartProperty p : emptyParts) map.put(p, Shapes.empty());
+        EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>> closed = new EnumMap<>(Direction.class);
+        for (Direction dir : Direction.Plane.HORIZONTAL) {
+            EnumMap<DoorPartProperty, VoxelShape> perPart = new EnumMap<>(DoorPartProperty.class);
+            VoxelShape shape = CLOSED_SHAPES[dir.get2DDataValue()];
+            for (DoorPartProperty p : ALL_PARTS) perPart.put(p, shape);
+            closed.put(dir, perPart);
+        }
 
+        map.put(OpenType.CLOSED, closed);
+        map.put(OpenType.SWING, swingOpenShapes);
+        map.put(OpenType.SLIDE, slideOpenShapes);
         return map;
     }
 
-    private static Map<DoorPartProperty, VoxelShape> makeSlideShapeMap(VoxelShape left, VoxelShape right, VoxelShape ext) {
-        Map<DoorPartProperty, VoxelShape> map = new EnumMap<>(DoorPartProperty.class);
-        DoorPartProperty[] leftParts = {DoorPartProperty.TOP_LEFT, DoorPartProperty.LEFT, DoorPartProperty.BOTTOM_LEFT};
-        DoorPartProperty[] rightParts = {DoorPartProperty.TOP_RIGHT, DoorPartProperty.RIGHT, DoorPartProperty.BOTTOM_RIGHT};
-        DoorPartProperty[] extParts = {
+    private static EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>> initSwingOpenShapes() {
+        EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>> map = new EnumMap<>(Direction.class);
+        map.put(Direction.NORTH, makeSwingShapeMap(
+                Block.box(13, 0, 1, 16, 16, 16),
+                Block.box(0, 0, 1, 3, 16, 16),
+                Block.box(13, 0, 0, 16, 16, 9),
+                Block.box(0, 0, 0, 3, 16, 9)
+        ));
+        map.put(Direction.EAST, makeSwingShapeMap(
+                Block.box(0, 0, 13, 15, 16, 16),
+                Block.box(0, 0, 0, 15, 16, 3),
+                Block.box(7, 0, 13, 16, 16, 16),
+                Block.box(7, 0, 0, 16, 16, 3)
+        ));
+        map.put(Direction.SOUTH, makeSwingShapeMap(
+                Block.box(0, 0, 0, 3, 16, 15),
+                Block.box(13, 0, 0, 16, 16, 15),
+                Block.box(0, 0, 7, 3, 16, 16),
+                Block.box(13, 0, 7, 16, 16, 16)
+        ));
+        map.put(Direction.WEST, makeSwingShapeMap(
+                Block.box(1, 0, 0, 16, 16, 3),
+                Block.box(1, 0, 13, 16, 16, 16),
+                Block.box(0, 0, 0, 9, 16, 3),
+                Block.box(0, 0, 13, 9, 16, 16)
+        ));
+        return map;
+    }
+
+    private static EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>> initSlideOpenShapes() {
+        EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>> map = new EnumMap<>(Direction.class);
+        map.put(Direction.NORTH, makeSlideShapeMap(
+                Block.box(8, 0, 1, 16, 16, 4),
+                Block.box(0, 0, 1, 8, 16, 4),
+                Block.box(0, 0, 1, 16, 16, 4)
+        ));
+        map.put(Direction.EAST, makeSlideShapeMap(
+                Block.box(12, 0, 8, 15, 16, 16),
+                Block.box(12, 0, 0, 15, 16, 8),
+                Block.box(12, 0, 0, 15, 16, 16)
+        ));
+        map.put(Direction.SOUTH, makeSlideShapeMap(
+                Block.box(0, 0, 12, 8, 16, 15),
+                Block.box(8, 0, 12, 16, 16, 15),
+                Block.box(0, 0, 12, 16, 16, 15)
+        ));
+        map.put(Direction.WEST, makeSlideShapeMap(
+                Block.box(1, 0, 0, 4, 16, 8),
+                Block.box(1, 0, 8, 4, 16, 16),
+                Block.box(1, 0, 0, 4, 16, 16)
+        ));
+        return map;
+    }
+
+    private static EnumMap<DoorPartProperty, VoxelShape> makeSwingShapeMap(VoxelShape left, VoxelShape right,
+                                                                           VoxelShape leftExt, VoxelShape rightExt) {
+        EnumMap<DoorPartProperty, VoxelShape> map = new EnumMap<>(DoorPartProperty.class);
+        for (DoorPartProperty p : LEFT_PARTS) map.put(p, left);
+        for (DoorPartProperty p : RIGHT_PARTS) map.put(p, right);
+        for (DoorPartProperty p : LEFT_EXT_PARTS) map.put(p, leftExt);
+        for (DoorPartProperty p : RIGHT_EXT_PARTS) map.put(p, rightExt);
+        for (DoorPartProperty p : MIDDLE_EMPTY_PARTS) map.put(p, Shapes.empty());
+        return map;
+    }
+
+    private static EnumMap<DoorPartProperty, VoxelShape> makeSlideShapeMap(VoxelShape left, VoxelShape right, VoxelShape ext) {
+        EnumMap<DoorPartProperty, VoxelShape> map = new EnumMap<>(DoorPartProperty.class);
+        for (DoorPartProperty p : LEFT_PARTS) map.put(p, left);
+        for (DoorPartProperty p : RIGHT_PARTS) map.put(p, right);
+        for (DoorPartProperty p : new DoorPartProperty[]{
                 DoorPartProperty.TOP_LEFT_OPEN_EXT, DoorPartProperty.LEFT_OPEN_EXT, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT,
                 DoorPartProperty.TOP_RIGHT_OPEN_EXT, DoorPartProperty.RIGHT_OPEN_EXT, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT
-        };
-        DoorPartProperty[] emptyParts = {DoorPartProperty.TOP, DoorPartProperty.CENTER, DoorPartProperty.BOTTOM};
+        }) map.put(p, ext);
+        for (DoorPartProperty p : MIDDLE_EMPTY_PARTS) map.put(p, Shapes.empty());
+        return map;
+    }
 
-        for (DoorPartProperty p : leftParts) map.put(p, left);
-        for (DoorPartProperty p : rightParts) map.put(p, right);
-        for (DoorPartProperty p : extParts) map.put(p, ext);
-        for (DoorPartProperty p : emptyParts) map.put(p, Shapes.empty());
-
+    private static EnumMap<DoorPartProperty, DoorPartProperty> initExtensionMap() {
+        EnumMap<DoorPartProperty, DoorPartProperty> map = new EnumMap<>(DoorPartProperty.class);
+        map.put(DoorPartProperty.BOTTOM_LEFT, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT);
+        map.put(DoorPartProperty.LEFT, DoorPartProperty.LEFT_OPEN_EXT);
+        map.put(DoorPartProperty.TOP_LEFT, DoorPartProperty.TOP_LEFT_OPEN_EXT);
+        map.put(DoorPartProperty.BOTTOM_RIGHT, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT);
+        map.put(DoorPartProperty.RIGHT, DoorPartProperty.RIGHT_OPEN_EXT);
+        map.put(DoorPartProperty.TOP_RIGHT, DoorPartProperty.TOP_RIGHT_OPEN_EXT);
         return map;
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        if (state.getValue(OPEN)) {
-            if (state.getValue(SWING)) {
-                return SWING_OPEN_SHAPES_NEW.get(state.getValue(FACING)).get(state.getValue(PART));
-            } else {
-                return SLIDE_OPEN_SHAPES_NEW.get(state.getValue(FACING)).get(state.getValue(PART));
-            }
-        } else {
-            return SHAPES[state.getValue(FACING).get2DDataValue()];
-        }
+        OpenType type = !state.getValue(OPEN) ? OpenType.CLOSED : (state.getValue(SWING) ? OpenType.SWING : OpenType.SLIDE);
+        return shapeMap.get(type).get(state.getValue(FACING)).get(state.getValue(PART));
     }
 
     @Override
@@ -246,14 +254,14 @@ public class DoubleDoorBlock extends Block {
         Direction facing = context.getHorizontalDirection().getOpposite();
         boolean isAreaClear = true;
         for (DoorPartProperty part : DoorPartProperty.values()) {
-            BlockPos partPos = blockPos.relative(facing.getClockWise().getOpposite(), part.xOffset()).above(part.yOffset());
+            BlockPos partPos = blockPos.relative(facing.getCounterClockWise(), part.xOffset()).above(part.yOffset());
             isAreaClear = level.getBlockState(partPos).canBeReplaced(context);
             if (!isAreaClear) break;
         }
         if (blockPos.getY() < level.getMaxBuildHeight() - 2 && isAreaClear) {
             boolean powered = false;
             for (DoorPartProperty part : DoorPartProperty.values()) {
-                BlockPos partPos = blockPos.relative(facing.getClockWise().getOpposite(), part.xOffset()).above(part.yOffset());
+                BlockPos partPos = blockPos.relative(facing.getCounterClockWise(), part.xOffset()).above(part.yOffset());
                 powered = level.hasNeighborSignal(partPos);
                 if (powered) break;
             }
@@ -276,46 +284,7 @@ public class DoubleDoorBlock extends Block {
         boolean swing = controllerState.getValue(SWING);
         boolean open = controllerState.getValue(OPEN);
 
-        for (DoorPartProperty part : DoorPartProperty.values()) {
-            BlockPos partPos;
-            if (swing) {
-                partPos = controllerPos.relative(facing.getClockWise().getOpposite(), part.xOffset())
-                                       .relative(facing.getOpposite(), part.zOffset())
-                                       .above(part.yOffset());
-            } else {
-                int xOffset = part.isExtension() ? part.xOffset() * 2 : part.xOffset();
-                partPos = controllerPos.relative(facing.getClockWise().getOpposite(), xOffset)
-                                       .above(part.yOffset());
-            }
-            BlockState partState = level.getBlockState(partPos);
-
-            if (open) {
-                if (part.isExtension()) {
-                    if (partState.is(this) && partState.getValue(PART).isExtension()) {
-                        level.setBlock(partPos, Blocks.AIR.defaultBlockState(), 10);
-                    }
-                } else if (partState.getBlock() instanceof DoubleDoorBlock) {
-                    level.setBlock(partPos, partState.cycle(OPEN), 10);
-                }
-            } else {
-                if (part.isExtension()) {
-                    if (partState.isAir()) {
-                        BlockState newPartState = this.defaultBlockState()
-                                .setValue(FACING, facing)
-                                .setValue(OPEN, true)
-                                .setValue(LOCKED, false)
-                                .setValue(POWERED, false)
-                                .setValue(SWING, swing)
-                                .setValue(PART, part);
-                        level.setBlock(partPos, newPartState, 10);
-                    }
-                } else if (partState.getBlock() instanceof DoubleDoorBlock) {
-                    level.setBlock(partPos, partState.cycle(OPEN), 10);
-                }
-            }
-        }
-        this.playSound(player, level, pos, open);
-        level.gameEvent(player, open ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
+        toggleAllParts(level, controllerPos, facing, swing, open, player, pos);
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
@@ -324,52 +293,15 @@ public class DoubleDoorBlock extends Block {
     }
 
     public void setOpen(@Nullable Entity entity, Level level, BlockPos pos, BlockState state, boolean open) {
+        if (!state.is(this)) return;
         BlockPos controllerPos = getController(state, pos);
-        BlockState controllerState = level.getBlockState(controllerPos);
-        Direction facing = controllerState.getValue(FACING);
-        boolean swing = controllerState.getValue(SWING);
-        if (state.is(this) && controllerState.getValue(OPEN) != open) {
-            for (DoorPartProperty part : DoorPartProperty.values()) {
-                BlockPos partPos;
-                if (swing) {
-                    partPos = controllerPos.relative(facing.getClockWise().getOpposite(), part.xOffset())
-                            .relative(facing.getOpposite(), part.zOffset())
-                            .above(part.yOffset());
-                } else {
-                    int xOffset = part.isExtension() ? part.xOffset() * 2 : part.xOffset();
-                    partPos = controllerPos.relative(facing.getClockWise().getOpposite(), xOffset)
-                            .above(part.yOffset());
-                }
-                BlockState partState = level.getBlockState(partPos);
+        BlockState controller = level.getBlockState(controllerPos);
+        if (!controller.is(this)) return;
+        if (controller.getValue(OPEN) == open) return;
 
-                if (open) {
-                    if (part.isExtension()) {
-                        if (partState.is(this) && partState.getValue(PART).isExtension()) {
-                            level.setBlock(partPos, Blocks.AIR.defaultBlockState(), 10);
-                        }
-                    } else if (partState.getBlock() instanceof DoubleDoorBlock) {
-                        level.setBlock(partPos, partState.cycle(OPEN), 10);
-                    }
-                } else {
-                    if (part.isExtension()) {
-                        if (partState.isAir()) {
-                            BlockState newPartState = this.defaultBlockState()
-                                    .setValue(FACING, facing)
-                                    .setValue(OPEN, true)
-                                    .setValue(LOCKED, false)
-                                    .setValue(POWERED, false)
-                                    .setValue(SWING, swing)
-                                    .setValue(PART, part);
-                            level.setBlock(partPos, newPartState, 10);
-                        }
-                    } else if (partState.getBlock() instanceof DoubleDoorBlock) {
-                        level.setBlock(partPos, partState.cycle(OPEN), 10);
-                    }
-                }
-            }
-            this.playSound(entity, level, pos, open);
-            level.gameEvent(entity, open ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
-        }
+        Direction facing = controller.getValue(FACING);
+        boolean swing = controller.getValue(SWING);
+        toggleAllParts(level, controllerPos, facing, swing, open, entity, pos);
     }
 
     @Override
@@ -377,15 +309,15 @@ public class DoubleDoorBlock extends Block {
         Direction facing = state.getValue(FACING);
         for (DoorPartProperty part : DoorPartProperty.values()) {
             if (!part.isExtension()) {
-                BlockPos partPos = pos.relative(facing.getClockWise().getOpposite(), part.xOffset()).above(part.yOffset());
+                BlockPos partPos = pos.relative(facing.getCounterClockWise(), part.xOffset()).above(part.yOffset());
                 level.setBlock(partPos, state.setValue(PART, part), Block.UPDATE_CLIENTS);
             } else if (state.getValue(POWERED) || state.getValue(OPEN)) {
                 boolean swing = state.getValue(SWING);
                 BlockPos newPartPos = swing ?
-                        pos.relative(facing.getClockWise().getOpposite(), part.xOffset())
+                        pos.relative(facing.getCounterClockWise(), part.xOffset())
                                 .relative(facing.getOpposite(), part.zOffset())
                                 .above(part.yOffset()) :
-                        pos.relative(facing.getClockWise().getOpposite(), part.xOffset() * 2).above(part.yOffset());
+                        pos.relative(facing.getCounterClockWise(), part.xOffset() * 2).above(part.yOffset());
                 BlockState newPartState = this.defaultBlockState()
                         .setValue(FACING, facing)
                         .setValue(OPEN, true)
@@ -393,7 +325,7 @@ public class DoubleDoorBlock extends Block {
                         .setValue(POWERED, false)
                         .setValue(SWING, swing)
                         .setValue(PART, part);
-                if (level.getBlockState(newPartPos).isAir()) level.setBlockAndUpdate(newPartPos, newPartState);
+                if (level.getBlockState(newPartPos).isAir()) level.setBlock(newPartPos, newPartState, Block.UPDATE_ALL);
             }
         }
     }
@@ -401,39 +333,44 @@ public class DoubleDoorBlock extends Block {
     @Override
     protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
         BlockPos controllerPos = getController(state, pos);
-        boolean bl = false;
-        for (DoorPartProperty part : DoorPartProperty.values()) {
-            if (!part.isExtension()) {
-                BlockPos partPos = controllerPos.relative(state.getValue(FACING).getClockWise().getOpposite(), part.xOffset()).above(part.yOffset());
-                bl = level.hasNeighborSignal(partPos);
-                if (bl) break;
-            }
-        }
-        if (!this.defaultBlockState().is(neighborBlock) && bl != state.getValue(POWERED)) {
-            if (bl != state.getValue(OPEN)) {
-                this.playSound(null, level, pos, bl);
-                level.gameEvent((Entity)null, bl ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
-            }
-            for (DoorPartProperty part : DoorPartProperty.values()) {
-                if (!part.isExtension()) {
-                    BlockPos partPos = controllerPos.relative(state.getValue(FACING).getClockWise().getOpposite(), part.xOffset()).above(part.yOffset());
-                    BlockState partState = level.getBlockState(partPos);
-                    if (partState.getBlock() instanceof DoubleDoorBlock) {
-                        level.setBlock(partPos, partState.setValue(POWERED, bl).setValue(OPEN, bl), Block.UPDATE_CLIENTS);
-                    }
-                } else {
-                    if (!bl) { // handle close for extension parts
-                        boolean swing = state.getValue(SWING);
-                        Direction facing = state.getValue(FACING);
-                        BlockPos partPos = swing ? controllerPos.relative(facing.getClockWise().getOpposite(), part.xOffset())
-                                .relative(facing.getOpposite(), part.zOffset())
-                                .above(part.yOffset()) :
-                                controllerPos.relative(facing.getClockWise().getOpposite(), part.xOffset() * 2).above(part.yOffset());
-                        if (level.getBlockState(partPos).is(this)) level.setBlock(partPos, Blocks.AIR.defaultBlockState(), 10);
-                    }
+        BlockState controller = level.getBlockState(controllerPos);
+        if (!controller.is(this)) return;
+
+        Direction facing = controller.getValue(FACING);
+        Direction left = facing.getCounterClockWise();
+        final boolean[] anyPowered = {false};
+        forEachBasePart(part -> {
+            if (!anyPowered[0]) {
+                BlockPos p = controllerPos.relative(left, part.xOffset()).above(part.yOffset());
+                if (level.hasNeighborSignal(p)) {
+                    anyPowered[0] = true;
                 }
             }
+        });
+
+        boolean oldPowered = controller.getValue(POWERED);
+        if (anyPowered[0] == oldPowered) return; // no change
+
+        boolean oldOpen = controller.getValue(OPEN);
+        if (anyPowered[0] != oldOpen) {
+            playSound(null, level, pos, anyPowered[0]);
+            level.gameEvent(null, anyPowered[0] ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
         }
+
+        forEachAllParts(part -> {
+            BlockPos partPos = partPos(part, controller.getValue(SWING), facing, controllerPos);
+            BlockState partState = level.getBlockState(partPos);
+            if (partState.getBlock() instanceof DoubleDoorBlock && !part.isExtension()) {
+                level.setBlock(partPos,
+                        partState.setValue(POWERED, anyPowered[0]).setValue(OPEN, anyPowered[0]),
+                        Block.UPDATE_CLIENTS);
+            } else if (part.isExtension() && !anyPowered[0]) {
+                // remove extension geometry when closing
+                if (partState.is(this)) {
+                    level.setBlock(partPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+                }
+            }
+        });
         if (neighborBlock instanceof PistonHeadBlock || neighborBlock instanceof MovingPistonBlock) {
             // TODO: If a piston is pushing the door, we need to check if the door can still survive
         }
@@ -476,85 +413,64 @@ public class DoubleDoorBlock extends Block {
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         DoorPartProperty part = state.getValue(PART);
+        if (part.isExtension()) {
+            return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+        }
+
         Direction facing = state.getValue(FACING);
-        if (!part.isExtension()) {
-            if (direction.getAxis() == Direction.Axis.Y) {
-                if (direction == Direction.DOWN) {
-                    if (part.yOffset() == 0) {
-                        BlockPos controllerPos = getController(state, pos);
-                        BlockState controllerState = level.getBlockState(controllerPos);
-                        BlockPos bottomLeftPos = controllerPos.relative(facing.getClockWise().getOpposite(), DoorPartProperty.BOTTOM_LEFT.xOffset()).above(DoorPartProperty.BOTTOM_LEFT.yOffset());
-                        BlockPos bottomRightPos = controllerPos.relative(facing.getClockWise().getOpposite(), DoorPartProperty.BOTTOM_RIGHT.xOffset()).above(DoorPartProperty.BOTTOM_RIGHT.yOffset());
-                        if (!canSurvive(level.getBlockState(bottomLeftPos), level, bottomLeftPos) && !canSurvive(controllerState, level, controllerPos) && !canSurvive(level.getBlockState(bottomRightPos), level, bottomRightPos)) {
-                            if (level instanceof  Level) destroy((Level) level, pos, state, true, null);
-                            return Blocks.AIR.defaultBlockState();
-                        }
-                    } else {
-                        if (!canSurvive(state, level, pos)) {
-                            return Blocks.AIR.defaultBlockState();
-                        }
-                    }
-                } else if (direction == Direction.UP) {
-                    if (part.yOffset() != 2 && !level.getBlockState(pos.above()).is(this)) {
+        // Vertical stability
+        if (direction.getAxis() == Direction.Axis.Y) {
+            if (direction == Direction.DOWN) {
+                if (part.yOffset() == 0) {
+                    // Base layer: ensure at least one bottom support remains
+                    BlockPos controllerPos = getController(state, pos);
+                    BlockState controllerState = level.getBlockState(controllerPos);
+                    BlockPos blPos = controllerPos.relative(facing.getCounterClockWise(), DoorPartProperty.BOTTOM_LEFT.xOffset())
+                            .above(DoorPartProperty.BOTTOM_LEFT.yOffset());
+                    BlockPos brPos = controllerPos.relative(facing.getCounterClockWise(), DoorPartProperty.BOTTOM_RIGHT.xOffset())
+                            .above(DoorPartProperty.BOTTOM_RIGHT.yOffset());
+                    if (!canSurvive(level.getBlockState(blPos), level, blPos) &&
+                            !canSurvive(controllerState, level, controllerPos) &&
+                            !canSurvive(level.getBlockState(brPos), level, brPos)) {
+                        if (level instanceof Level realLevel) destroy(realLevel, pos, state, true, null);
                         return Blocks.AIR.defaultBlockState();
                     }
+                } else {
+                    if (!canSurvive(state, level, pos)) return Blocks.AIR.defaultBlockState();
                 }
-            } else {
-                int xOffset = part.xOffset();
-                Direction left = facing.getClockWise().getOpposite();
-                Direction right = facing.getClockWise();
-                BlockPos neighborPosCheck = pos;
+            } else if (direction == Direction.UP) {
+                if (part.yOffset() != 2 && !level.getBlockState(pos.above()).is(this)) {
+                    return Blocks.AIR.defaultBlockState();
+                }
+            }
+            return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+        }
 
-                if (xOffset == -1 && direction == left) {
-                    neighborPosCheck = pos.relative(left);
-                    if (!level.getBlockState(neighborPosCheck).is(this)) {
-                        return Blocks.AIR.defaultBlockState();
-                    }
-                } else if (xOffset == 1 && direction == right) {
-                    neighborPosCheck = pos.relative(right);
-                    if (!level.getBlockState(neighborPosCheck).is(this)) {
-                        return Blocks.AIR.defaultBlockState();
-                    }
-                } else if (xOffset == 0) {
-                    if (direction == left) {
-                        neighborPosCheck = pos.relative(left);
-                        if (!level.getBlockState(neighborPosCheck).is(this)) {
-                            return Blocks.AIR.defaultBlockState();
-                        }
-                    } else if (direction == right) {
-                        neighborPosCheck = pos.relative(right);
-                        if (!level.getBlockState(neighborPosCheck).is(this)) {
-                            return Blocks.AIR.defaultBlockState();
-                        }
-                    }
-                }
+        // Horizontal integrity check: ensure neighboring parts remain
+        int xOffset = part.xOffset();
+        Direction left = facing.getCounterClockWise();
+        Direction right = facing.getClockWise();
 
-                if (state.getValue(OPEN) && EXTENSION_MAP.containsKey(part)) {
-                    boolean swing = state.getValue(SWING);
-                    BlockPos extPos = getExtensionPos(part, swing, facing, pos);
-                    DoorPartProperty extPart = EXTENSION_MAP.get(part);
-                    if (level.getBlockState(extPos).isAir()) {
-                        BlockState extState = this.defaultBlockState()
-                                .setValue(FACING, facing)
-                                .setValue(OPEN, true)
-                                .setValue(LOCKED, false)
-                                .setValue(POWERED, false)
-                                .setValue(SWING, swing)
-                                .setValue(PART, extPart);
-                        level.setBlock(extPos, extState, 10);
-                    }
-                }
+        if (xOffset == -1 && direction == left) {
+            if (!level.getBlockState(pos.relative(left)).is(this)) return Blocks.AIR.defaultBlockState();
+        } else if (xOffset == 1 && direction == right) {
+            if (!level.getBlockState(pos.relative(right)).is(this)) return Blocks.AIR.defaultBlockState();
+        } else if (xOffset == 0) {
+            if (direction == left && !level.getBlockState(pos.relative(left)).is(this)) return Blocks.AIR.defaultBlockState();
+            if (direction == right && !level.getBlockState(pos.relative(right)).is(this)) return Blocks.AIR.defaultBlockState();
+        }
+
+        // Handle extension spawn if opened
+        if (state.getValue(OPEN) && extensionMap.containsKey(part)) {
+            boolean swing = state.getValue(SWING);
+            DoorPartProperty extPart = extensionMap.get(part);
+            BlockPos extSpawnPos = extensionPosForUpdate(part, swing, facing, pos);
+            if (level.getBlockState(extSpawnPos).isAir()) {
+                BlockState extState = newExtensionState(facing, swing, extPart);
+                level.setBlock(extSpawnPos, extState, 10);
             }
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
-    }
-
-    private BlockPos getExtensionPos(DoorPartProperty part, boolean swing, Direction facing, BlockPos pos) {
-        if (part == DoorPartProperty.BOTTOM_LEFT || part == DoorPartProperty.LEFT || part == DoorPartProperty.TOP_LEFT) {
-            return swing ? pos.relative(facing.getOpposite(), 1) : pos.relative(facing.getClockWise());
-        } else {
-            return swing ? pos.relative(facing.getOpposite(), 1) : pos.relative(facing.getClockWise().getOpposite());
-        }
     }
 
     @Override
@@ -573,7 +489,6 @@ public class DoubleDoorBlock extends Block {
     @Override
     public void wasExploded(Level level, BlockPos pos, Explosion explosion) {
         // TODO: fix tnt explosion not destroying the door
-        DifferentDoors.LOGGER.info("I go Boom!");
         if (!level.isClientSide()) {
             for (Direction direction : Direction.values()) {
                 BlockPos offsetPos = pos.relative(direction);
@@ -588,33 +503,34 @@ public class DoubleDoorBlock extends Block {
 
     public void setSwing(Level level, BlockPos controllerPos, BlockState controllerState, ItemStack heldItem, Player player, InteractionHand hand, Boolean swing) {
         Direction facing = controllerState.getValue(FACING);
-        for (DoorPartProperty part : DoorPartProperty.values()) {
+        boolean wasSwing = controllerState.getValue(SWING);
+        if (wasSwing == swing) return; // no change
+
+        // Update base parts
+        forEachAllParts(part -> {
             if (!part.isExtension()) {
-                BlockPos partPos = controllerPos.relative(facing.getClockWise().getOpposite(), part.xOffset()).above(part.yOffset());
+                BlockPos partPos = partPos(part, wasSwing, facing, controllerPos);
                 BlockState partState = level.getBlockState(partPos);
-                level.setBlockAndUpdate(partPos, swing ?
-                        partState.setValue(SWING, true) :
-                        partState.setValue(SWING, false));
-            } else if (controllerState.getValue(OPEN)) {
-                BlockPos partPos = swing ?
-                        controllerPos.relative(facing.getClockWise().getOpposite(), part.xOffset() * 2).above(part.yOffset()) :
-                        controllerPos.relative(facing.getClockWise().getOpposite(), part.xOffset())
-                                .relative(facing.getOpposite(), part.zOffset())
-                                .above(part.yOffset());
-                if (level.getBlockState(partPos).is(this)) level.setBlock(partPos, Blocks.AIR.defaultBlockState(), 10);
-                BlockPos newPartPos = swing ?
-                        controllerPos.relative(facing.getClockWise().getOpposite(), part.xOffset())
-                                .relative(facing.getOpposite(), part.zOffset())
-                                .above(part.yOffset()) :
-                        controllerPos.relative(facing.getClockWise().getOpposite(), part.xOffset() * 2).above(part.yOffset());
-                BlockState newPartState = this.defaultBlockState()
-                        .setValue(FACING, facing)
-                        .setValue(OPEN, true)
-                        .setValue(LOCKED, false)
-                        .setValue(POWERED, false)
-                        .setValue(SWING, swing)
-                        .setValue(PART, part);
-                if (level.getBlockState(newPartPos).isAir()) level.setBlockAndUpdate(newPartPos, newPartState);
+                if (partState.is(this)) {
+                    level.setBlockAndUpdate(partPos, partState.setValue(SWING, swing));
+                }
+            }
+        });
+
+        // Rebuild extension geometry only if door is open
+        if (controllerState.getValue(OPEN)) {
+            for (DoorPartProperty part : ALL_PARTS) {
+                if (!part.isExtension()) continue;
+                // Remove old extension
+                BlockPos oldPos = partPos(part, wasSwing, facing, controllerPos);
+                if (level.getBlockState(oldPos).is(this)) {
+                    level.setBlock(oldPos, Blocks.AIR.defaultBlockState(), 10);
+                }
+                // Add new extension
+                BlockPos newPos = partPos(part, swing, facing, controllerPos);
+                if (level.getBlockState(newPos).isAir()) {
+                    level.setBlockAndUpdate(newPos, newExtensionState(facing, swing, part));
+                }
             }
         }
         playSetSwingSound(level, controllerPos, swing);
@@ -635,13 +551,14 @@ public class DoubleDoorBlock extends Block {
                 for (DoorPartProperty part : DoorPartProperty.values()) {
                     if (part.isExtension()) {
                         BlockPos partPos = swing
-                            ? controllerPos.relative(facing.getClockWise().getOpposite(), part.xOffset())
+                            ? controllerPos.relative(facing.getCounterClockWise(), part.xOffset())
                                           .relative(facing.getOpposite(), part.zOffset())
                                           .above(part.yOffset())
-                            : controllerPos.relative(facing.getClockWise().getOpposite(), part.xOffset() * 2)
+                            : controllerPos.relative(facing.getCounterClockWise(), part.xOffset() * 2)
                                           .above(part.yOffset());
                         if (level.getBlockState(partPos).is(this)) {
                             level.setBlock(partPos, Blocks.AIR.defaultBlockState(), 35);
+                            level.levelEvent(player, 2001, partPos, Block.getId(level.getBlockState(partPos)));
                         }
                     }
                 }
@@ -658,6 +575,83 @@ public class DoubleDoorBlock extends Block {
                 .below(part.yOffset()) :
                 pos.relative(direction.getOpposite(), part.isExtension() ? -part.xOffset() * 2 : -part.xOffset())
                         .below(part.yOffset());
+    }
+
+    private static BlockPos extensionPosForUpdate(DoorPartProperty basePart, boolean swing, Direction facing, BlockPos basePos) {
+        if (basePart == DoorPartProperty.BOTTOM_LEFT || basePart == DoorPartProperty.LEFT || basePart == DoorPartProperty.TOP_LEFT) {
+            return swing ? basePos.relative(facing.getOpposite()) : basePos.relative(facing.getClockWise());
+        } else {
+            return swing ? basePos.relative(facing.getOpposite()) : basePos.relative(facing.getCounterClockWise());
+        }
+    }
+
+    private static BlockPos partPos(DoorPartProperty part, boolean swing, Direction facing, BlockPos controller) {
+        Direction left = facing.getCounterClockWise();
+        if (swing) {
+            return controller.relative(left, part.xOffset())
+                    .relative(facing.getOpposite(), part.zOffset())
+                    .above(part.yOffset());
+        } else {
+            int xOffset = part.isExtension() ? part.xOffset() * 2 : part.xOffset();
+            return controller.relative(left, xOffset).above(part.yOffset());
+        }
+    }
+
+    private void updatePartBlock(Level level, Direction facing, boolean swing, boolean open, DoorPartProperty part, BlockPos partPos, BlockState partState) {
+        if (open) {
+            if (part.isExtension()) {
+                if (partState.is(this) && partState.getValue(PART).isExtension()) {
+                    level.setBlock(partPos, Blocks.AIR.defaultBlockState(), 10);
+                }
+            } else if (partState.getBlock() instanceof DoubleDoorBlock) {
+                level.setBlock(partPos, partState.cycle(OPEN), 10);
+            }
+        } else {
+            if (part.isExtension()) {
+                if (partState.isAir()) {
+                    BlockState newPartState = this.defaultBlockState()
+                            .setValue(FACING, facing)
+                            .setValue(OPEN, true)
+                            .setValue(LOCKED, false)
+                            .setValue(POWERED, false)
+                            .setValue(SWING, swing)
+                            .setValue(PART, part);
+                    level.setBlock(partPos, newPartState, Block.UPDATE_CLIENTS);
+                }
+            } else if (partState.getBlock() instanceof DoubleDoorBlock) {
+                level.setBlock(partPos, partState.cycle(OPEN), 10);
+            }
+        }
+    }
+
+    private static void forEachBasePart(Consumer<DoorPartProperty> consumer) {
+        for (DoorPartProperty p : ALL_PARTS) {
+            if (!p.isExtension()) consumer.accept(p);
+        }
+    }
+
+    private static void forEachAllParts(Consumer<DoorPartProperty> consumer) {
+        for (DoorPartProperty p : ALL_PARTS) consumer.accept(p);
+    }
+
+    private void toggleAllParts(Level level, BlockPos controllerPos, Direction facing, boolean swing, boolean targetOpen, @Nullable Entity source, BlockPos soundPos) {
+        forEachAllParts(part -> {
+            BlockPos partPos = partPos(part, swing, facing, controllerPos);
+            BlockState partState = level.getBlockState(partPos);
+            updatePartBlock(level, facing, swing, targetOpen, part, partPos, partState);
+        });
+        playSound(source, level, soundPos, targetOpen);
+        level.gameEvent(source, targetOpen ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, soundPos);
+    }
+
+    private BlockState newExtensionState(Direction facing, boolean swing, DoorPartProperty extPart) {
+        return defaultBlockState()
+                .setValue(FACING, facing)
+                .setValue(OPEN, true)
+                .setValue(LOCKED, false)
+                .setValue(POWERED, false)
+                .setValue(SWING, swing)
+                .setValue(PART, extPart);
     }
 
     public void playSetSwingSound(Level level, BlockPos blockPos, boolean swing) {
