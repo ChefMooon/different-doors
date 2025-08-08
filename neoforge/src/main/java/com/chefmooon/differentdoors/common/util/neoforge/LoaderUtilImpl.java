@@ -1,5 +1,6 @@
 package com.chefmooon.differentdoors.common.util.neoforge;
 
+import com.chefmooon.differentdoors.common.data.types.DoorMaterialType;
 import com.chefmooon.differentdoors.common.registry.neoforge.ModItemsImpl;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -16,11 +17,13 @@ public class LoaderUtilImpl {
 
     @SubscribeEvent
     public static void populateItemGroups(BuildCreativeModeTabContentsEvent event) {
-        ModItemsImpl.LARGE_DOOR_VARIANTS.forEach(((doorType, itemSupplier) -> {
-            if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS && doorType.getCreativeModeTab() == CreativeModeTabs.BUILDING_BLOCKS) {
-                event.insertAfter(doorType.getPrimaryCraftingIngredient().getDefaultInstance(), itemSupplier.get().getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        for (DoorMaterialType doorMaterialType : DoorMaterialType.values()) {
+            for (int i = DoorMaterialType.values().length - 1; i >= 0; i--) { // Reverse reverse
+                if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS && doorMaterialType.getCreativeModeTab() == CreativeModeTabs.BUILDING_BLOCKS) {
+                    event.insertAfter(doorMaterialType.getPrimaryCraftingIngredient().getDefaultInstance(), ModItemsImpl.DOUBLE_DOOR_VARIANTS.get(new com.chefmooon.differentdoors.common.data.DoorInfoRecord(doorMaterialType, com.chefmooon.differentdoors.common.data.types.DoorStyleType.values()[i])).get().getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                }
             }
-        }));
+        }
     }
 
     public static boolean isModLoaded(String modId) {

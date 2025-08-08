@@ -1,10 +1,11 @@
 package com.chefmooon.differentdoors.data.fabric;
 
 import com.chefmooon.differentdoors.DifferentDoors;
+import com.chefmooon.differentdoors.common.data.types.DoorMaterialType;
+import com.chefmooon.differentdoors.common.data.types.DoorStyleType;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.level.block.state.properties.WoodType;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -21,15 +22,18 @@ public class TranslationGenerator extends FabricLanguageProvider {
 
         translationBuilder.add("itemGroup." + MOD_ID, "Different Doors");
 
-        for (WoodType type : WoodType.values().toList()) {
-            translationBuilder.add("block." + MOD_ID + "." + type.name() + "_large_door", capitalize(type.name()) + " Large Double Door");
+        for (DoorMaterialType doorMaterialType : DoorMaterialType.values()) {
+            for (DoorStyleType doorStyleType : DoorStyleType.values()) {
+                String doorName = doorMaterialType.getSerializedName() + "_" + doorStyleType.getSerializedName();
+                translationBuilder.add("block." + MOD_ID + "." + doorName + "_double_door", capitalize(doorName) + " Double Door");
+            }
         }
 
-        translationBuilder.add(SUBTITLE + "large_door.open", "Large Double Door Opening");
-        translationBuilder.add(SUBTITLE + "large_door.close", "Large Double Door Closing");
+        translationBuilder.add(SUBTITLE + "double_door.open", "Double Door Opening");
+        translationBuilder.add(SUBTITLE + "double_door.close", "Double Door Closing");
 
-        translationBuilder.add(TOOLTIP + "large_door.swinging", "Swing");
-        translationBuilder.add(TOOLTIP + "large_door.sliding", "Slide");
+        translationBuilder.add(TOOLTIP + "double_door.swinging", "Swing");
+        translationBuilder.add(TOOLTIP + "double_door.sliding", "Slide");
     }
 
     private static String capitalize(String name) {

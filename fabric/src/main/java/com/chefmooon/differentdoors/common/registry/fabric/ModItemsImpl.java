@@ -1,15 +1,16 @@
 package com.chefmooon.differentdoors.common.registry.fabric;
 
-import com.chefmooon.differentdoors.common.block.LargeDoorBlock;
-import com.chefmooon.differentdoors.common.data.types.DoorType;
-import com.chefmooon.differentdoors.common.item.fabric.LargeDoorBlockItemImpl;
+import com.chefmooon.differentdoors.common.block.DoubleDoorBlock;
+import com.chefmooon.differentdoors.common.data.DoorInfoRecord;
+import com.chefmooon.differentdoors.common.data.types.DoorMaterialType;
+import com.chefmooon.differentdoors.common.data.types.DoorStyleType;
+import com.chefmooon.differentdoors.common.item.fabric.DoubleDoorBlockItemImpl;
 import com.chefmooon.differentdoors.common.registry.ModItems;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 
@@ -20,15 +21,18 @@ import java.util.function.Supplier;
 import static com.chefmooon.differentdoors.common.registry.ModItems.basicItem;
 
 public class ModItemsImpl {
-    public static final HashMap<DoorType, Supplier<Item>> LARGE_DOOR_VARIANTS = new HashMap<>();
+    public static final HashMap<DoorInfoRecord, Supplier<Item>> DOUBLE_DOOR_VARIANTS = new HashMap<>();
 
 //    public static final Supplier<Item> SIMPLE_LARGE_DOOR = registerItemWithTab(ModItems.SIMPLE_LARGE_DOOR, new BlockItem(ModBlocksImpl.SIMPLE_LARGE_DOOR.get(), basicItem())); // TODO : remove after testing
 
-    private static void registerLargeDoorVariants() {
-        for (DoorType doorType : DoorType.values()) {
-            Supplier<Item> item = registerItemWithTab(ModItems.LARGE_DOOR.withPrefix(doorType.name().toLowerCase() + "_"), new LargeDoorBlockItemImpl(ModBlocksImpl.LARGE_DOOR_VARIANTS.get(doorType).get(),
-                    basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(LargeDoorBlock.SWING, Boolean.FALSE)), 1600));
-            LARGE_DOOR_VARIANTS.put(doorType, item);
+    private static void registerVanillaWoodenDoubleDoors() {
+        for (DoorMaterialType doorMaterialType : DoorMaterialType.values()) {
+            for (DoorStyleType doorStyleType : DoorStyleType.values()) {
+                DoorInfoRecord doorInfoRecord = new DoorInfoRecord(doorMaterialType, doorStyleType);
+                Supplier<Item> item = registerItemWithTab(ModItems.DOUBLE_DOOR.withPrefix(doorMaterialType.getSerializedName() + "_" + doorStyleType.getSerializedName() + "_"), new DoubleDoorBlockItemImpl(ModBlocksImpl.DOUBLE_DOOR_VARIANTS.get(doorInfoRecord).get(),
+                        basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(DoubleDoorBlock.SWING, Boolean.FALSE)), 1600));
+                DOUBLE_DOOR_VARIANTS.put(doorInfoRecord, item);
+            }
         }
     }
 
@@ -44,6 +48,6 @@ public class ModItemsImpl {
     }
 
     public static void register() {
-        registerLargeDoorVariants();
+        registerVanillaWoodenDoubleDoors();
     }
 }

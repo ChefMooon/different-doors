@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_left_open_ext",
+  "textures": {
+    "all": "differentdoors:block/acacia_slatted_double_door",
+    "particle": "differentdoors:block/particle/acacia_slatted_double_door"
+  }
+}

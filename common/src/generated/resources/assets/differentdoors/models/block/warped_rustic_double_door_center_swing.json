@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_center",
+  "textures": {
+    "all": "differentdoors:block/warped_rustic_double_door_swing",
+    "particle": "differentdoors:block/particle/warped_rustic_double_door"
+  }
+}

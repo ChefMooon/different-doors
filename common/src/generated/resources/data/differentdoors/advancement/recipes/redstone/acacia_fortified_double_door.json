@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_any": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:acacia_door",
+              "minecraft:acacia_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:acacia_fortified_double_door"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_any"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:acacia_fortified_double_door"
+    ]
+  }
+}

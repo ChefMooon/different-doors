@@ -1,6 +1,6 @@
 package com.chefmooon.differentdoors.data.fabric;
 
-import com.chefmooon.differentdoors.common.block.LargeDoorBlock;
+import com.chefmooon.differentdoors.common.block.DoubleDoorBlock;
 import com.chefmooon.differentdoors.common.block.properties.DoorPartProperty;
 import com.chefmooon.differentdoors.common.registry.fabric.ModBlocksImpl;
 import com.chefmooon.differentdoors.common.util.ModTemplates;
@@ -24,10 +24,10 @@ public class BlockModelGenerator {
     public static void generateBlockModels(BlockModelGenerators blockModelGenerators) {
         GENERATOR = blockModelGenerators;
 
-        ModBlocksImpl.LARGE_DOOR_VARIANTS.forEach((doorType, block) -> largeDoorModel(block));
+        ModBlocksImpl.DOUBLE_DOOR_VARIANTS.forEach((doorInfoRecord, block) -> doubleDoorModel(block));
     }
 
-    private static void largeDoorModel(Supplier<Block> block) {
+    private static void doubleDoorModel(Supplier<Block> block) {
         ResourceLocation location = ModelLocationUtils.getModelLocation(block.get());
 
         TextureMapping textureMapping = TextureMapping.particle(TextUtil.res("block/particle/" + BuiltInRegistries.BLOCK.getKey(block.get()).getPath()))
@@ -35,60 +35,60 @@ public class BlockModelGenerator {
         TextureMapping textureMappingSwing = TextureMapping.particle(TextUtil.res("block/particle/" + BuiltInRegistries.BLOCK.getKey(block.get()).getPath()))
                 .put(TextureSlot.ALL, location.withSuffix("_swing"));
 
-        ResourceLocation TOP_LEFT = ModTemplates.LARGE_DOOR_TOP_LEFT.create(location.withSuffix("_" + DoorPartProperty.TOP_LEFT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation TOP = ModTemplates.LARGE_DOOR_TOP.create(location.withSuffix("_" + DoorPartProperty.TOP.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation TOP_RIGHT = ModTemplates.LARGE_DOOR_TOP_RIGHT.create(location.withSuffix("_" + DoorPartProperty.TOP_RIGHT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation LEFT = ModTemplates.LARGE_DOOR_LEFT.create(location.withSuffix("_" + DoorPartProperty.LEFT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation CENTER = ModTemplates.LARGE_DOOR_CENTER.create(location.withSuffix("_" + DoorPartProperty.CENTER.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation RIGHT = ModTemplates.LARGE_DOOR_RIGHT.create(location.withSuffix("_" + DoorPartProperty.RIGHT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation BOTTOM_LEFT = ModTemplates.LARGE_DOOR_BOTTOM_LEFT.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_LEFT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation BOTTOM = ModTemplates.LARGE_DOOR_BOTTOM.create(location.withSuffix("_" + DoorPartProperty.BOTTOM.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation BOTTOM_RIGHT = ModTemplates.LARGE_DOOR_BOTTOM_RIGHT.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_RIGHT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation TOP_LEFT = ModTemplates.DOUBLE_DOOR_TOP_LEFT.create(location.withSuffix("_" + DoorPartProperty.TOP_LEFT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation TOP = ModTemplates.DOUBLE_DOOR_TOP.create(location.withSuffix("_" + DoorPartProperty.TOP.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation TOP_RIGHT = ModTemplates.DOUBLE_DOOR_TOP_RIGHT.create(location.withSuffix("_" + DoorPartProperty.TOP_RIGHT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation LEFT = ModTemplates.DOUBLE_DOOR_LEFT.create(location.withSuffix("_" + DoorPartProperty.LEFT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation CENTER = ModTemplates.DOUBLE_DOOR_CENTER.create(location.withSuffix("_" + DoorPartProperty.CENTER.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation RIGHT = ModTemplates.DOUBLE_DOOR_RIGHT.create(location.withSuffix("_" + DoorPartProperty.RIGHT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_LEFT = ModTemplates.DOUBLE_DOOR_BOTTOM_LEFT.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_LEFT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM = ModTemplates.DOUBLE_DOOR_BOTTOM.create(location.withSuffix("_" + DoorPartProperty.BOTTOM.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_RIGHT = ModTemplates.DOUBLE_DOOR_BOTTOM_RIGHT.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_RIGHT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
 
-        ResourceLocation BOTTOM_OPEN = ModTemplates.LARGE_DOOR_BOTTOM_OPEN.create(location.withSuffix("_" + DoorPartProperty.BOTTOM.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation BOTTOM_LEFT_OPEN = ModTemplates.LARGE_DOOR_BOTTOM_LEFT_OPEN.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_LEFT.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation LEFT_OPEN = ModTemplates.LARGE_DOOR_LEFT_OPEN.create(location.withSuffix("_" + DoorPartProperty.LEFT.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation TOP_LEFT_OPEN = ModTemplates.LARGE_DOOR_TOP_LEFT_OPEN.create(location.withSuffix("_" + DoorPartProperty.TOP_LEFT.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation BOTTOM_RIGHT_OPEN = ModTemplates.LARGE_DOOR_BOTTOM_RIGHT_OPEN.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_RIGHT.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation RIGHT_OPEN = ModTemplates.LARGE_DOOR_RIGHT_OPEN.create(location.withSuffix("_" + DoorPartProperty.RIGHT.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation TOP_RIGHT_OPEN = ModTemplates.LARGE_DOOR_TOP_RIGHT_OPEN.create(location.withSuffix("_" + DoorPartProperty.TOP_RIGHT.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_OPEN = ModTemplates.DOUBLE_DOOR_BOTTOM_OPEN.create(location.withSuffix("_" + DoorPartProperty.BOTTOM.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_LEFT_OPEN = ModTemplates.DOUBLE_DOOR_BOTTOM_LEFT_OPEN.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_LEFT.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation LEFT_OPEN = ModTemplates.DOUBLE_DOOR_LEFT_OPEN.create(location.withSuffix("_" + DoorPartProperty.LEFT.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation TOP_LEFT_OPEN = ModTemplates.DOUBLE_DOOR_TOP_LEFT_OPEN.create(location.withSuffix("_" + DoorPartProperty.TOP_LEFT.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_RIGHT_OPEN = ModTemplates.DOUBLE_DOOR_BOTTOM_RIGHT_OPEN.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_RIGHT.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation RIGHT_OPEN = ModTemplates.DOUBLE_DOOR_RIGHT_OPEN.create(location.withSuffix("_" + DoorPartProperty.RIGHT.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation TOP_RIGHT_OPEN = ModTemplates.DOUBLE_DOOR_TOP_RIGHT_OPEN.create(location.withSuffix("_" + DoorPartProperty.TOP_RIGHT.getSerializedName() + "_open"), textureMapping, GENERATOR.modelOutput);
 
-        ResourceLocation BOTTOM_LEFT_OPEN_EXT = ModTemplates.LARGE_DOOR_BOTTOM_LEFT_OPEN_EXT.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_LEFT_OPEN_EXT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation LEFT_OPEN_EXT = ModTemplates.LARGE_DOOR_LEFT_OPEN_EXT.create(location.withSuffix("_" + DoorPartProperty.LEFT_OPEN_EXT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation TOP_LEFT_OPEN_EXT = ModTemplates.LARGE_DOOR_TOP_LEFT_OPEN_EXT.create(location.withSuffix("_" + DoorPartProperty.TOP_LEFT_OPEN_EXT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation BOTTOM_RIGHT_OPEN_EXT = ModTemplates.LARGE_DOOR_BOTTOM_RIGHT_OPEN_EXT.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation RIGHT_OPEN_EXT = ModTemplates.LARGE_DOOR_RIGHT_OPEN_EXT.create(location.withSuffix("_" + DoorPartProperty.RIGHT_OPEN_EXT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
-        ResourceLocation TOP_RIGHT_OPEN_EXT = ModTemplates.LARGE_DOOR_TOP_RIGHT_OPEN_EXT.create(location.withSuffix("_" + DoorPartProperty.TOP_RIGHT_OPEN_EXT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_LEFT_OPEN_EXT = ModTemplates.DOUBLE_DOOR_BOTTOM_LEFT_OPEN_EXT.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_LEFT_OPEN_EXT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation LEFT_OPEN_EXT = ModTemplates.DOUBLE_DOOR_LEFT_OPEN_EXT.create(location.withSuffix("_" + DoorPartProperty.LEFT_OPEN_EXT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation TOP_LEFT_OPEN_EXT = ModTemplates.DOUBLE_DOOR_TOP_LEFT_OPEN_EXT.create(location.withSuffix("_" + DoorPartProperty.TOP_LEFT_OPEN_EXT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_RIGHT_OPEN_EXT = ModTemplates.DOUBLE_DOOR_BOTTOM_RIGHT_OPEN_EXT.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation RIGHT_OPEN_EXT = ModTemplates.DOUBLE_DOOR_RIGHT_OPEN_EXT.create(location.withSuffix("_" + DoorPartProperty.RIGHT_OPEN_EXT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
+        ResourceLocation TOP_RIGHT_OPEN_EXT = ModTemplates.DOUBLE_DOOR_TOP_RIGHT_OPEN_EXT.create(location.withSuffix("_" + DoorPartProperty.TOP_RIGHT_OPEN_EXT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
 
-        ResourceLocation TOP_LEFT_SWING = ModTemplates.LARGE_DOOR_TOP_LEFT.create(location.withSuffix("_" + DoorPartProperty.TOP_LEFT.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation TOP_SWING = ModTemplates.LARGE_DOOR_TOP.create(location.withSuffix("_" + DoorPartProperty.TOP.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation TOP_RIGHT_SWING = ModTemplates.LARGE_DOOR_TOP_RIGHT.create(location.withSuffix("_" + DoorPartProperty.TOP_RIGHT.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation LEFT_SWING = ModTemplates.LARGE_DOOR_LEFT.create(location.withSuffix("_" + DoorPartProperty.LEFT.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation CENTER_SWING = ModTemplates.LARGE_DOOR_CENTER.create(location.withSuffix("_" + DoorPartProperty.CENTER.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation RIGHT_SWING = ModTemplates.LARGE_DOOR_RIGHT.create(location.withSuffix("_" + DoorPartProperty.RIGHT.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation BOTTOM_LEFT_SWING = ModTemplates.LARGE_DOOR_BOTTOM_LEFT.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_LEFT.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation BOTTOM_SWING = ModTemplates.LARGE_DOOR_BOTTOM.create(location.withSuffix("_" + DoorPartProperty.BOTTOM.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation BOTTOM_RIGHT_SWING = ModTemplates.LARGE_DOOR_BOTTOM_RIGHT.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_RIGHT.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation TOP_LEFT_SWING = ModTemplates.DOUBLE_DOOR_TOP_LEFT.create(location.withSuffix("_" + DoorPartProperty.TOP_LEFT.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation TOP_SWING = ModTemplates.DOUBLE_DOOR_TOP.create(location.withSuffix("_" + DoorPartProperty.TOP.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation TOP_RIGHT_SWING = ModTemplates.DOUBLE_DOOR_TOP_RIGHT.create(location.withSuffix("_" + DoorPartProperty.TOP_RIGHT.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation LEFT_SWING = ModTemplates.DOUBLE_DOOR_LEFT.create(location.withSuffix("_" + DoorPartProperty.LEFT.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation CENTER_SWING = ModTemplates.DOUBLE_DOOR_CENTER.create(location.withSuffix("_" + DoorPartProperty.CENTER.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation RIGHT_SWING = ModTemplates.DOUBLE_DOOR_RIGHT.create(location.withSuffix("_" + DoorPartProperty.RIGHT.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_LEFT_SWING = ModTemplates.DOUBLE_DOOR_BOTTOM_LEFT.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_LEFT.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_SWING = ModTemplates.DOUBLE_DOOR_BOTTOM.create(location.withSuffix("_" + DoorPartProperty.BOTTOM.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_RIGHT_SWING = ModTemplates.DOUBLE_DOOR_BOTTOM_RIGHT.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_RIGHT.getSerializedName() + "_swing"), textureMappingSwing, GENERATOR.modelOutput);
 
-        ResourceLocation BOTTOM_SWING_OPEN = ModTemplates.LARGE_DOOR_SWING_BOTTOM_OPEN.create(location.withSuffix("_" + DoorPartProperty.BOTTOM.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation BOTTOM_LEFT_SWING_OPEN = ModTemplates.LARGE_DOOR_SWING_BOTTOM_LEFT_OPEN.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_LEFT.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation LEFT_SWING_OPEN = ModTemplates.LARGE_DOOR_SWING_LEFT_OPEN.create(location.withSuffix("_" + DoorPartProperty.LEFT.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation TOP_LEFT_SWING_OPEN = ModTemplates.LARGE_DOOR_SWING_TOP_LEFT_OPEN.create(location.withSuffix("_" + DoorPartProperty.TOP_LEFT.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation BOTTOM_RIGHT_SWING_OPEN = ModTemplates.LARGE_DOOR_SWING_BOTTOM_RIGHT_OPEN.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_RIGHT.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation RIGHT_SWING_OPEN = ModTemplates.LARGE_DOOR_SWING_RIGHT_OPEN.create(location.withSuffix("_" + DoorPartProperty.RIGHT.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation TOP_RIGHT_SWING_OPEN = ModTemplates.LARGE_DOOR_SWING_TOP_RIGHT_OPEN.create(location.withSuffix("_" + DoorPartProperty.TOP_RIGHT.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_SWING_OPEN = ModTemplates.DOUBLE_DOOR_SWING_BOTTOM_OPEN.create(location.withSuffix("_" + DoorPartProperty.BOTTOM.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_LEFT_SWING_OPEN = ModTemplates.DOUBLE_DOOR_SWING_BOTTOM_LEFT_OPEN.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_LEFT.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation LEFT_SWING_OPEN = ModTemplates.DOUBLE_DOOR_SWING_LEFT_OPEN.create(location.withSuffix("_" + DoorPartProperty.LEFT.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation TOP_LEFT_SWING_OPEN = ModTemplates.DOUBLE_DOOR_SWING_TOP_LEFT_OPEN.create(location.withSuffix("_" + DoorPartProperty.TOP_LEFT.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_RIGHT_SWING_OPEN = ModTemplates.DOUBLE_DOOR_SWING_BOTTOM_RIGHT_OPEN.create(location.withSuffix("_" + DoorPartProperty.BOTTOM_RIGHT.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation RIGHT_SWING_OPEN = ModTemplates.DOUBLE_DOOR_SWING_RIGHT_OPEN.create(location.withSuffix("_" + DoorPartProperty.RIGHT.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation TOP_RIGHT_SWING_OPEN = ModTemplates.DOUBLE_DOOR_SWING_TOP_RIGHT_OPEN.create(location.withSuffix("_" + DoorPartProperty.TOP_RIGHT.getSerializedName() + "_swing_open"), textureMappingSwing, GENERATOR.modelOutput);
 
-        ResourceLocation BOTTOM_LEFT_SWING_OPEN_EXT = ModTemplates.LARGE_DOOR_SWING_BOTTOM_LEFT_OPEN_EXT.create(location.withSuffix("_swing_" + DoorPartProperty.BOTTOM_LEFT_OPEN_EXT.getSerializedName()), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation LEFT_SWING_OPEN_EXT = ModTemplates.LARGE_DOOR_SWING_LEFT_OPEN_EXT.create(location.withSuffix("_swing_" + DoorPartProperty.LEFT_OPEN_EXT.getSerializedName()), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation TOP_LEFT_SWING_OPEN_EXT = ModTemplates.LARGE_DOOR_SWING_TOP_LEFT_OPEN_EXT.create(location.withSuffix("_swing_" + DoorPartProperty.TOP_LEFT_OPEN_EXT.getSerializedName()), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation BOTTOM_RIGHT_SWING_OPEN_EXT = ModTemplates.LARGE_DOOR_SWING_BOTTOM_RIGHT_OPEN_EXT.create(location.withSuffix("_swing_" + DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT.getSerializedName()), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation RIGHT_SWING_OPEN_EXT = ModTemplates.LARGE_DOOR_SWING_RIGHT_OPEN_EXT.create(location.withSuffix("_swing_" + DoorPartProperty.RIGHT_OPEN_EXT.getSerializedName()), textureMappingSwing, GENERATOR.modelOutput);
-        ResourceLocation TOP_RIGHT_SWING_OPEN_EXT = ModTemplates.LARGE_DOOR_SWING_TOP_RIGHT_OPEN_EXT.create(location.withSuffix("_swing_" + DoorPartProperty.TOP_RIGHT_OPEN_EXT.getSerializedName()), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_LEFT_SWING_OPEN_EXT = ModTemplates.DOUBLE_DOOR_SWING_BOTTOM_LEFT_OPEN_EXT.create(location.withSuffix("_swing_" + DoorPartProperty.BOTTOM_LEFT_OPEN_EXT.getSerializedName()), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation LEFT_SWING_OPEN_EXT = ModTemplates.DOUBLE_DOOR_SWING_LEFT_OPEN_EXT.create(location.withSuffix("_swing_" + DoorPartProperty.LEFT_OPEN_EXT.getSerializedName()), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation TOP_LEFT_SWING_OPEN_EXT = ModTemplates.DOUBLE_DOOR_SWING_TOP_LEFT_OPEN_EXT.create(location.withSuffix("_swing_" + DoorPartProperty.TOP_LEFT_OPEN_EXT.getSerializedName()), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation BOTTOM_RIGHT_SWING_OPEN_EXT = ModTemplates.DOUBLE_DOOR_SWING_BOTTOM_RIGHT_OPEN_EXT.create(location.withSuffix("_swing_" + DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT.getSerializedName()), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation RIGHT_SWING_OPEN_EXT = ModTemplates.DOUBLE_DOOR_SWING_RIGHT_OPEN_EXT.create(location.withSuffix("_swing_" + DoorPartProperty.RIGHT_OPEN_EXT.getSerializedName()), textureMappingSwing, GENERATOR.modelOutput);
+        ResourceLocation TOP_RIGHT_SWING_OPEN_EXT = ModTemplates.DOUBLE_DOOR_SWING_TOP_RIGHT_OPEN_EXT.create(location.withSuffix("_swing_" + DoorPartProperty.TOP_RIGHT_OPEN_EXT.getSerializedName()), textureMappingSwing, GENERATOR.modelOutput);
 
         GENERATOR.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.get(),
                         Variant.variant().with(VariantProperties.MODEL, BOTTOM))
                         .with(BlockModelGenerators.createHorizontalFacingDispatch())
-                        .with(PropertyDispatch.properties(LargeDoorBlock.SWING, LargeDoorBlock.OPEN, LargeDoorBlock.PART)
+                        .with(PropertyDispatch.properties(DoubleDoorBlock.SWING, DoubleDoorBlock.OPEN, DoubleDoorBlock.PART)
                                 .select(Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_OPEN))
                                 .select(Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
                                 .select(Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_OPEN))

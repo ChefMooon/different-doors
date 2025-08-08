@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_swing_top_left_open_ext",
+  "textures": {
+    "all": "differentdoors:block/mangrove_half_moon_double_door_swing",
+    "particle": "differentdoors:block/particle/mangrove_half_moon_double_door"
+  }
+}

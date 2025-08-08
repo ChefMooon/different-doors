@@ -1,6 +1,6 @@
 package com.chefmooon.differentdoors.common.crafting;
 
-import com.chefmooon.differentdoors.common.block.LargeDoorBlock;
+import com.chefmooon.differentdoors.common.block.DoubleDoorBlock;
 import com.chefmooon.differentdoors.common.registry.ModRecipeSerializers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -58,8 +58,8 @@ public class SwingToSlideShapelessRecipe implements CraftingRecipe {
             return false;
         } else {
             ItemStack doorItem = input.getItem(0);
-            if (input.getItem(0).has(DataComponents.BLOCK_STATE) && doorItem.get(DataComponents.BLOCK_STATE).get(LargeDoorBlock.SWING) != null) {
-                boolean isSwinging = Boolean.TRUE.equals(doorItem.get(DataComponents.BLOCK_STATE).get(LargeDoorBlock.SWING));
+            if (input.getItem(0).has(DataComponents.BLOCK_STATE) && doorItem.get(DataComponents.BLOCK_STATE).get(DoubleDoorBlock.SWING) != null) {
+                boolean isSwinging = Boolean.TRUE.equals(doorItem.get(DataComponents.BLOCK_STATE).get(DoubleDoorBlock.SWING));
                 if (!isSwinging) {
                     return false;
                 }

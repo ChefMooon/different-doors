@@ -1,5 +1,8 @@
 package com.chefmooon.differentdoors.common.util.fabric;
 
+import com.chefmooon.differentdoors.common.data.DoorInfoRecord;
+import com.chefmooon.differentdoors.common.data.types.DoorMaterialType;
+import com.chefmooon.differentdoors.common.data.types.DoorStyleType;
 import com.chefmooon.differentdoors.common.registry.fabric.ModItemsImpl;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -15,9 +18,11 @@ public class LoaderUtilImpl {
     }
 
     private static void populateBuildingBlocks(FabricItemGroupEntries entries) {
-        ModItemsImpl.LARGE_DOOR_VARIANTS.forEach(((doorType, itemSupplier) -> {
-            entries.addAfter(doorType.getPrimaryCraftingIngredient(), itemSupplier.get());
-        }));
+        for (DoorMaterialType doorMaterialType : DoorMaterialType.values()) {
+            for (int i = DoorStyleType.values().length - 1; i >= 0; i--) { // Reverse reverse
+                entries.addAfter(doorMaterialType.getPrimaryCraftingIngredient(), ModItemsImpl.DOUBLE_DOOR_VARIANTS.get(new DoorInfoRecord(doorMaterialType, DoorStyleType.values()[i])).get());
+            }
+        }
     }
 
     public static boolean isModLoaded(String modId) {

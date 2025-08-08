@@ -15,7 +15,7 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        ModBlocksImpl.LARGE_DOOR_VARIANTS.forEach(((doorType, blockSupplier) -> getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_AXE)
+        ModBlocksImpl.DOUBLE_DOOR_VARIANTS.forEach(((doorInfoRecord, blockSupplier) -> getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_AXE)
                 .add(blockSupplier.get())));
     }
 }

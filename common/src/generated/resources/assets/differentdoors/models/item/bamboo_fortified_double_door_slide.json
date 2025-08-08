@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "differentdoors:item/bamboo_fortified_double_door"
+  }
+}

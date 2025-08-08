@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_right",
+  "textures": {
+    "all": "differentdoors:block/birch_half_paper_double_door_swing",
+    "particle": "differentdoors:block/particle/birch_half_paper_double_door"
+  }
+}

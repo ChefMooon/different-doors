@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_any": {
+      "conditions": {
+        "items": [
+          {
+            "items": "differentdoors:acacia_rustic_double_door"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:acacia_rustic_double_door_slide_to_acacia_rustic_double_door_swing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_any"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:acacia_rustic_double_door_slide_to_acacia_rustic_double_door_swing"
+    ]
+  }
+}

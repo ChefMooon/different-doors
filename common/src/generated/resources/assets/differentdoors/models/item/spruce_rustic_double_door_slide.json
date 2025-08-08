@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "differentdoors:item/spruce_rustic_double_door"
+  }
+}

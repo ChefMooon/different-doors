@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_swing_right_open",
+  "textures": {
+    "all": "differentdoors:block/mangrove_fortified_double_door_swing",
+    "particle": "differentdoors:block/particle/mangrove_fortified_double_door"
+  }
+}

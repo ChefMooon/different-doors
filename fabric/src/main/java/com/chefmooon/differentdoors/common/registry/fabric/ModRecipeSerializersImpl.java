@@ -1,8 +1,8 @@
 package com.chefmooon.differentdoors.common.registry.fabric;
 
-import com.chefmooon.differentdoors.common.registry.ModRecipeSerializers;
 import com.chefmooon.differentdoors.common.crafting.SlideToSwingShapelessRecipe;
 import com.chefmooon.differentdoors.common.crafting.SwingToSlideShapelessRecipe;
+import com.chefmooon.differentdoors.common.registry.ModRecipeSerializers;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;

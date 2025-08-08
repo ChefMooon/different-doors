@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "differentdoors:item/birch_half_grated_double_door_swing"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_top_left",
+  "textures": {
+    "all": "differentdoors:block/acacia_vined_double_door",
+    "particle": "differentdoors:block/particle/acacia_vined_double_door"
+  }
+}

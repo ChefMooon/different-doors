@@ -15,7 +15,7 @@ public class ModItems {
     }
 
 //    public static final ResourceLocation TEST_ITEM = item("test_item");
-    public static final ResourceLocation LARGE_DOOR = item("large_door");
+    public static final ResourceLocation DOUBLE_DOOR = item("double_door");
     public static final ResourceLocation SIMPLE_LARGE_DOOR = item("simple_large_door");
 
     private static ResourceLocation item(String string) {

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "large_door_slide",
+  "key": {
+    "A": {
+      "item": "minecraft:dark_oak_door"
+    },
+    "B": {
+      "item": "minecraft:mangrove_planks"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:mangrove_six_panel_double_door"
+  }
+}

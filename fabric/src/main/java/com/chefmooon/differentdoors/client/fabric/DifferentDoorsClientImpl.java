@@ -13,7 +13,7 @@ public class DifferentDoorsClientImpl implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
-                ModBlocksImpl.LARGE_DOOR_VARIANTS.values().stream().map(Supplier::get).toArray(Block[]::new));
+                ModBlocksImpl.DOUBLE_DOOR_VARIANTS.values().stream().map(Supplier::get).toArray(Block[]::new));
         ModItemPropertiesImpl.addCustomItemProperties();
 //        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocksImpl.SIMPLE_LARGE_DOOR.get(), RenderType.cutout()); // TODO : remove after testing
     }
