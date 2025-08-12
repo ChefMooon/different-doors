@@ -627,7 +627,7 @@ public class DoubleDoorBlock extends Block {
                 if (part.xOffset() == -1 || part.xOffset() == 1) {
                     BlockPos checkPos = extensionPosForUpdate(part, swing, facing, partPos);
                     BlockState checkState = level.getBlockState(checkPos);
-                    if (checkState.isAir()) {
+                    if (checkState.isAir() || checkState.isFaceSturdy(level, checkPos, facing)) {
                         level.setBlock(partPos, partState.cycle(OPEN), 10);
                     } else {
                         level.setBlock(partPos, partState.setValue(OPEN, true).setValue(ALT, true), 10);
