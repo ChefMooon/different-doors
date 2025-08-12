@@ -120,9 +120,9 @@
   "block.differentdoors.warped_slatted_double_door": "Warped Slatted Double Door",
   "block.differentdoors.warped_twelve_lite_double_door": "Warped Twelve Lite Double Door",
   "block.differentdoors.warped_vined_double_door": "Warped Vined Double Door",
-  "differentdoors.subtitles.large_door.close": "Double Door Closing",
-  "differentdoors.subtitles.large_door.open": "Double Door Opening",
-  "differentdoors.tooltip.large_door.sliding": "Slide",
-  "differentdoors.tooltip.large_door.swinging": "Swing",
+  "differentdoors.subtitles.double_door.close": "Double Door Closing",
+  "differentdoors.subtitles.double_door.open": "Double Door Opening",
+  "differentdoors.tooltip.double_door.sliding": "Slide",
+  "differentdoors.tooltip.double_door.swinging": "Swing",
   "itemGroup.differentdoors": "Different Doors"
 }

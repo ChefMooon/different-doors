@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_swing_top_left_open_alt",
+  "textures": {
+    "all": "differentdoors:block/spruce_six_panel_double_door_swing",
+    "particle": "differentdoors:block/particle/spruce_six_panel_double_door"
+  }
+}

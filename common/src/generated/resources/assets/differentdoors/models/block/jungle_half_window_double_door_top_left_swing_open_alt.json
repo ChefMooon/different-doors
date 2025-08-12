@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_swing_top_left_open_alt",
+  "textures": {
+    "all": "differentdoors:block/jungle_half_window_double_door_swing",
+    "particle": "differentdoors:block/particle/jungle_half_window_double_door"
+  }
+}

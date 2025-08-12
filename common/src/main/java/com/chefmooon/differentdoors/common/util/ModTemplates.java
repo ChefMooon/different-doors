@@ -51,6 +51,20 @@ public class ModTemplates {
     public static final ModelTemplate DOUBLE_DOOR_SWING_RIGHT_OPEN_EXT = block("template_double_door_swing_right_open_ext", TextureSlot.PARTICLE, TextureSlot.ALL);
     public static final ModelTemplate DOUBLE_DOOR_SWING_TOP_RIGHT_OPEN_EXT = block("template_double_door_swing_top_right_open_ext", TextureSlot.PARTICLE, TextureSlot.ALL);
 
+    public static final ModelTemplate DOUBLE_DOOR_BOTTOM_LEFT_OPEN_ALT = block("template_double_door_bottom_left_open_alt", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate DOUBLE_DOOR_LEFT_OPEN_ALT = block("template_double_door_left_open_alt", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate DOUBLE_DOOR_TOP_LEFT_OPEN_ALT = block("template_double_door_top_left_open_alt", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate DOUBLE_DOOR_BOTTOM_RIGHT_OPEN_ALT = block("template_double_door_bottom_right_open_alt", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate DOUBLE_DOOR_RIGHT_OPEN_ALT = block("template_double_door_right_open_alt", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate DOUBLE_DOOR_TOP_RIGHT_OPEN_ALT = block("template_double_door_top_right_open_alt", TextureSlot.PARTICLE, TextureSlot.ALL);
+
+    public static final ModelTemplate DOUBLE_DOOR_SWING_BOTTOM_LEFT_OPEN_ALT = block("template_double_door_swing_bottom_left_open_alt", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate DOUBLE_DOOR_SWING_LEFT_OPEN_ALT = block("template_double_door_swing_left_open_alt", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate DOUBLE_DOOR_SWING_TOP_LEFT_OPEN_ALT = block("template_double_door_swing_top_left_open_alt", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate DOUBLE_DOOR_SWING_BOTTOM_RIGHT_OPEN_ALT = block("template_double_door_swing_bottom_right_open_alt", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate DOUBLE_DOOR_SWING_RIGHT_OPEN_ALT = block("template_double_door_swing_right_open_alt", TextureSlot.PARTICLE, TextureSlot.ALL);
+    public static final ModelTemplate DOUBLE_DOOR_SWING_TOP_RIGHT_OPEN_ALT = block("template_double_door_swing_top_right_open_alt", TextureSlot.PARTICLE, TextureSlot.ALL);
+
     private static ModelTemplate item(String string, TextureSlot... textureSlots) {
         return new ModelTemplate(Optional.of(TextUtil.res("item/" + string)), Optional.empty(), textureSlots);
     }

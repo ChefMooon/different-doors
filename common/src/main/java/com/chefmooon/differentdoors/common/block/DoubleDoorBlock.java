@@ -49,6 +49,7 @@ public class DoubleDoorBlock extends Block {
     public static final BooleanProperty LOCKED = BlockStateProperties.LOCKED;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty SWING = BooleanProperty.create("swing");
+    public static final BooleanProperty ALT = BooleanProperty.create("alt");
     public static final EnumProperty<DoorPartProperty> PART  = EnumProperty.create("part", DoorPartProperty.class);
     public final DoorMaterialType doorMaterialType;
     private static final VoxelShape[] CLOSED_SHAPES = {
@@ -93,12 +94,13 @@ public class DoubleDoorBlock extends Block {
                 .setValue(LOCKED, false)
                 .setValue(POWERED, false)
                 .setValue(SWING, false)
+                .setValue(ALT, false)
                 .setValue(PART, DoorPartProperty.BOTTOM));
     }
 
     @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, OPEN, LOCKED, POWERED, SWING, PART);
+        builder.add(FACING, OPEN, LOCKED, POWERED, SWING, ALT, PART);
     }
 
     private EnumMap<OpenType, EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>>> initShapeMap() {
@@ -270,7 +272,8 @@ public class DoubleDoorBlock extends Block {
                     .setValue(OPEN, powered)
                     .setValue(LOCKED, false)
                     .setValue(POWERED, powered)
-                    .setValue(SWING, swing);
+                    .setValue(SWING, swing)
+                    .setValue(ALT, false);
         } else {
             return null;
         }
@@ -324,7 +327,8 @@ public class DoubleDoorBlock extends Block {
                         .setValue(LOCKED, false)
                         .setValue(POWERED, false)
                         .setValue(SWING, swing)
-                        .setValue(PART, part);
+                        .setValue(PART, part)
+                        .setValue(ALT, false);
                 if (level.getBlockState(newPartPos).isAir()) level.setBlock(newPartPos, newPartState, Block.UPDATE_ALL);
             }
         }
@@ -531,7 +535,7 @@ public class DoubleDoorBlock extends Block {
                 if (level.getBlockState(newPos).isAir()) {
                     level.setBlockAndUpdate(newPos, newExtensionState(facing, swing, part));
                 }
-            }
+            } // TODO: keep testing. may need to adjust edge blocks for alt
         }
         playSetSwingSound(level, controllerPos, swing);
     }
@@ -604,7 +608,7 @@ public class DoubleDoorBlock extends Block {
                     level.setBlock(partPos, Blocks.AIR.defaultBlockState(), 10);
                 }
             } else if (partState.getBlock() instanceof DoubleDoorBlock) {
-                level.setBlock(partPos, partState.cycle(OPEN), 10);
+                level.setBlock(partPos, partState.cycle(OPEN).setValue(ALT, false), 10);
             }
         } else {
             if (part.isExtension()) {
@@ -615,11 +619,22 @@ public class DoubleDoorBlock extends Block {
                             .setValue(LOCKED, false)
                             .setValue(POWERED, false)
                             .setValue(SWING, swing)
+                            .setValue(ALT, false)
                             .setValue(PART, part);
                     level.setBlock(partPos, newPartState, Block.UPDATE_CLIENTS);
                 }
             } else if (partState.getBlock() instanceof DoubleDoorBlock) {
-                level.setBlock(partPos, partState.cycle(OPEN), 10);
+                if (part.xOffset() == -1 || part.xOffset() == 1) {
+                    BlockPos checkPos = extensionPosForUpdate(part, swing, facing, partPos);
+                    BlockState checkState = level.getBlockState(checkPos);
+                    if (checkState.isAir()) {
+                        level.setBlock(partPos, partState.cycle(OPEN), 10);
+                    } else {
+                        level.setBlock(partPos, partState.setValue(OPEN, true).setValue(ALT, true), 10);
+                    }
+                } else {
+                    level.setBlock(partPos, partState.cycle(OPEN), 10);
+                }
             }
         }
     }
@@ -651,6 +666,7 @@ public class DoubleDoorBlock extends Block {
                 .setValue(LOCKED, false)
                 .setValue(POWERED, false)
                 .setValue(SWING, swing)
+                .setValue(ALT, false)
                 .setValue(PART, extPart);
     }
 

@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_right_open_alt",
+  "textures": {
+    "all": "differentdoors:block/bamboo_slatted_double_door",
+    "particle": "differentdoors:block/particle/bamboo_slatted_double_door"
+  }
+}
