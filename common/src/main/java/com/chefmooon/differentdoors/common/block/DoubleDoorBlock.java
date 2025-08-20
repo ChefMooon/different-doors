@@ -495,14 +495,18 @@ public class DoubleDoorBlock extends Block {
             level.gameEvent(null, anyPowered[0] ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
         }
 
-        // TODO: update parts with alt state on redstone change
         forEachAllParts(part -> {
             BlockPos partPos = partPos(part, controller.getValue(SWING), facing, controllerPos);
             BlockState partState = level.getBlockState(partPos);
             if (partState.getBlock() instanceof DoubleDoorBlock && !part.isExtension()) {
-                level.setBlock(partPos,
-                        partState.setValue(POWERED, anyPowered[0]).setValue(OPEN, anyPowered[0]),
-                        Block.UPDATE_CLIENTS);
+                boolean swing = controller.getValue(SWING);
+                BlockPos checkPos = extensionPosForUpdate(part, swing, facing, partPos);
+                BlockState checkState = level.getBlockState(checkPos);
+                if (checkState.isAir() || checkState.isFaceSturdy(level, checkPos, facing)) {
+                    level.setBlock(partPos, partState.setValue(POWERED, anyPowered[0]).setValue(OPEN, anyPowered[0]), Block.UPDATE_CLIENTS);
+                } else {
+                    level.setBlock(partPos, partState.setValue(POWERED, anyPowered[0]).setValue(OPEN, anyPowered[0]).setValue(ALT, true), Block.UPDATE_CLIENTS);
+                }
             } else if (part.isExtension() && !anyPowered[0]) {
                 // remove extension geometry when closing
                 if (partState.is(this)) {
