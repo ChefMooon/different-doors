@@ -25,6 +25,17 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         ModBlocksImpl.DOUBLE_DOOR_VARIANTS.forEach(((doorInfoRecord, blockSupplier) -> dropDoubleDoor(blockSupplier.get())));
+//        ModBlocksImpl.METAL_DOUBLE_DOOR_VARIANTS.forEach(((doorInfoRecord, blockSupplier) -> dropDoubleDoor(blockSupplier.get())));
+
+        dropDoubleDoor(ModBlocksImpl.IRON_DOUBLE_DOOR.get());
+        dropDoubleDoor(ModBlocksImpl.COPPER_DOUBLE_DOOR.get());
+        dropDoubleDoor(ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR.get());
+        dropDoubleDoor(ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get());
+        dropDoubleDoor(ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR.get());
+        dropDoubleDoor(ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR.get());
+        dropDoubleDoor(ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get());
+        dropDoubleDoor(ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get());
+        dropDoubleDoor(ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get());
     }
 
     private void dropDoubleDoor(Block block) {

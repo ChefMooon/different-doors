@@ -1,0 +1,13 @@
+{
+  "values": [
+    "differentdoors:iron_double_door",
+    "differentdoors:copper_double_door",
+    "differentdoors:exposed_copper_double_door",
+    "differentdoors:oxidized_copper_double_door",
+    "differentdoors:weathered_copper_double_door",
+    "differentdoors:waxed_copper_double_door",
+    "differentdoors:waxed_exposed_copper_double_door",
+    "differentdoors:waxed_oxidized_copper_double_door",
+    "differentdoors:waxed_weathered_copper_double_door"
+  ]
+}

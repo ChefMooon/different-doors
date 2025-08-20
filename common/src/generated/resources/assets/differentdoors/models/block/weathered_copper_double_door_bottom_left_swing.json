@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_bottom_left",
+  "textures": {
+    "all": "differentdoors:block/weathered_copper_double_door_swing",
+    "particle": "differentdoors:block/particle/weathered_copper_double_door"
+  }
+}

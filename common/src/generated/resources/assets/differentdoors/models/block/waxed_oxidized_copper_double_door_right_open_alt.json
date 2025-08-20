@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_right_open_alt",
+  "textures": {
+    "all": "differentdoors:block/oxidized_copper_double_door",
+    "particle": "differentdoors:block/particle/oxidized_copper_double_door"
+  }
+}

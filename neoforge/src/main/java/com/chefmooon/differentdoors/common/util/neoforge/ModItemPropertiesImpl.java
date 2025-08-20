@@ -12,6 +12,16 @@ public class ModItemPropertiesImpl {
 
     public static void addCustomItemProperties() {
         ModItemsImpl.DOUBLE_DOOR_VARIANTS.forEach((doorInfoRecord, item) -> registerLargeDoorProperties(item.get()));
+
+        registerLargeDoorProperties(ModItemsImpl.IRON_DOUBLE_DOOR.get());
+        registerLargeDoorProperties(ModItemsImpl.COPPER_DOUBLE_DOOR.get());
+        registerLargeDoorProperties(ModItemsImpl.EXPOSED_COPPER_DOUBLE_DOOR.get());
+        registerLargeDoorProperties(ModItemsImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get());
+        registerLargeDoorProperties(ModItemsImpl.WEATHERED_COPPER_DOUBLE_DOOR.get());
+        registerLargeDoorProperties(ModItemsImpl.WAXED_COPPER_DOUBLE_DOOR.get());
+        registerLargeDoorProperties(ModItemsImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get());
+        registerLargeDoorProperties(ModItemsImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get());
+        registerLargeDoorProperties(ModItemsImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get());
     }
 
     private static void registerLargeDoorProperties(Item item) {

@@ -16,6 +16,7 @@ import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -24,16 +25,29 @@ public class BlockModelGenerator {
     public static void generateBlockModels(BlockModelGenerators blockModelGenerators) {
         GENERATOR = blockModelGenerators;
 
-        ModBlocksImpl.DOUBLE_DOOR_VARIANTS.forEach((doorInfoRecord, block) -> doubleDoorModel(block));
+        ModBlocksImpl.DOUBLE_DOOR_VARIANTS.forEach((doorInfoRecord, block) -> doubleDoorModel(block, null));
+//        ModBlocksImpl.METAL_DOUBLE_DOOR_VARIANTS.forEach((doorInfoRecord, block) -> doubleDoorModel(block));
+
+        doubleDoorModel(ModBlocksImpl.IRON_DOUBLE_DOOR, null);
+        copperDoubleDoorModel(ModBlocksImpl.COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR);
+        copperDoubleDoorModel(ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR);
+        copperDoubleDoorModel(ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR);
+        copperDoubleDoorModel(ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR);
     }
 
-    private static void doubleDoorModel(Supplier<Block> block) {
-        ResourceLocation location = ModelLocationUtils.getModelLocation(block.get());
+    private static void copperDoubleDoorModel(Supplier<Block> block, Supplier<Block> waxedBlock) {
+        doubleDoorModel(block, ModelLocationUtils.getModelLocation(block.get()));
+        doubleDoorModel(waxedBlock, ModelLocationUtils.getModelLocation(block.get()));
+    }
 
-        TextureMapping textureMapping = TextureMapping.particle(TextUtil.res("block/particle/" + BuiltInRegistries.BLOCK.getKey(block.get()).getPath()))
-                .put(TextureSlot.ALL, location);
-        TextureMapping textureMappingSwing = TextureMapping.particle(TextUtil.res("block/particle/" + BuiltInRegistries.BLOCK.getKey(block.get()).getPath()))
-                .put(TextureSlot.ALL, location.withSuffix("_swing"));
+    private static void doubleDoorModel(Supplier<Block> block, @Nullable ResourceLocation textureLocation) {
+        ResourceLocation location = ModelLocationUtils.getModelLocation(block.get());
+        if (textureLocation == null) textureLocation = location;
+
+        TextureMapping textureMapping = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", "")))
+                .put(TextureSlot.ALL, textureLocation);
+        TextureMapping textureMappingSwing = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", "")))
+                .put(TextureSlot.ALL, textureLocation.withSuffix("_swing"));
 
         // Slide Models
         ResourceLocation TOP_LEFT = ModTemplates.DOUBLE_DOOR_TOP_LEFT.create(location.withSuffix("_" + DoorPartProperty.TOP_LEFT.getSerializedName()), textureMapping, GENERATOR.modelOutput);
@@ -103,147 +117,147 @@ public class BlockModelGenerator {
 
         GENERATOR.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.get(),
                         Variant.variant().with(VariantProperties.MODEL, BOTTOM))
-                        .with(BlockModelGenerators.createHorizontalFacingDispatch())
-                        .with(PropertyDispatch.properties(DoubleDoorBlock.SWING, DoubleDoorBlock.OPEN, DoubleDoorBlock.ALT, DoubleDoorBlock.PART)
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_OPEN))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_OPEN))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT_OPEN))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT_OPEN))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_OPEN))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_OPEN))
+                .with(BlockModelGenerators.createHorizontalFacingDispatch())
+                .with(PropertyDispatch.properties(DoubleDoorBlock.SWING, DoubleDoorBlock.OPEN, DoubleDoorBlock.ALT, DoubleDoorBlock.PART)
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_OPEN))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_OPEN))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT_OPEN))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT_OPEN))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_OPEN))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_OPEN))
 
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_OPEN_EXT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, LEFT_OPEN_EXT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_OPEN_EXT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_OPEN_EXT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, RIGHT_OPEN_EXT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, LEFT_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, RIGHT_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_OPEN_EXT))
 
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_OPEN_ALT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_OPEN_ALT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT_OPEN_ALT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT_OPEN_ALT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_OPEN_ALT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_OPEN_ALT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_OPEN_ALT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_OPEN_ALT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT_OPEN_ALT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT_OPEN_ALT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_OPEN_ALT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_OPEN_ALT))
 
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_OPEN_EXT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, LEFT_OPEN_EXT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_OPEN_EXT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_OPEN_EXT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, RIGHT_OPEN_EXT))
-                                .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_OPEN_EXT))
-
-
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, TOP))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, CENTER))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT))
-
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, TOP))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, CENTER))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT))
-
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, LEFT_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, RIGHT_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_OPEN_EXT))
 
 
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_SWING_OPEN))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING_OPEN))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_SWING_OPEN))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT_SWING_OPEN))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING_OPEN))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT_SWING_OPEN))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_SWING_OPEN))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING_OPEN))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_SWING_OPEN))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, TOP))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, CENTER))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT))
 
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_SWING_OPEN_EXT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, LEFT_SWING_OPEN_EXT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_SWING_OPEN_EXT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_SWING_OPEN_EXT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, RIGHT_SWING_OPEN_EXT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_SWING_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
 
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_SWING_OPEN_ALT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING_OPEN))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_SWING_OPEN_ALT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT_SWING_OPEN_ALT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING_OPEN))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT_SWING_OPEN_ALT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_SWING_OPEN_ALT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING_OPEN))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_SWING_OPEN_ALT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, TOP))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, CENTER))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT))
 
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_SWING_OPEN_EXT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, LEFT_SWING_OPEN_EXT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_SWING_OPEN_EXT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_SWING_OPEN_EXT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, RIGHT_SWING_OPEN_EXT))
-                                .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_SWING_OPEN_EXT))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
 
 
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, TOP_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, CENTER_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_SWING))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_SWING_OPEN))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING_OPEN))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_SWING_OPEN))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT_SWING_OPEN))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING_OPEN))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT_SWING_OPEN))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_SWING_OPEN))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING_OPEN))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_SWING_OPEN))
 
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_SWING_OPEN_EXT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, LEFT_SWING_OPEN_EXT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_SWING_OPEN_EXT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_SWING_OPEN_EXT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, RIGHT_SWING_OPEN_EXT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_SWING_OPEN_EXT))
 
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, TOP_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, CENTER_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_SWING))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_SWING_OPEN_ALT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING_OPEN))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_SWING_OPEN_ALT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT_SWING_OPEN_ALT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING_OPEN))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT_SWING_OPEN_ALT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_SWING_OPEN_ALT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING_OPEN))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_SWING_OPEN_ALT))
 
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                                .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
-                        )
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_SWING_OPEN_EXT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, LEFT_SWING_OPEN_EXT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_SWING_OPEN_EXT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_SWING_OPEN_EXT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, RIGHT_SWING_OPEN_EXT))
+                        .select(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_SWING_OPEN_EXT))
+
+
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, TOP_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, CENTER_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_SWING))
+
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_LEFT, Variant.variant().with(VariantProperties.MODEL, TOP_LEFT_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP, Variant.variant().with(VariantProperties.MODEL, TOP_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT, Variant.variant().with(VariantProperties.MODEL, TOP_RIGHT_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.LEFT, Variant.variant().with(VariantProperties.MODEL, LEFT_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.CENTER, Variant.variant().with(VariantProperties.MODEL, CENTER_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.RIGHT, Variant.variant().with(VariantProperties.MODEL, RIGHT_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_LEFT_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM, Variant.variant().with(VariantProperties.MODEL, BOTTOM_SWING))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_RIGHT_SWING))
+
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_LEFT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.TOP_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                        .select(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, DoorPartProperty.BOTTOM_RIGHT_OPEN_EXT, Variant.variant().with(VariantProperties.MODEL, BOTTOM_OPEN))
+                )
         );
         GENERATOR.skipAutoItemBlock(block.get());
     }

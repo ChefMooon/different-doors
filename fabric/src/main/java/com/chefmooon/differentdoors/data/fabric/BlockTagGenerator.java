@@ -17,5 +17,19 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
     protected void addTags(HolderLookup.Provider provider) {
         ModBlocksImpl.DOUBLE_DOOR_VARIANTS.forEach(((doorInfoRecord, blockSupplier) -> getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_AXE)
                 .add(blockSupplier.get())));
+//        ModBlocksImpl.METAL_DOUBLE_DOOR_VARIANTS.forEach(((doorInfoRecord, blockSupplier) -> getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+//                .add(blockSupplier.get())));
+
+        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(ModBlocksImpl.IRON_DOUBLE_DOOR.get(),
+                        ModBlocksImpl.COPPER_DOUBLE_DOOR.get(),
+                        ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR.get(),
+                        ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get(),
+                        ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR.get(),
+                        ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR.get(),
+                        ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get(),
+                        ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(),
+                        ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get()
+                );
     }
 }

@@ -14,7 +14,18 @@ public class DifferentDoorsClientImpl implements ClientModInitializer {
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
                 ModBlocksImpl.DOUBLE_DOOR_VARIANTS.values().stream().map(Supplier::get).toArray(Block[]::new));
-        ModItemPropertiesImpl.addCustomItemProperties();
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
+                ModBlocksImpl.IRON_DOUBLE_DOOR.get(),
+                ModBlocksImpl.COPPER_DOUBLE_DOOR.get(),
+                ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR.get(),
+                ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get(),
+                ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR.get(),
+                ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR.get(),
+                ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get(),
+                ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(),
+                ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get());
 //        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocksImpl.SIMPLE_LARGE_DOOR.get(), RenderType.cutout()); // TODO : remove after testing
+
+        ModItemPropertiesImpl.addCustomItemProperties();
     }
 }
