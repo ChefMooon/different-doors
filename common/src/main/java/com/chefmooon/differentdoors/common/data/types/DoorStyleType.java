@@ -15,8 +15,8 @@ public enum DoorStyleType implements StringRepresentable {
     SLATTED(Items.ACACIA_DOOR),
     SIX_PANEL(Items.DARK_OAK_DOOR),
     ELEGANT(Items.MANGROVE_DOOR),
-    HALF_WINDOW(Items.CHERRY_DOOR),
     HALF_GRATED(Items.BAMBOO_DOOR),
+    HALF_WINDOW(Items.CHERRY_DOOR),
     RUSTIC(Items.CRIMSON_DOOR),
     VINED(Items.WARPED_DOOR),
     ;
