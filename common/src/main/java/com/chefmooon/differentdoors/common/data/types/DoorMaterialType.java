@@ -17,20 +17,20 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Locale;
 
 public enum DoorMaterialType implements StringRepresentable {
-    OAK(MapColor.WOOD, 3.0F, 3.0F, true, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.OAK_DOOR, Items.OAK_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
-    SPRUCE(MapColor.PLANT, 3.0F, 3.0F, true, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.SPRUCE_DOOR, Items.SPRUCE_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
-    BIRCH(MapColor.PLANT, 3.0F, 3.0F, true, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.BIRCH_DOOR, Items.BIRCH_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
-    JUNGLE(MapColor.PLANT, 3.0F, 3.0F, true, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.JUNGLE_DOOR, Items.JUNGLE_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
-    ACACIA(MapColor.COLOR_ORANGE, 3.0F, 3.0F, true, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.ACACIA_DOOR, Items.ACACIA_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
-    DARK_OAK(MapColor.COLOR_BROWN, 3.0F, 3.0F, true, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.DARK_OAK_DOOR, Items.DARK_OAK_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
-    MANGROVE(MapColor.PLANT, 3.0F, 3.0F, true, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.MANGROVE_DOOR, Items.MANGROVE_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
-    CHERRY(MapColor.TERRACOTTA_WHITE, 3.0F, 3.0F, true, SoundEvents.CHERRY_WOOD_DOOR_OPEN, SoundEvents.CHERRY_WOOD_DOOR_CLOSE, SoundEvents.CHERRY_WOOD_HIT, SoundEvents.CHERRY_WOOD_HIT, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS, Items.CHERRY_DOOR, Items.CHERRY_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
-    BAMBOO(MapColor.COLOR_YELLOW, 3.0F, 3.0F, true, SoundEvents.BAMBOO_WOOD_DOOR_OPEN, SoundEvents.BAMBOO_WOOD_DOOR_CLOSE, SoundEvents.BAMBOO_WOOD_HIT, SoundEvents.BAMBOO_WOOD_HIT, SoundType.BAMBOO_WOOD, NoteBlockInstrument.BASS, Items.BAMBOO_DOOR, Items.BAMBOO_BLOCK, CreativeModeTabs.BUILDING_BLOCKS),
-    CRIMSON(MapColor.CRIMSON_STEM, 3.0F, 3.0F, true, SoundEvents.NETHER_WOOD_DOOR_OPEN, SoundEvents.NETHER_WOOD_DOOR_CLOSE, SoundEvents.NETHER_WOOD_HIT, SoundEvents.NETHER_WOOD_HIT, SoundType.NETHER_WOOD, NoteBlockInstrument.BASS, Items.CRIMSON_DOOR, Items.CRIMSON_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
-    WARPED(MapColor.WARPED_STEM, 3.0F, 3.0F, true, SoundEvents.NETHER_WOOD_DOOR_OPEN, SoundEvents.NETHER_WOOD_DOOR_CLOSE, SoundEvents.NETHER_WOOD_HIT, SoundEvents.NETHER_WOOD_HIT, SoundType.NETHER_WOOD, NoteBlockInstrument.BASS, Items.WARPED_DOOR, Items.WARPED_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
+    OAK(MapColor.WOOD, 3.0F, 3.0F, true, true, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.OAK_DOOR, Items.OAK_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
+    SPRUCE(MapColor.PLANT, 3.0F, 3.0F, true, true,  SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.SPRUCE_DOOR, Items.SPRUCE_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
+    BIRCH(MapColor.PLANT, 3.0F, 3.0F, true, true,  SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.BIRCH_DOOR, Items.BIRCH_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
+    JUNGLE(MapColor.PLANT, 3.0F, 3.0F, true, true,  SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.JUNGLE_DOOR, Items.JUNGLE_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
+    ACACIA(MapColor.COLOR_ORANGE, 3.0F, 3.0F, true, true,  SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.ACACIA_DOOR, Items.ACACIA_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
+    DARK_OAK(MapColor.COLOR_BROWN, 3.0F, 3.0F, true, true,  SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.DARK_OAK_DOOR, Items.DARK_OAK_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
+    MANGROVE(MapColor.PLANT, 3.0F, 3.0F, true, true,  SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOOD_HIT, SoundEvents.WOOD_HIT, SoundType.WOOD, NoteBlockInstrument.BASS, Items.MANGROVE_DOOR, Items.MANGROVE_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
+    CHERRY(MapColor.TERRACOTTA_WHITE, 3.0F, 3.0F, true, true,  SoundEvents.CHERRY_WOOD_DOOR_OPEN, SoundEvents.CHERRY_WOOD_DOOR_CLOSE, SoundEvents.CHERRY_WOOD_HIT, SoundEvents.CHERRY_WOOD_HIT, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS, Items.CHERRY_DOOR, Items.CHERRY_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
+    BAMBOO(MapColor.COLOR_YELLOW, 3.0F, 3.0F, true, true,  SoundEvents.BAMBOO_WOOD_DOOR_OPEN, SoundEvents.BAMBOO_WOOD_DOOR_CLOSE, SoundEvents.BAMBOO_WOOD_HIT, SoundEvents.BAMBOO_WOOD_HIT, SoundType.BAMBOO_WOOD, NoteBlockInstrument.BASS, Items.BAMBOO_DOOR, Items.BAMBOO_BLOCK, CreativeModeTabs.BUILDING_BLOCKS),
+    CRIMSON(MapColor.CRIMSON_STEM, 3.0F, 3.0F, true, false,  SoundEvents.NETHER_WOOD_DOOR_OPEN, SoundEvents.NETHER_WOOD_DOOR_CLOSE, SoundEvents.NETHER_WOOD_HIT, SoundEvents.NETHER_WOOD_HIT, SoundType.NETHER_WOOD, NoteBlockInstrument.BASS, Items.CRIMSON_DOOR, Items.CRIMSON_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
+    WARPED(MapColor.WARPED_STEM, 3.0F, 3.0F, true, false, SoundEvents.NETHER_WOOD_DOOR_OPEN, SoundEvents.NETHER_WOOD_DOOR_CLOSE, SoundEvents.NETHER_WOOD_HIT, SoundEvents.NETHER_WOOD_HIT, SoundType.NETHER_WOOD, NoteBlockInstrument.BASS, Items.WARPED_DOOR, Items.WARPED_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
     
-    IRON(MapColor.METAL, 5.0F, 5.0F, false, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.METAL_HIT, SoundEvents.METAL_HIT, SoundType.METAL, null, Items.IRON_DOOR, Items.IRON_INGOT, CreativeModeTabs.REDSTONE_BLOCKS),
-    COPPER(MapColor.COLOR_ORANGE, 3.0F, 6.0F, true, SoundEvents.COPPER_DOOR_OPEN, SoundEvents.COPPER_DOOR_CLOSE, SoundEvents.METAL_HIT, SoundEvents.METAL_HIT, SoundType.COPPER, null, Items.COPPER_DOOR, Items.COPPER_INGOT, CreativeModeTabs.REDSTONE_BLOCKS),
+    IRON(MapColor.METAL, 5.0F, 5.0F, false, false, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.METAL_HIT, SoundEvents.METAL_HIT, SoundType.METAL, null, Items.IRON_DOOR, Items.IRON_INGOT, CreativeModeTabs.REDSTONE_BLOCKS),
+    COPPER(MapColor.COLOR_ORANGE, 3.0F, 6.0F, true, false, SoundEvents.COPPER_DOOR_OPEN, SoundEvents.COPPER_DOOR_CLOSE, SoundEvents.METAL_HIT, SoundEvents.METAL_HIT, SoundType.COPPER, null, Items.COPPER_DOOR, Items.COPPER_INGOT, CreativeModeTabs.REDSTONE_BLOCKS),
     ;
 
     public static final Codec<DoorMaterialType> CODEC = Codec.stringResolver(DoorMaterialType::name, DoorMaterialType::valueOf);
@@ -39,6 +39,7 @@ public enum DoorMaterialType implements StringRepresentable {
     private final Float destroyTime;
     private final float strength;
     private final boolean canOpenedByHand;
+    private final boolean isFuel;
     private final SoundEvent openSound;
     private final SoundEvent closeSound;
     private final SoundEvent addSwingSound;
@@ -53,6 +54,7 @@ public enum DoorMaterialType implements StringRepresentable {
             float destroyTime,
             float strength,
             boolean canOpenedByHand,
+            boolean isFuel,
             SoundEvent openSound,
             SoundEvent closeSound,
             SoundEvent addSwingSound,
@@ -67,6 +69,7 @@ public enum DoorMaterialType implements StringRepresentable {
         this.destroyTime = destroyTime;
         this.strength = strength;
         this.canOpenedByHand = canOpenedByHand;
+        this.isFuel = isFuel;
         this.openSound = openSound;
         this.closeSound = closeSound;
         this.addSwingSound = addSwingSound;
@@ -92,6 +95,10 @@ public enum DoorMaterialType implements StringRepresentable {
 
     public boolean canOpenedByHand() {
         return canOpenedByHand;
+    }
+
+    public boolean isFuel() {
+        return isFuel;
     }
 
     public SoundEvent getOpenSound() {

@@ -59,7 +59,7 @@ public class ModItemsImpl {
             for (DoorStyleType doorStyleType : DoorStyleType.values()) {
                 DoorInfoRecord doorInfoRecord = new DoorInfoRecord(doorMaterialType, doorStyleType);
                 Supplier<Item> item = registerItemWithTab(ModItems.DOUBLE_DOOR.withPrefix(doorMaterialType.getSerializedName() + "_" + doorStyleType.getSerializedName() + "_"), new DoubleDoorBlockItemImpl(ModBlocksImpl.DOUBLE_DOOR_VARIANTS.get(doorInfoRecord).get(),
-                        basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(DoubleDoorBlock.SWING, Boolean.FALSE)), 1600));
+                        basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(DoubleDoorBlock.SWING, Boolean.FALSE)), doorMaterialType.isFuel() ? 1600 : 0));
                 DOUBLE_DOOR_VARIANTS.put(doorInfoRecord, item);
             }
         }
