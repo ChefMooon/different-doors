@@ -1,7 +1,0 @@
-{
-  "parent": "differentdoors:block/template_double_door_top_right_open_alt",
-  "textures": {
-    "all": "differentdoors:block/birch_six_panel_double_door",
-    "particle": "differentdoors:block/particle/birch_six_panel_double_door"
-  }
-}

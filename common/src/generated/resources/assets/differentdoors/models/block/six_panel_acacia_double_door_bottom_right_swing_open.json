@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_swing_bottom_right_open",
+  "textures": {
+    "all": "differentdoors:block/six_panel_acacia_double_door_swing",
+    "particle": "differentdoors:block/six_panel_acacia_double_door_swing"
+  }
+}

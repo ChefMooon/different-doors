@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_top_right_open_alt",
+  "textures": {
+    "all": "differentdoors:block/fortified_mangrove_double_door",
+    "particle": "differentdoors:block/fortified_mangrove_double_door"
+  }
+}

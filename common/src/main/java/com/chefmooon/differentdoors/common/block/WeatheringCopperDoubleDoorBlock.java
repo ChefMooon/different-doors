@@ -31,8 +31,8 @@ public class WeatheringCopperDoubleDoorBlock extends DoubleDoorBlock implements 
     private static ImmutableBiMap.Builder<Block, Block> buildNextByBlock() {
         ImmutableBiMap.Builder<Block, Block> builder = ImmutableBiMap.builder();
         builder.put(BuiltInRegistries.BLOCK.get(ModBlocks.COPPER_DOUBLE_DOOR), BuiltInRegistries.BLOCK.get(ModBlocks.EXPOSED_COPPER_DOUBLE_DOOR));
-        builder.put(BuiltInRegistries.BLOCK.get(ModBlocks.EXPOSED_COPPER_DOUBLE_DOOR), BuiltInRegistries.BLOCK.get(ModBlocks.OXIDIZED_COPPER_DOUBLE_DOOR));
-        builder.put(BuiltInRegistries.BLOCK.get(ModBlocks.OXIDIZED_COPPER_DOUBLE_DOOR), BuiltInRegistries.BLOCK.get(ModBlocks.WEATHERED_COPPER_DOUBLE_DOOR));
+        builder.put(BuiltInRegistries.BLOCK.get(ModBlocks.EXPOSED_COPPER_DOUBLE_DOOR), BuiltInRegistries.BLOCK.get(ModBlocks.WEATHERED_COPPER_DOUBLE_DOOR));
+        builder.put(BuiltInRegistries.BLOCK.get(ModBlocks.WEATHERED_COPPER_DOUBLE_DOOR), BuiltInRegistries.BLOCK.get(ModBlocks.OXIDIZED_COPPER_DOUBLE_DOOR));
         return  builder;
     }
 
@@ -40,8 +40,8 @@ public class WeatheringCopperDoubleDoorBlock extends DoubleDoorBlock implements 
         ImmutableBiMap.Builder<Block, Block> builder = ImmutableBiMap.builder();
         builder.put(BuiltInRegistries.BLOCK.get(ModBlocks.COPPER_DOUBLE_DOOR), BuiltInRegistries.BLOCK.get(ModBlocks.WAXED_COPPER_DOUBLE_DOOR));
         builder.put(BuiltInRegistries.BLOCK.get(ModBlocks.EXPOSED_COPPER_DOUBLE_DOOR), BuiltInRegistries.BLOCK.get(ModBlocks.WAXED_EXPOSED_COPPER_DOUBLE_DOOR));
-        builder.put(BuiltInRegistries.BLOCK.get(ModBlocks.OXIDIZED_COPPER_DOUBLE_DOOR), BuiltInRegistries.BLOCK.get(ModBlocks.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR));
         builder.put(BuiltInRegistries.BLOCK.get(ModBlocks.WEATHERED_COPPER_DOUBLE_DOOR), BuiltInRegistries.BLOCK.get(ModBlocks.WAXED_WEATHERED_COPPER_DOUBLE_DOOR));
+        builder.put(BuiltInRegistries.BLOCK.get(ModBlocks.OXIDIZED_COPPER_DOUBLE_DOOR), BuiltInRegistries.BLOCK.get(ModBlocks.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR));
         return builder;
     }
 

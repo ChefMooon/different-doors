@@ -1,7 +1,0 @@
-{
-  "parent": "differentdoors:block/template_double_door_swing_top_left_open_alt",
-  "textures": {
-    "all": "differentdoors:block/oak_fortified_double_door_swing",
-    "particle": "differentdoors:block/particle/oak_fortified_double_door"
-  }
-}

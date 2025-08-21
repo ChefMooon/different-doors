@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_any": {
+      "conditions": {
+        "items": [
+          {
+            "items": "differentdoors:vined_bamboo_double_door"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:vined_bamboo_double_door_swing_to_vined_bamboo_double_door_slide"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_any"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:vined_bamboo_double_door_swing_to_vined_bamboo_double_door_slide"
+    ]
+  }
+}

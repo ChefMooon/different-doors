@@ -43,20 +43,20 @@ public class ModBlocksImpl {
     public static final Supplier<Block> EXPOSED_COPPER_DOUBLE_DOOR = registerBlock(ModBlocks.EXPOSED_COPPER_DOUBLE_DOOR,
             () -> new WeatheringCopperDoubleDoorBlock(DoorMaterialType.COPPER, WeatheringCopper.WeatherState.EXPOSED,
                     BlockBehaviour.Properties.ofFullCopy(COPPER_DOUBLE_DOOR.get()).mapColor(Blocks.EXPOSED_COPPER.defaultMapColor())));
-    public static final Supplier<Block> OXIDIZED_COPPER_DOUBLE_DOOR = registerBlock(ModBlocks.OXIDIZED_COPPER_DOUBLE_DOOR,
-            () -> new WeatheringCopperDoubleDoorBlock(DoorMaterialType.COPPER, WeatheringCopper.WeatherState.OXIDIZED,
-                    BlockBehaviour.Properties.ofFullCopy(COPPER_DOUBLE_DOOR.get()).mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor())));
     public static final Supplier<Block> WEATHERED_COPPER_DOUBLE_DOOR = registerBlock(ModBlocks.WEATHERED_COPPER_DOUBLE_DOOR,
             () -> new WeatheringCopperDoubleDoorBlock(DoorMaterialType.COPPER, WeatheringCopper.WeatherState.WEATHERED,
                     BlockBehaviour.Properties.ofFullCopy(COPPER_DOUBLE_DOOR.get()).mapColor(Blocks.WEATHERED_COPPER.defaultMapColor())));
+    public static final Supplier<Block> OXIDIZED_COPPER_DOUBLE_DOOR = registerBlock(ModBlocks.OXIDIZED_COPPER_DOUBLE_DOOR,
+            () -> new WeatheringCopperDoubleDoorBlock(DoorMaterialType.COPPER, WeatheringCopper.WeatherState.OXIDIZED,
+                    BlockBehaviour.Properties.ofFullCopy(COPPER_DOUBLE_DOOR.get()).mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor())));
     public static final Supplier<Block> WAXED_COPPER_DOUBLE_DOOR = registerBlock(ModBlocks.WAXED_COPPER_DOUBLE_DOOR,
             () -> new DoubleDoorBlockImpl(DoorMaterialType.COPPER, BlockBehaviour.Properties.ofFullCopy(COPPER_DOUBLE_DOOR.get())));
     public static final Supplier<Block> WAXED_EXPOSED_COPPER_DOUBLE_DOOR = registerBlock(ModBlocks.WAXED_EXPOSED_COPPER_DOUBLE_DOOR,
             () -> new DoubleDoorBlockImpl(DoorMaterialType.COPPER, BlockBehaviour.Properties.ofFullCopy(EXPOSED_COPPER_DOUBLE_DOOR.get())));
-    public static final Supplier<Block> WAXED_OXIDIZED_COPPER_DOUBLE_DOOR = registerBlock(ModBlocks.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR,
-            () -> new DoubleDoorBlockImpl(DoorMaterialType.COPPER, BlockBehaviour.Properties.ofFullCopy(OXIDIZED_COPPER_DOUBLE_DOOR.get())));
     public static final Supplier<Block> WAXED_WEATHERED_COPPER_DOUBLE_DOOR = registerBlock(ModBlocks.WAXED_WEATHERED_COPPER_DOUBLE_DOOR,
             () -> new DoubleDoorBlockImpl(DoorMaterialType.COPPER, BlockBehaviour.Properties.ofFullCopy(WEATHERED_COPPER_DOUBLE_DOOR.get())));
+    public static final Supplier<Block> WAXED_OXIDIZED_COPPER_DOUBLE_DOOR = registerBlock(ModBlocks.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR,
+            () -> new DoubleDoorBlockImpl(DoorMaterialType.COPPER, BlockBehaviour.Properties.ofFullCopy(OXIDIZED_COPPER_DOUBLE_DOOR.get())));
 
     private static void registerVanillaWoodenDoubleDoors() {
         for (DoorMaterialType doorMaterialType : DoorMaterialType.values()) {
@@ -74,7 +74,7 @@ public class ModBlocksImpl {
 
                 BlockBehaviour.Properties finalProperties = properties;
                 Supplier<Block> block = registerBlock(
-                        ModBlocks.DOUBLE_DOOR.withPrefix(doorMaterialType.getSerializedName() + "_" + doorStyleType.getSerializedName() + "_"),
+                        ModBlocks.DOUBLE_DOOR.withPrefix(doorStyleType.getSerializedName() + "_" + doorMaterialType.getSerializedName() + "_"),
                         () -> new DoubleDoorBlock(doorMaterialType, finalProperties)
                 );
                 DOUBLE_DOOR_VARIANTS.put(new DoorInfoRecord(doorMaterialType, doorStyleType), block);

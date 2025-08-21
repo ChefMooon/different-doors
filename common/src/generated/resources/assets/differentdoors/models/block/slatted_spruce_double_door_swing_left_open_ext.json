@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_swing_left_open_ext",
+  "textures": {
+    "all": "differentdoors:block/slatted_spruce_double_door_swing",
+    "particle": "differentdoors:block/slatted_spruce_double_door_swing"
+  }
+}

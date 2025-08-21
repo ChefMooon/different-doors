@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_any": {
+      "conditions": {
+        "items": [
+          {
+            "items": "differentdoors:half_moon_cherry_double_door"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:half_moon_cherry_double_door_swing_to_half_moon_cherry_double_door_slide"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_any"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:half_moon_cherry_double_door_swing_to_half_moon_cherry_double_door_slide"
+    ]
+  }
+}

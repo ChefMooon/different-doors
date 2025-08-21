@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "differentdoors:item/dark_oak_elegant_double_door_swing"
-  }
-}

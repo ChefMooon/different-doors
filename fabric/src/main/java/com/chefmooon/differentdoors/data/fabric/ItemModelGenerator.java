@@ -56,15 +56,15 @@ public class ItemModelGenerator {
     }
 
     private static void registerDoubleDoorItemModel(DoorInfoRecord doorInfoRecord, Supplier<Item> item) {
-        String doorStyleType = doorInfoRecord.doorStyleType() != null ? "_" + doorInfoRecord.doorStyleType().getSerializedName() : "";
+        String doorStyleType = doorInfoRecord.doorStyleType() != null ? doorInfoRecord.doorStyleType().getSerializedName() + "_" : "";
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item.get(), "_slide"),
-                TextureMapping.singleSlot(TextureSlot.LAYER0, TextUtil.res("item/" + doorInfoRecord.doorMaterialType().getSerializedName() + doorStyleType + "_double_door")), GENERATOR.output);
+                TextureMapping.singleSlot(TextureSlot.LAYER0, TextUtil.res("item/" + doorStyleType +  doorInfoRecord.doorMaterialType().getSerializedName() + "_double_door")), GENERATOR.output);
 
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item.get(), "_swing"),
-                TextureMapping.singleSlot(TextureSlot.LAYER0, TextUtil.res("item/" + doorInfoRecord.doorMaterialType().getSerializedName() + doorStyleType + "_double_door_swing")), GENERATOR.output);
+                TextureMapping.singleSlot(TextureSlot.LAYER0, TextUtil.res("item/" + doorStyleType +  doorInfoRecord.doorMaterialType().getSerializedName() + "_double_door_swing")), GENERATOR.output);
 
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item.get()),
-                TextureMapping.singleSlot(TextureSlot.LAYER0, TextUtil.res("item/" + doorInfoRecord.doorMaterialType().getSerializedName() + doorStyleType + "_double_door")), GENERATOR.output, ItemModelGenerator::generateBaseDoorTemplate);
+                TextureMapping.singleSlot(TextureSlot.LAYER0, TextUtil.res("item/" + doorStyleType +  doorInfoRecord.doorMaterialType().getSerializedName() + "_double_door")), GENERATOR.output, ItemModelGenerator::generateBaseDoorTemplate);
     }
 
     public static JsonObject generateBaseDoorTemplate(ResourceLocation modelLocation, Map<TextureSlot, ResourceLocation> modelGetter) {

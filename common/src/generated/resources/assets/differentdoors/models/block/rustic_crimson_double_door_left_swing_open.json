@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_swing_left_open",
+  "textures": {
+    "all": "differentdoors:block/rustic_crimson_double_door_swing",
+    "particle": "differentdoors:block/rustic_crimson_double_door_swing"
+  }
+}

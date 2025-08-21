@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "differentdoors:fortified_bamboo_double_door",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "part": "bottom"
+          }
+        },
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "differentdoors:fortified_bamboo_double_door"
+        }
+      ],
+      "functions": [
+        {
+          "block": "differentdoors:fortified_bamboo_double_door",
+          "function": "minecraft:copy_state",
+          "properties": [
+            "swing"
+          ]
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

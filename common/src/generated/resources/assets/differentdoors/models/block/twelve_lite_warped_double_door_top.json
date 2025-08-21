@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_top",
+  "textures": {
+    "all": "differentdoors:block/twelve_lite_warped_double_door",
+    "particle": "differentdoors:block/twelve_lite_warped_double_door"
+  }
+}

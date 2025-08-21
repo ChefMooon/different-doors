@@ -26,7 +26,6 @@ public class BlockModelGenerator {
         GENERATOR = blockModelGenerators;
 
         ModBlocksImpl.DOUBLE_DOOR_VARIANTS.forEach((doorInfoRecord, block) -> doubleDoorModel(block, null));
-//        ModBlocksImpl.METAL_DOUBLE_DOOR_VARIANTS.forEach((doorInfoRecord, block) -> doubleDoorModel(block));
 
         doubleDoorModel(ModBlocksImpl.IRON_DOUBLE_DOOR, null);
         copperDoubleDoorModel(ModBlocksImpl.COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR);
@@ -44,9 +43,11 @@ public class BlockModelGenerator {
         ResourceLocation location = ModelLocationUtils.getModelLocation(block.get());
         if (textureLocation == null) textureLocation = location;
 
-        TextureMapping textureMapping = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", "")))
+//        TextureMapping textureMapping = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", ""))) // revert when texture is fixed
+        TextureMapping textureMapping = TextureMapping.particle(textureLocation)
                 .put(TextureSlot.ALL, textureLocation);
-        TextureMapping textureMappingSwing = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", "")))
+//        TextureMapping textureMappingSwing = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", ""))) // revert when texture is fixed
+        TextureMapping textureMappingSwing = TextureMapping.particle(textureLocation.withSuffix("_swing"))
                 .put(TextureSlot.ALL, textureLocation.withSuffix("_swing"));
 
         // Slide Models

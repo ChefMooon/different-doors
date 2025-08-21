@@ -34,11 +34,11 @@ public class ModItemsImpl {
     public static final Supplier<Item> EXPOSED_COPPER_DOUBLE_DOOR = registerItemWithTab(ModItems.EXPOSED_COPPER_DOUBLE_DOOR,
             new DoubleDoorBlockItemImpl(ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR.get(),
                     basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(DoubleDoorBlock.SWING, Boolean.FALSE))));
-    public static final Supplier<Item> OXIDIZED_COPPER_DOUBLE_DOOR = registerItemWithTab(ModItems.OXIDIZED_COPPER_DOUBLE_DOOR,
-            new DoubleDoorBlockItemImpl(ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get(),
-                    basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(DoubleDoorBlock.SWING, Boolean.FALSE))));
     public static final Supplier<Item> WEATHERED_COPPER_DOUBLE_DOOR = registerItemWithTab(ModItems.WEATHERED_COPPER_DOUBLE_DOOR,
             new DoubleDoorBlockItemImpl(ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR.get(),
+                    basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(DoubleDoorBlock.SWING, Boolean.FALSE))));
+    public static final Supplier<Item> OXIDIZED_COPPER_DOUBLE_DOOR = registerItemWithTab(ModItems.OXIDIZED_COPPER_DOUBLE_DOOR,
+            new DoubleDoorBlockItemImpl(ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get(),
                     basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(DoubleDoorBlock.SWING, Boolean.FALSE))));
     public static final Supplier<Item> WAXED_COPPER_DOUBLE_DOOR = registerItemWithTab(ModItems.WAXED_COPPER_DOUBLE_DOOR,
             new DoubleDoorBlockItemImpl(ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR.get(),
@@ -46,11 +46,11 @@ public class ModItemsImpl {
     public static final Supplier<Item> WAXED_EXPOSED_COPPER_DOUBLE_DOOR = registerItemWithTab(ModItems.WAXED_EXPOSED_COPPER_DOUBLE_DOOR,
             new DoubleDoorBlockItemImpl(ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get(),
                     basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(DoubleDoorBlock.SWING, Boolean.FALSE))));
-    public static final Supplier<Item> WAXED_OXIDIZED_COPPER_DOUBLE_DOOR = registerItemWithTab(ModItems.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR,
-            new DoubleDoorBlockItemImpl(ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(),
-                    basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(DoubleDoorBlock.SWING, Boolean.FALSE))));
     public static final Supplier<Item> WAXED_WEATHERED_COPPER_DOUBLE_DOOR = registerItemWithTab(ModItems.WAXED_WEATHERED_COPPER_DOUBLE_DOOR,
             new DoubleDoorBlockItemImpl(ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get(),
+                    basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(DoubleDoorBlock.SWING, Boolean.FALSE))));
+    public static final Supplier<Item> WAXED_OXIDIZED_COPPER_DOUBLE_DOOR = registerItemWithTab(ModItems.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR,
+            new DoubleDoorBlockItemImpl(ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(),
                     basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(DoubleDoorBlock.SWING, Boolean.FALSE))));
 
     private static void registerVanillaWoodenDoubleDoors() {
@@ -58,7 +58,7 @@ public class ModItemsImpl {
             if (doorMaterialType == DoorMaterialType.IRON || doorMaterialType == DoorMaterialType.COPPER) continue;
             for (DoorStyleType doorStyleType : DoorStyleType.values()) {
                 DoorInfoRecord doorInfoRecord = new DoorInfoRecord(doorMaterialType, doorStyleType);
-                Supplier<Item> item = registerItemWithTab(ModItems.DOUBLE_DOOR.withPrefix(doorMaterialType.getSerializedName() + "_" + doorStyleType.getSerializedName() + "_"), new DoubleDoorBlockItemImpl(ModBlocksImpl.DOUBLE_DOOR_VARIANTS.get(doorInfoRecord).get(),
+                Supplier<Item> item = registerItemWithTab(ModItems.DOUBLE_DOOR.withPrefix(doorStyleType.getSerializedName() + "_" + doorMaterialType.getSerializedName() + "_"), new DoubleDoorBlockItemImpl(ModBlocksImpl.DOUBLE_DOOR_VARIANTS.get(doorInfoRecord).get(),
                         basicItem().component(DataComponents.BLOCK_STATE, new BlockItemStateProperties(Map.of()).with(DoubleDoorBlock.SWING, Boolean.FALSE)), doorMaterialType.isFuel() ? 1600 : 0));
                 DOUBLE_DOOR_VARIANTS.put(doorInfoRecord, item);
             }

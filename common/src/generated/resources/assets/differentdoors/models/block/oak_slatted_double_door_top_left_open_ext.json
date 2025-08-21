@@ -1,7 +1,0 @@
-{
-  "parent": "differentdoors:block/template_double_door_top_left_open_ext",
-  "textures": {
-    "all": "differentdoors:block/oak_slatted_double_door",
-    "particle": "differentdoors:block/particle/oak_slatted_double_door"
-  }
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "differentdoors:block/template_double_door_swing_right_open",
-  "textures": {
-    "all": "differentdoors:block/spruce_half_grated_double_door_swing",
-    "particle": "differentdoors:block/particle/spruce_half_grated_double_door"
-  }
-}

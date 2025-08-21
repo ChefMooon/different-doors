@@ -1,0 +1,7 @@
+{
+  "parent": "differentdoors:block/template_double_door_top_left",
+  "textures": {
+    "all": "differentdoors:block/slatted_birch_double_door",
+    "particle": "differentdoors:block/slatted_birch_double_door"
+  }
+}

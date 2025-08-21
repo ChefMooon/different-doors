@@ -27,7 +27,7 @@ public class TranslationGenerator extends FabricLanguageProvider {
         for (DoorMaterialType doorMaterialType : DoorMaterialType.values()) {
             if (doorMaterialType == DoorMaterialType.IRON || doorMaterialType == DoorMaterialType.COPPER) continue;
             for (DoorStyleType doorStyleType : DoorStyleType.values()) {
-                String doorName = doorMaterialType.getSerializedName() + "_" + doorStyleType.getSerializedName();
+                String doorName = doorStyleType.getSerializedName() + "_" + doorMaterialType.getSerializedName();
                 translationBuilder.add("block." + MOD_ID + "." + doorName + "_double_door", capitalize(doorName) + " Double Door");
             }
         }

@@ -1,7 +1,0 @@
-{
-  "parent": "differentdoors:block/template_double_door_top",
-  "textures": {
-    "all": "differentdoors:block/acacia_half_moon_double_door",
-    "particle": "differentdoors:block/particle/acacia_half_moon_double_door"
-  }
-}
