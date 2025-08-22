@@ -502,7 +502,7 @@ public class DoubleDoorBlock extends Block {
                 boolean swing = controller.getValue(SWING);
                 BlockPos checkPos = extensionPosForUpdate(part, swing, facing, partPos);
                 BlockState checkState = level.getBlockState(checkPos);
-                if (checkState.isAir() || checkState.isFaceSturdy(level, checkPos, facing)) {
+                if (shouldPlaceAlt(level, checkState, checkPos, facing, part)) {
                     level.setBlock(partPos, partState.setValue(POWERED, anyPowered[0]).setValue(OPEN, anyPowered[0]), Block.UPDATE_CLIENTS);
                 } else {
                     level.setBlock(partPos, partState.setValue(POWERED, anyPowered[0]).setValue(OPEN, anyPowered[0]).setValue(ALT, true), Block.UPDATE_CLIENTS);
@@ -682,12 +682,18 @@ public class DoubleDoorBlock extends Block {
                 BlockPos partPos = partPos(part, wasSwing, facing, controllerPos);
                 BlockState partState = level.getBlockState(partPos);
                 if (partState.is(this)) {
+                    BlockPos checkPos = extensionPosForUpdate(part, swing, facing, partPos);
+                    BlockState checkState = level.getBlockState(checkPos);
+                    if (shouldPlaceAlt(level, checkState, checkPos, facing, part)) {
+                        partState.setValue(ALT, true);
+                    }
                     level.setBlockAndUpdate(partPos, partState.setValue(SWING, swing));
                 }
             }
         });
 
         // Rebuild extension geometry only if door is open
+        // TODO: rebuild check for alt
         if (controllerState.getValue(OPEN)) {
             forEachExtensionPart(part -> {
                 BlockPos oldPos = partPos(part, wasSwing, facing, controllerPos);
@@ -785,7 +791,7 @@ public class DoubleDoorBlock extends Block {
                 if (part.xOffset() == -1 || part.xOffset() == 1) {
                     BlockPos checkPos = extensionPosForUpdate(part, swing, facing, partPos);
                     BlockState checkState = level.getBlockState(checkPos);
-                    if (checkState.isAir() || checkState.isFaceSturdy(level, checkPos, facing)) {
+                    if (shouldPlaceAlt(level, checkState, checkPos, facing, part)) {
                         level.setBlock(partPos, partState.cycle(OPEN), 10);
                     } else {
                         level.setBlock(partPos, partState.setValue(OPEN, true).setValue(ALT, true), 10);
@@ -795,6 +801,14 @@ public class DoubleDoorBlock extends Block {
                 }
             }
         }
+    }
+
+    protected boolean shouldPlaceAlt(Level level, BlockState blockState, BlockPos blockPos, Direction facing, DoorPartProperty part) {
+        boolean insideFaceSturdy = (part.xOffset() == -1 && blockState.isFaceSturdy(level, blockPos, facing.getCounterClockWise()) ||
+                part.xOffset() == 1 && blockState.isFaceSturdy(level, blockPos, facing.getClockWise()));
+        return blockState.isAir() || (blockState.isFaceSturdy(level, blockPos, facing) && insideFaceSturdy);
+        // the above checks if the face facing the same direction as the door and the inside face is sturdy, below does not check the inside face. remove after testing
+//        return blockState.isAir() || blockState.isFaceSturdy(level, blockPos, facing);
     }
 
     protected static void forEachAllParts(Consumer<DoorPartProperty> consumer) {
