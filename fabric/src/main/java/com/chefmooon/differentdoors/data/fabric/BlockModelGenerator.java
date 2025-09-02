@@ -43,11 +43,11 @@ public class BlockModelGenerator {
         ResourceLocation location = ModelLocationUtils.getModelLocation(block.get());
         if (textureLocation == null) textureLocation = location;
 
-//        TextureMapping textureMapping = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", ""))) // revert when texture is fixed
-        TextureMapping textureMapping = TextureMapping.particle(textureLocation)
+        TextureMapping textureMapping = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", ""))) // revert when texture is fixed
+//        TextureMapping textureMapping = TextureMapping.particle(textureLocation)
                 .put(TextureSlot.ALL, textureLocation);
-//        TextureMapping textureMappingSwing = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", ""))) // revert when texture is fixed
-        TextureMapping textureMappingSwing = TextureMapping.particle(textureLocation.withSuffix("_swing"))
+        TextureMapping textureMappingSwing = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", ""))) // revert when texture is fixed
+//        TextureMapping textureMappingSwing = TextureMapping.particle(textureLocation.withSuffix("_swing"))
                 .put(TextureSlot.ALL, textureLocation.withSuffix("_swing"));
 
         // Slide Models

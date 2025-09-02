@@ -2,6 +2,6 @@
   "parent": "differentdoors:block/template_double_door_bottom_left",
   "textures": {
     "all": "differentdoors:block/half_grated_warped_double_door",
-    "particle": "differentdoors:block/half_grated_warped_double_door"
+    "particle": "differentdoors:block/particle/half_grated_warped_double_door"
   }
 }

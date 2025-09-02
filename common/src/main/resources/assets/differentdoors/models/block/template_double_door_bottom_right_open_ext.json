@@ -8,9 +8,9 @@
 			"from": [0, 0, 1],
 			"to": [16, 16, 4],
 			"faces": {
-				"north": {"uv": [10, 10, 14, 14], "texture": "#all"},
-				"south": {"uv": [2, 10, 6, 14], "texture": "#all"},
-				"west": {"uv": [2, 10, 2.75, 14], "texture": "#all"},
+				"north": {"uv": [10, 9, 14, 13], "texture": "#all"},
+				"south": {"uv": [2, 9, 6, 13], "texture": "#all"},
+				"west": {"uv": [1, 9, 1.75, 13], "texture": "#all"},
 				"down": {"uv": [2, 13.25, 6, 14], "texture": "#all"}
 			}
 		}

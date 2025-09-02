@@ -2,6 +2,6 @@
   "parent": "differentdoors:block/template_double_door_swing_left_open",
   "textures": {
     "all": "differentdoors:block/vined_crimson_double_door_swing",
-    "particle": "differentdoors:block/vined_crimson_double_door_swing"
+    "particle": "differentdoors:block/particle/vined_crimson_double_door"
   }
 }

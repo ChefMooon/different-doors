@@ -2,6 +2,6 @@
   "parent": "differentdoors:block/template_double_door_top_right_open",
   "textures": {
     "all": "differentdoors:block/rustic_birch_double_door",
-    "particle": "differentdoors:block/rustic_birch_double_door"
+    "particle": "differentdoors:block/particle/rustic_birch_double_door"
   }
 }

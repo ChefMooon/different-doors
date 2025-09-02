@@ -2,6 +2,6 @@
   "parent": "differentdoors:block/template_double_door_bottom_right_open_ext",
   "textures": {
     "all": "differentdoors:block/vined_cherry_double_door",
-    "particle": "differentdoors:block/vined_cherry_double_door"
+    "particle": "differentdoors:block/particle/vined_cherry_double_door"
   }
 }

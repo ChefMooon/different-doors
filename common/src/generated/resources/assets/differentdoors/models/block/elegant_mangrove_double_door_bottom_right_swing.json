@@ -2,6 +2,6 @@
   "parent": "differentdoors:block/template_double_door_bottom_right",
   "textures": {
     "all": "differentdoors:block/elegant_mangrove_double_door_swing",
-    "particle": "differentdoors:block/elegant_mangrove_double_door_swing"
+    "particle": "differentdoors:block/particle/elegant_mangrove_double_door"
   }
 }
