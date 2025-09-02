@@ -10,13 +10,11 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -24,7 +22,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -627,12 +624,15 @@ public class DoubleDoorBlock extends Block {
             }
         }
         if (isDoorBlock(neighborState) && neighborState.getValue(PART) != part && facing == neighborState.getValue(FACING)) {
-            int neighborX = neighborState.getValue(PART).xOffset();
-            int partX = part.xOffset();
-            if ((neighborX == 0 && Math.abs(partX) == 1) || (partX == 0 && Math.abs(neighborX) == 1)) {
-                return neighborState.setValue(PART, part)
-                                    .setValue(OPEN, state.getValue(OPEN))
-                                    .setValue(ALT, state.getValue(ALT));
+            Direction.Axis axis = direction.getAxis();
+            if ((axis== Direction.Axis.X && pos.getX() == neighborPos.getX()) || (axis == Direction.Axis.Z && pos.getZ() == neighborPos.getZ())) {
+                int neighborX = neighborState.getValue(PART).xOffset();
+                int partX = part.xOffset();
+                if ((neighborX == 0 && Math.abs(partX) == 1) || (partX == 0 && Math.abs(neighborX) == 1)) {
+                    return neighborState.setValue(PART, part)
+                            .setValue(OPEN, state.getValue(OPEN))
+                            .setValue(ALT, state.getValue(ALT));
+                }
             }
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);

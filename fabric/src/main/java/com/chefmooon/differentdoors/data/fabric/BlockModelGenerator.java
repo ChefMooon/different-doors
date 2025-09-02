@@ -5,7 +5,6 @@ import com.chefmooon.differentdoors.common.block.properties.DoorPartProperty;
 import com.chefmooon.differentdoors.common.registry.fabric.ModBlocksImpl;
 import com.chefmooon.differentdoors.common.util.ModTemplates;
 import com.chefmooon.differentdoors.common.util.TextUtil;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.data.models.blockstates.PropertyDispatch;
@@ -43,11 +42,9 @@ public class BlockModelGenerator {
         ResourceLocation location = ModelLocationUtils.getModelLocation(block.get());
         if (textureLocation == null) textureLocation = location;
 
-        TextureMapping textureMapping = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", ""))) // revert when texture is fixed
-//        TextureMapping textureMapping = TextureMapping.particle(textureLocation)
+        TextureMapping textureMapping = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", "")))
                 .put(TextureSlot.ALL, textureLocation);
-        TextureMapping textureMappingSwing = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", ""))) // revert when texture is fixed
-//        TextureMapping textureMappingSwing = TextureMapping.particle(textureLocation.withSuffix("_swing"))
+        TextureMapping textureMappingSwing = TextureMapping.particle(TextUtil.res("block/particle/" + textureLocation.getPath().replace("block/", "")))
                 .put(TextureSlot.ALL, textureLocation.withSuffix("_swing"));
 
         // Slide Models
