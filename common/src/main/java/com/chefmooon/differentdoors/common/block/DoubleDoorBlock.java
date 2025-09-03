@@ -525,8 +525,11 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
                 }
             } else if (part.isExtension() && !anyPowered[0]) {
                 // remove extension geometry when closing
-                if (partState.is(this)) {
-                    level.setBlock(partPos, partState.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+                BlockState checkState = level.getBlockState(partPos);
+                if (checkState.is(this) && checkState.getValue(PART) == part) { // Must check if extension is part of this door multi-block
+                    if (partState.is(this)) {
+                        level.setBlock(partPos, partState.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+                    }
                 }
             }
         });
