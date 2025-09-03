@@ -728,9 +728,9 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
         if (controllerState.getValue(OPEN)) {
             forEachExtensionPart(part -> {
                 BlockPos oldPos = partPos(part, wasSwing, facing, controllerPos);
-                boolean oldIsWaterlogged = level.getBlockState(oldPos).getValue(WATERLOGGED);
-                if (level.getBlockState(oldPos).is(this)) {
-                    level.setBlock(oldPos, oldIsWaterlogged ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 10);
+                BlockState oldState = level.getBlockState(oldPos);
+                if (oldState.is(this)) {
+                    level.setBlock(oldPos, oldState.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 10);
                 }
                 // Add new extension
                 BlockPos newPos = partPos(part, swing, facing, controllerPos);
