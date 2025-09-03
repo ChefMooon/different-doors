@@ -36,6 +36,8 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -50,7 +52,7 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-public class DoubleDoorBlock extends Block {
+public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
     public static final MapCodec<DoubleDoorBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(DoorMaterialType.CODEC.fieldOf("door_material_type").forGetter(DoubleDoorBlock::getDoorMaterialType), propertiesCodec()).apply(instance, DoubleDoorBlock::new));
     public enum OpenType { CLOSED, SWING, SLIDE }
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -60,6 +62,7 @@ public class DoubleDoorBlock extends Block {
     public static final BooleanProperty SWING = BooleanProperty.create("swing");
     public static final BooleanProperty ALT = BooleanProperty.create("alt");
     public static final EnumProperty<DoorPartProperty> PART  = EnumProperty.create("part", DoorPartProperty.class);
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public final DoorMaterialType doorMaterialType;
     private static final VoxelShape[] CLOSED_SHAPES = {
             Block.box(0, 0, 12, 16, 16, 15), // SOUTH (index 0 when facing NORTH? -> we map via get2DDataValue)
@@ -116,12 +119,13 @@ public class DoubleDoorBlock extends Block {
                 .setValue(POWERED, false)
                 .setValue(SWING, false)
                 .setValue(ALT, false)
-                .setValue(PART, DoorPartProperty.BOTTOM));
+                .setValue(PART, DoorPartProperty.BOTTOM)
+                .setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, OPEN, LOCKED, POWERED, SWING, ALT, PART);
+        builder.add(FACING, OPEN, LOCKED, POWERED, SWING, ALT, PART, WATERLOGGED);
     }
 
     private EnumMap<OpenType, EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>>> initShapeMap() {
@@ -230,6 +234,11 @@ public class DoubleDoorBlock extends Block {
     }
 
     @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         OpenType type = !state.getValue(OPEN) ? OpenType.CLOSED : (state.getValue(SWING) ? OpenType.SWING : OpenType.SLIDE);
         return shapeMap.get(type).get(state.getValue(FACING)).get(state.getValue(PART));
@@ -274,6 +283,7 @@ public class DoubleDoorBlock extends Block {
         if (blockStateProperties != null && blockStateProperties.get(SWING) != null) swing = Boolean.TRUE.equals(blockStateProperties.get(SWING));
         BlockPos blockPos = context.getClickedPos();
         Level level = context.getLevel();
+        boolean isWaterlogged = level.getFluidState(blockPos).getType() == Fluids.WATER;
         Direction facing = context.getHorizontalDirection().getOpposite();
         boolean isAreaClear = true;
         for (DoorPartProperty part : DoorPartProperty.values()) {
@@ -294,7 +304,8 @@ public class DoubleDoorBlock extends Block {
                     .setValue(LOCKED, false)
                     .setValue(POWERED, powered)
                     .setValue(SWING, swing)
-                    .setValue(ALT, false);
+                    .setValue(ALT, false)
+                    .setValue(WATERLOGGED, isWaterlogged);
         } else {
             return null;
         }
@@ -444,7 +455,11 @@ public class DoubleDoorBlock extends Block {
         for (DoorPartProperty part : DoorPartProperty.values()) {
             if (!part.isExtension()) {
                 BlockPos partPos = pos.relative(facing.getCounterClockWise(), part.xOffset()).above(part.yOffset());
-                level.setBlock(partPos, state.setValue(PART, part), Block.UPDATE_CLIENTS);
+                boolean isWaterlogged = level.getFluidState(partPos).getType() == Fluids.WATER;
+                BlockPos checkPos = extensionPosForUpdate(part, state.getValue(SWING), facing, partPos);
+                BlockState checkState = level.getBlockState(checkPos);
+                boolean shouldPlaceAlt = shouldPlaceAlt(level, checkState, checkPos, facing, part);
+                level.setBlock(partPos, state.setValue(PART, part).setValue(WATERLOGGED, isWaterlogged).setValue(ALT, !shouldPlaceAlt), Block.UPDATE_ALL);
             } else if (state.getValue(POWERED) || state.getValue(OPEN)) {
                 boolean swing = state.getValue(SWING);
                 BlockPos newPartPos = swing ?
@@ -452,6 +467,7 @@ public class DoubleDoorBlock extends Block {
                                 .relative(facing.getOpposite(), part.zOffset())
                                 .above(part.yOffset()) :
                         pos.relative(facing.getCounterClockWise(), part.xOffset() * 2).above(part.yOffset());
+                boolean isWaterlogged = level.getFluidState(newPartPos).getType() == Fluids.WATER;
                 BlockState newPartState = this.defaultBlockState()
                         .setValue(FACING, facing)
                         .setValue(OPEN, true)
@@ -459,8 +475,11 @@ public class DoubleDoorBlock extends Block {
                         .setValue(POWERED, false)
                         .setValue(SWING, swing)
                         .setValue(PART, part)
-                        .setValue(ALT, false);
-                if (level.getBlockState(newPartPos).isAir()) level.setBlock(newPartPos, newPartState, Block.UPDATE_ALL);
+                        .setValue(ALT, false)
+                        .setValue(WATERLOGGED, isWaterlogged);
+                if (level.getBlockState(newPartPos).isAir() || (level.getFluidState(newPartPos).getType() == Fluids.WATER && level.getBlockState(newPartPos).canBeReplaced(Fluids.WATER))) {
+                    level.setBlock(newPartPos, newPartState, Block.UPDATE_ALL);
+                }
             }
         }
     }
@@ -507,7 +526,7 @@ public class DoubleDoorBlock extends Block {
             } else if (part.isExtension() && !anyPowered[0]) {
                 // remove extension geometry when closing
                 if (partState.is(this)) {
-                    level.setBlock(partPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+                    level.setBlock(partPos, partState.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
                 }
             }
         });
@@ -555,9 +574,15 @@ public class DoubleDoorBlock extends Block {
         BlockPos controllerPos = getController(state, pos);
         Direction facing = state.getValue(FACING);
         DoorPartProperty part = state.getValue(PART);
+        boolean isWaterlogged = level.getFluidState(pos).getType() == Fluids.WATER;
+        state = state.setValue(WATERLOGGED, isWaterlogged);
+        if(isWaterlogged) {
+            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+        }
+
         if (part.isExtension()) {
             if (isDoorBlock(neighborState) && neighborState.getValue(PART) != part && (facing == neighborState.getValue(FACING) && part.xOffset() == neighborState.getValue(PART).xOffset())) {
-                return neighborState.setValue(PART, part).setValue(OPEN, state.getValue(OPEN)).setValue(ALT, state.getValue(ALT));
+                return neighborState.setValue(PART, part).setValue(OPEN, state.getValue(OPEN)).setValue(ALT, state.getValue(ALT)).setValue(WATERLOGGED, isWaterlogged);
             } else {
                 if (isDoorBlock(neighborState) && facing == neighborState.getValue(FACING)) {
                     return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
@@ -580,20 +605,20 @@ public class DoubleDoorBlock extends Block {
                             !canSurvive(controllerState, level, controllerPos) &&
                             !canSurvive(level.getBlockState(brPos), level, brPos)) {
                         if (level instanceof Level realLevel) destroy(realLevel, pos, state, true, null);
-                        return Blocks.AIR.defaultBlockState();
+                        return isWaterlogged ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
                     } else {
                         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
                     }
                 } else {
-                    if (!canSurvive(state, level, pos)) return Blocks.AIR.defaultBlockState();
+                    if (!canSurvive(state, level, pos)) return isWaterlogged ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
                 }
             } else if (direction == Direction.UP) {
                 if (part.yOffset() != 2 && !isDoorBlock(level.getBlockState(pos.above()))) {
-                    return Blocks.AIR.defaultBlockState();
+                    return isWaterlogged ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
                 }
             }
             if (isDoorBlock(neighborState) && neighborState.getValue(PART) != part && facing == neighborState.getValue(FACING)) {
-                return neighborState.setValue(PART, part).setValue(OPEN, state.getValue(OPEN)).setValue(ALT, state.getValue(ALT));
+                return neighborState.setValue(PART, part).setValue(OPEN, state.getValue(OPEN)).setValue(ALT, state.getValue(ALT)).setValue(WATERLOGGED, isWaterlogged);
             } else {
                 return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
             }
@@ -605,12 +630,12 @@ public class DoubleDoorBlock extends Block {
         Direction right = facing.getClockWise();
 
         if (xOffset == -1 && direction == left) {
-            if (!isDoorBlock(level.getBlockState(pos.relative(left)))) return Blocks.AIR.defaultBlockState();
+            if (!isDoorBlock(level.getBlockState(pos.relative(left)))) return isWaterlogged ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
         } else if (xOffset == 1 && direction == right) {
-            if (!isDoorBlock(level.getBlockState(pos.relative(right)))) return Blocks.AIR.defaultBlockState();
+            if (!isDoorBlock(level.getBlockState(pos.relative(right)))) return isWaterlogged ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
         } else if (xOffset == 0) {
-            if (direction == left && !isDoorBlock(level.getBlockState(pos.relative(left)))) return Blocks.AIR.defaultBlockState();
-            if (direction == right && !isDoorBlock(level.getBlockState(pos.relative(right)))) return Blocks.AIR.defaultBlockState();
+            if (direction == left && !isDoorBlock(level.getBlockState(pos.relative(left)))) return isWaterlogged ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+            if (direction == right && !isDoorBlock(level.getBlockState(pos.relative(right)))) return isWaterlogged ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
         }
 
         // Handle extension spawn if opened
@@ -618,8 +643,9 @@ public class DoubleDoorBlock extends Block {
             boolean swing = state.getValue(SWING);
             DoorPartProperty extPart = extensionMap.get(part);
             BlockPos extSpawnPos = extensionPosForUpdate(part, swing, facing, pos);
-            if (level.getBlockState(extSpawnPos).isAir()) {
-                BlockState extState = newExtensionState(facing, swing, extPart);
+            boolean extIsWaterlogged = level.getFluidState(extSpawnPos).getType() == Fluids.WATER;
+            if (level.getBlockState(extSpawnPos).isAir() || (extIsWaterlogged && level.getBlockState(extSpawnPos).canBeReplaced(Fluids.WATER))) {
+                BlockState extState = newExtensionState(facing, swing, extPart).setValue(WATERLOGGED, extIsWaterlogged);
                 level.setBlock(extSpawnPos, extState, 10);
             }
         }
@@ -631,7 +657,8 @@ public class DoubleDoorBlock extends Block {
                 if ((neighborX == 0 && Math.abs(partX) == 1) || (partX == 0 && Math.abs(neighborX) == 1)) {
                     return neighborState.setValue(PART, part)
                             .setValue(OPEN, state.getValue(OPEN))
-                            .setValue(ALT, state.getValue(ALT));
+                            .setValue(ALT, state.getValue(ALT))
+                            .setValue(WATERLOGGED, isWaterlogged);
                 }
             }
         }
@@ -684,10 +711,11 @@ public class DoubleDoorBlock extends Block {
                 if (partState.is(this)) {
                     BlockPos checkPos = extensionPosForUpdate(part, swing, facing, partPos);
                     BlockState checkState = level.getBlockState(checkPos);
-                    if (shouldPlaceAlt(level, checkState, checkPos, facing, part)) {
-                        partState.setValue(ALT, true);
+                    if (part.xOffset() != 0) {
+                        level.setBlock(partPos, partState.setValue(SWING, swing).setValue(ALT, !shouldPlaceAlt(level, checkState, checkPos, facing, part)), Block.UPDATE_CLIENTS);
+                    } else {
+                        level.setBlock(partPos, partState.setValue(SWING, swing).setValue(ALT, false), Block.UPDATE_CLIENTS);
                     }
-                    level.setBlockAndUpdate(partPos, partState.setValue(SWING, swing));
                 }
             }
         });
@@ -697,13 +725,15 @@ public class DoubleDoorBlock extends Block {
         if (controllerState.getValue(OPEN)) {
             forEachExtensionPart(part -> {
                 BlockPos oldPos = partPos(part, wasSwing, facing, controllerPos);
+                boolean oldIsWaterlogged = level.getBlockState(oldPos).getValue(WATERLOGGED);
                 if (level.getBlockState(oldPos).is(this)) {
-                    level.setBlock(oldPos, Blocks.AIR.defaultBlockState(), 10);
+                    level.setBlock(oldPos, oldIsWaterlogged ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 10);
                 }
                 // Add new extension
                 BlockPos newPos = partPos(part, swing, facing, controllerPos);
-                if (level.getBlockState(newPos).isAir()) {
-                    level.setBlockAndUpdate(newPos, newExtensionState(facing, swing, part));
+                boolean newIsWaterlogged = level.getFluidState(newPos).getType() == Fluids.WATER;
+                if (level.getBlockState(newPos).isAir() || (newIsWaterlogged && level.getBlockState(newPos).canBeReplaced(Fluids.WATER))) {
+                    level.setBlockAndUpdate(newPos, newExtensionState(facing, swing, part).setValue(WATERLOGGED, newIsWaterlogged));
                 }
             });
         }
@@ -717,7 +747,7 @@ public class DoubleDoorBlock extends Block {
 
         if (dropBlock) Block.dropResources(controllerState, level, controllerPos);
 
-        level.setBlock(controllerPos, Blocks.AIR.defaultBlockState(), 35);
+        level.setBlock(controllerPos, state.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 35);
         if (state.getValue(OPEN)) {
             if (controllerState.is(this)) {
                 Direction facing = controllerState.getValue(FACING);
@@ -726,7 +756,7 @@ public class DoubleDoorBlock extends Block {
                     BlockPos partPos = partPos(part, swing, facing, controllerPos);
                     BlockState partState = level.getBlockState(partPos);
                     if (partState.is(this) && partState.getValue(FACING) == facing && part.xOffset() == partState.getValue(PART).xOffset() && partState.getValue(PART).isExtension()) {
-                        level.setBlock(partPos, Blocks.AIR.defaultBlockState(), 35);
+                        level.setBlock(partPos, partState.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 35);
                         level.levelEvent(player, 2001, partPos, Block.getId(level.getBlockState(partPos)));
                     }
                 });
@@ -766,17 +796,18 @@ public class DoubleDoorBlock extends Block {
     }
 
     private void updatePartBlock(Level level, Direction facing, boolean swing, boolean open, DoorPartProperty part, BlockPos partPos, BlockState partState) {
+        boolean isWaterlogged = level.getFluidState(partPos).getType() == Fluids.WATER;
         if (open) {
             if (part.isExtension()) {
                 if (partState.is(this) && partState.getValue(PART).isExtension()) {
-                    level.setBlock(partPos, Blocks.AIR.defaultBlockState(), 10);
+                    level.setBlock(partPos, isWaterlogged ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 10);
                 }
             } else if (partState.getBlock() instanceof DoubleDoorBlock) {
                 level.setBlock(partPos, partState.cycle(OPEN).setValue(ALT, false), 10);
             }
         } else {
             if (part.isExtension()) {
-                if (partState.isAir()) {
+                if (partState.isAir() || (isWaterlogged && partState.canBeReplaced(Fluids.WATER))) {
                     BlockState newPartState = this.defaultBlockState()
                             .setValue(FACING, facing)
                             .setValue(OPEN, true)
@@ -784,7 +815,8 @@ public class DoubleDoorBlock extends Block {
                             .setValue(POWERED, false)
                             .setValue(SWING, swing)
                             .setValue(ALT, false)
-                            .setValue(PART, part);
+                            .setValue(PART, part)
+                            .setValue(WATERLOGGED, isWaterlogged);
                     level.setBlock(partPos, newPartState, Block.UPDATE_CLIENTS);
                 }
             } else if (partState.getBlock() instanceof DoubleDoorBlock) {
@@ -805,8 +837,8 @@ public class DoubleDoorBlock extends Block {
 
     protected boolean shouldPlaceAlt(Level level, BlockState blockState, BlockPos blockPos, Direction facing, DoorPartProperty part) {
         boolean insideFaceSturdy = (part.xOffset() == -1 && blockState.isFaceSturdy(level, blockPos, facing.getCounterClockWise()) ||
-                part.xOffset() == 1 && blockState.isFaceSturdy(level, blockPos, facing.getClockWise()));
-        return blockState.isAir() || (blockState.isFaceSturdy(level, blockPos, facing) && insideFaceSturdy);
+                part.xOffset() == 1 && blockState.isFaceSturdy(level, blockPos, facing.getClockWise())); // TODO: rework check. does not around for swinging door extensions
+        return (blockState.is(this) || blockState.isAir() || (level.getFluidState(blockPos).getType() == Fluids.WATER && blockState.canBeReplaced(Fluids.WATER)) || (blockState.isFaceSturdy(level, blockPos, facing)));
         // the above checks if the face facing the same direction as the door and the inside face is sturdy, below does not check the inside face. remove after testing
 //        return blockState.isAir() || blockState.isFaceSturdy(level, blockPos, facing);
     }
