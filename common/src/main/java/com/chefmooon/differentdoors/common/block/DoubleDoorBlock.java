@@ -1,8 +1,8 @@
 package com.chefmooon.differentdoors.common.block;
 
-import com.chefmooon.differentdoors.DifferentDoors;
 import com.chefmooon.differentdoors.common.block.properties.DoorPartProperty;
 import com.chefmooon.differentdoors.common.data.types.DoorMaterialType;
+import com.chefmooon.differentdoors.common.util.TextUtil;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
@@ -559,9 +559,9 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
         if (blockStateProperties.get(SWING) != null) {
             boolean isSwinging = Boolean.TRUE.equals((blockStateProperties.get(SWING)));
             if (isSwinging) {
-                tooltipComponents.add(Component.translatable(DifferentDoors.MOD_ID + ".tooltip.double_door.swinging").withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(TextUtil.getTranslatable(".tooltip.double_door.swinging").withStyle(ChatFormatting.GRAY));
             } else {
-                tooltipComponents.add(Component.translatable(DifferentDoors.MOD_ID + ".tooltip.double_door.sliding").withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(TextUtil.getTranslatable(".tooltip.double_door.sliding").withStyle(ChatFormatting.GRAY));
             }
         }
     }
