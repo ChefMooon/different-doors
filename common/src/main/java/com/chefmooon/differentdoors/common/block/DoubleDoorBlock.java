@@ -409,6 +409,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
         }
     }
 
+    // TODO: improve particle placement
     private void addParticle(Level level, BlockPos pos) {
         for (Direction dir : Direction.values()) {
             for (int i = 0; i < 4; i++) { // spawn 4 particles per face
@@ -653,7 +654,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
             }
         }
         if (isDoorBlock(neighborState) && neighborState.getValue(PART) != part && facing == neighborState.getValue(FACING)) {
-            Direction.Axis axis = direction.getAxis();
+            Direction.Axis axis = facing.getAxis();
             if ((axis== Direction.Axis.X && pos.getX() == neighborPos.getX()) || (axis == Direction.Axis.Z && pos.getZ() == neighborPos.getZ())) {
                 int neighborX = neighborState.getValue(PART).xOffset();
                 int partX = part.xOffset();
