@@ -545,9 +545,9 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
         if (blockStateProperties.get(SWING) != null) {
             boolean isSwinging = Boolean.TRUE.equals((blockStateProperties.get(SWING)));
             if (isSwinging) {
-                tooltipComponents.add(TextUtil.getTranslatable(".tooltip.double_door.swinging").withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(TextUtil.getTranslatable("tooltip.double_door.swinging").withStyle(ChatFormatting.GRAY));
             } else {
-                tooltipComponents.add(TextUtil.getTranslatable(".tooltip.double_door.sliding").withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(TextUtil.getTranslatable("tooltip.double_door.sliding").withStyle(ChatFormatting.GRAY));
             }
         }
     }
