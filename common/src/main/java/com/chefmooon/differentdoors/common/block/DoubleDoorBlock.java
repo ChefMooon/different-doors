@@ -10,6 +10,7 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -336,7 +337,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
 
             level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
-            addEventParticles(level, state, pos, player, LevelEvent.PARTICLES_WAX_OFF);
+            addEventParticles(level, state, newState, pos, player, ParticleTypes.WAX_OFF);
             level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
             if (!player.isCreative()) itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(itemStack));
             return InteractionResult.sidedSuccess(level.isClientSide);
@@ -348,7 +349,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
 
             level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
-            addEventParticles(level, state, pos, player, LevelEvent.PARTICLES_SCRAPE);
+            addEventParticles(level, state, newState, pos, player, ParticleTypes.SCRAPE);
             level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
             if (!player.isCreative()) itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(itemStack));
             return InteractionResult.sidedSuccess(level.isClientSide);
@@ -363,14 +364,15 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
             if (player instanceof ServerPlayer serverPlayer) CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
             level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
-            addSimpleWaxOnParticles(level, state, pos, player);
+            addEventParticles(level, state, newState, pos, player, ParticleTypes.WAX_ON);
             if (!player.isCreative()) itemStack.shrink(1);
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
         return InteractionResult.PASS;
     }
 
-    private void addEventParticles(Level level, BlockState blockState, BlockPos pos, Player player, int eventId) {
+    // TODO: review during testing, is a levelEvent required or is gameEvent enough on unwax/scrape?
+    private void addEventParticles(Level level, BlockState blockState, BlockState newState, BlockPos pos, Player player, ParticleOptions particleData) {
         boolean swing = blockState.getValue(SWING);
         Direction facing = blockState.getValue(FACING);
         boolean open = blockState.getValue(OPEN);
@@ -378,59 +380,43 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
             forEachAllParts(part -> {
                 if (part.isExtension() || part.xOffset() != 0) {
                     BlockPos partPos = partPos(part, swing, facing, getController(blockState, pos));
-                    level.levelEvent(player, eventId, partPos, 0);
+                    level.gameEvent(GameEvent.BLOCK_CHANGE, partPos, GameEvent.Context.of(player, newState));
+                    addParticle(level, partPos, facing, particleData);
                 }
             });
         } else {
             forEachBasePart(part -> {
                 BlockPos partPos = partPos(part, swing, facing, getController(blockState, pos));
-                level.levelEvent(player, eventId, partPos, 0);
+                level.gameEvent(GameEvent.BLOCK_CHANGE, partPos, GameEvent.Context.of(player, newState));
+                addParticle(level, partPos, facing, particleData);
             });
         }
     }
 
-    private void addSimpleWaxOnParticles(Level level, BlockState blockState, BlockPos pos, Player player) {
-        boolean swing = blockState.getValue(SWING);
-        Direction facing = blockState.getValue(FACING);
-        boolean open = blockState.getValue(OPEN);
-        level.playSound(player, pos, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.BLOCKS, 1.0F, 1.0F);
-        if (open) {
-            forEachAllParts(part -> {
-                if (part.isExtension() || part.xOffset() != 0) {
-                    BlockPos partPos = partPos(part, swing, facing, getController(blockState, pos));
-                    addParticle(level, partPos);
-                }
-            });
-        } else {
-            forEachBasePart(part -> {
-                BlockPos partPos = partPos(part, swing, facing, getController(blockState, pos));
-                addParticle(level, partPos);
-            });
-        }
-    }
+    private void addParticle(Level level, BlockPos pos, Direction facing, ParticleOptions particleData) {
+        for (int i = 0; i < 16; i++) {
+            double xFactor = facing.getAxis() == Direction.Axis.X ? 0.35 : 0.5;
+            double zFactor = facing.getAxis() == Direction.Axis.Z ? 0.35 : 0.5;
+            double xSpread = facing.getAxis() == Direction.Axis.X ? 0.5 : 0.8;
+            double zSpread = facing.getAxis() == Direction.Axis.Z ? 0.5 : 0.8;
 
-    // TODO: improve particle placement
-    private void addParticle(Level level, BlockPos pos) {
-        for (Direction dir : Direction.values()) {
-            for (int i = 0; i < 4; i++) { // spawn 4 particles per face
-                double faceX = pos.getX() + 0.5 + 0.5 * dir.getStepX();
-                double faceY = pos.getY() + 0.5 + 0.5 * dir.getStepY();
-                double faceZ = pos.getZ() + 0.5 + 0.5 * dir.getStepZ();
-                double spread = 0.8;
-                double offsetX = dir.getAxis() == Direction.Axis.X ? 0 : (level.random.nextDouble() - 0.5) * spread;
-                double offsetY = dir.getAxis() == Direction.Axis.Y ? 0 : (level.random.nextDouble() - 0.5) * spread;
-                double offsetZ = dir.getAxis() == Direction.Axis.Z ? 0 : (level.random.nextDouble() - 0.5) * spread;
+            double faceX = pos.getX() + 0.5 + xFactor * facing.getStepX();
+            double faceY = pos.getY() + 0.5 + 0.5 * facing.getStepY();
+            double faceZ = pos.getZ() + 0.5 + zFactor * facing.getStepZ();
 
-                // Random velocity
-                double speed = 0.1 + level.random.nextDouble() * 0.6; // 0.1 to 0.3
-                double theta = level.random.nextDouble() * 2 * Math.PI;
-                double phi = level.random.nextDouble() * Math.PI;
-                double dx = speed * Math.sin(phi) * Math.cos(theta);
-                double dy = speed * Math.sin(phi) * Math.sin(theta);
-                double dz = speed * Math.cos(phi);
+            double offsetX = (level.random.nextDouble() - 0.5) * xSpread;
+            double offsetY = (level.random.nextDouble() - 0.5) * 0.8;
+            double offsetZ = (level.random.nextDouble() - 0.5) * zSpread;
 
-                level.addParticle(ParticleTypes.WAX_ON, faceX + offsetX, faceY + offsetY, faceZ + offsetZ, dx, dy, dz);
-            }
+            // Random velocity
+            double speed = 0.2 + level.random.nextDouble() * 0.6; // 0.2 to 0.8
+            double theta = level.random.nextDouble() * 2 * Math.PI;
+            double phi = level.random.nextDouble() * Math.PI;
+            double dx = speed * Math.sin(phi) * Math.cos(theta);
+            double dy = speed * Math.sin(phi) * Math.sin(theta);
+            double dz = speed * Math.cos(phi);
+
+            level.addParticle(particleData, faceX + offsetX, faceY + offsetY, faceZ + offsetZ, dx, dy, dz);
         }
     }
 
