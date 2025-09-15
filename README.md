@@ -35,7 +35,7 @@ A set of versatile doors to add more functional options.
 <details>
     <summary>Recipe's</summary>
     <h3>Slide</h3>
-    <img alt="Slide Door Recipe" src="updateme" />
+    <img alt="Slide Door Recipe" src="https://raw.githubusercontent.com/ChefMooon/different-doors/refs/heads/1.21.1-multi/img/recipe/slide_double_door.png" />
     <h3>Swing</h3>
-    <img alt="Swing Door Recipe" src="updateme" />
+    <img alt="Swing Door Recipe" src="https://raw.githubusercontent.com/ChefMooon/different-doors/refs/heads/1.21.1-multi/img/recipe/swing_double_door.png" />
 </details>
