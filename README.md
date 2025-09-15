@@ -10,15 +10,14 @@ A set of versatile doors to add more functional options.
 <center><img alt="Double Doors" src="https://raw.githubusercontent.com/ChefMooon/different-doors/refs/heads/1.21.1-multi/img/double_doors.gif" /></center>
 
 3x3 multi-block doors. Mix and match any wooden door style with any wood type to find the perfect match for your build. Also featuring iron and copper variants. Each door features two open/close styles: a modern slide or a classic swing.
-*picture of slide/swing doors open*
 
 - Large 3x3 double doors
     - 121 Wooden variants
-    - 4 Metal variants (+Waxed Copper)
+    - 5 Metal variants (+Waxed Copper)
 - Two open/close styles: **slide** and **swing**.
     - Shift-Right click with a Pickaxe to change
     - Both styles can be crafted
-- A redstone signal can be used to open/close!
+- A redstone signal can be used to open/close
 - Can be waterlogged
 
 <details>
