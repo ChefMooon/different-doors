@@ -428,19 +428,14 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
         }
     }
 
-    public boolean isOpen(BlockState blockState) {
-        return blockState.getValue(OPEN);
-    }
-
-    public void setOpen(@Nullable Entity entity, Level level, BlockPos pos, BlockState state, boolean open) {
-        if (!state.is(this)) return;
+    public void setOpen(@Nullable Entity entity, Level level, BlockPos pos, BlockState state) {
         BlockPos controllerPos = getController(state, pos);
-        BlockState controller = level.getBlockState(controllerPos);
-        if (!controller.is(this)) return;
-        if (controller.getValue(OPEN) == open) return;
+        BlockState controllerState = level.getBlockState(controllerPos);
+        if (!controllerState.is(this)) return;
+        Direction facing = controllerState.getValue(FACING);
+        boolean swing = controllerState.getValue(SWING);
+        boolean open = controllerState.getValue(OPEN);
 
-        Direction facing = controller.getValue(FACING);
-        boolean swing = controller.getValue(SWING);
         toggleAllParts(level, controllerPos, facing, swing, open, entity, pos);
     }
 
@@ -670,33 +665,20 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected void onExplosionHit(BlockState blockState, Level level, BlockPos blockPos, Explosion explosion, BiConsumer<ItemStack, BlockPos> biConsumer) {
+        // TODO: fix wind charge explosion open/closing the door at the same time if more than one door block is hit
         if (explosion.canTriggerBlocks() && !blockState.getValue(LOCKED) && getDoorMaterialType().canOpenedByHand() && !blockState.getValue(POWERED)) {
-            this.setOpen((Entity) null, level, blockPos, blockState, !this.isOpen(blockState));
+            this.setOpen((Entity) null, level, blockPos, blockState);
             if (explosion.getIndirectSourceEntity() instanceof ServerPlayer serverPlayer) {
                 ModAdvancements.DOUBLE_DOOR_WIND_CHARGE_TRIGGER.get().trigger(serverPlayer);
             }
         }
+        super.onExplosionHit(blockState, level, blockPos, explosion, biConsumer);
     }
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         destroy(level, pos, state, !level.isClientSide && !player.getAbilities().instabuild, player);
         return super.playerWillDestroy(level, pos, state, player);
-    }
-
-    @Override
-    public void wasExploded(Level level, BlockPos pos, Explosion explosion) {
-        // TODO: fix tnt explosion not destroying the door
-        if (!level.isClientSide()) {
-            for (Direction direction : Direction.values()) {
-                BlockPos offsetPos = pos.relative(direction);
-                BlockState offsetState = level.getBlockState(offsetPos);
-                if (offsetState.getBlock().equals(this)) {
-//                    destroy(level, offsetPos, offsetState, true);
-                }
-            }
-        }
-        super.wasExploded(level, pos, explosion);
     }
 
     public void setSwing(Level level, BlockPos controllerPos, BlockState controllerState, ItemStack heldItem, Player player, InteractionHand hand, Boolean swing) {
