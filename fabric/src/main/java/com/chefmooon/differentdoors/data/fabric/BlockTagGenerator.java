@@ -54,7 +54,7 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                         ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get()
                 );
 
-        // Decide do I add modded doors to vanilla tag?
+        // TODO: Decide do I add modded doors to vanilla tag?
 //        getOrCreateTagBuilder(BlockTags.WOODEN_DOORS)
 //                .addTag(ModTags.WOODEN_DOUBLE_DOORS);
 //
