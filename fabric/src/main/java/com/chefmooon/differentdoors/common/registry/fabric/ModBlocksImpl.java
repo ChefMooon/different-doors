@@ -28,15 +28,17 @@ public class ModBlocksImpl {
     public static final Supplier<Block> IRON_DOUBLE_DOOR = registerBlock(ModBlocks.IRON_DOUBLE_DOOR,
             new DoubleDoorBlockImpl(DoorMaterialType.IRON,
                     BlockBehaviour.Properties.of().mapColor(DoorMaterialType.IRON.getMapColor())
-                    .strength(DoorMaterialType.IRON.getStrength())
-                    .sound(DoorMaterialType.IRON.getSoundType())
-                    .noOcclusion().pushReaction(PushReaction.DESTROY)));
+                            .strength(DoorMaterialType.IRON.getStrength())
+                            .sound(DoorMaterialType.IRON.getSoundType())
+                            .requiresCorrectToolForDrops()
+                            .noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> COPPER_DOUBLE_DOOR = registerBlock(ModBlocks.COPPER_DOUBLE_DOOR,
             new WeatheringCopperDoubleDoorBlock(DoorMaterialType.COPPER, WeatheringCopper.WeatherState.UNAFFECTED,
                     BlockBehaviour.Properties.of().mapColor(Blocks.COPPER_BLOCK.defaultMapColor())
-                    .strength(DoorMaterialType.COPPER.getDestroyTime(), DoorMaterialType.COPPER.getStrength())
-                    .sound(DoorMaterialType.COPPER.getSoundType())
-                    .noOcclusion().pushReaction(PushReaction.DESTROY)));
+                            .strength(DoorMaterialType.COPPER.getDestroyTime(), DoorMaterialType.COPPER.getStrength())
+                            .sound(DoorMaterialType.COPPER.getSoundType())
+                            .requiresCorrectToolForDrops()
+                            .noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> EXPOSED_COPPER_DOUBLE_DOOR = registerBlock(ModBlocks.EXPOSED_COPPER_DOUBLE_DOOR,
             new WeatheringCopperDoubleDoorBlock(DoorMaterialType.COPPER, WeatheringCopper.WeatherState.EXPOSED,
                     BlockBehaviour.Properties.ofFullCopy(COPPER_DOUBLE_DOOR.get()).mapColor(Blocks.EXPOSED_COPPER.defaultMapColor())));

@@ -1,5 +1,6 @@
 package com.chefmooon.differentdoors.common.block;
 
+import com.chefmooon.differentdoors.DifferentDoors;
 import com.chefmooon.differentdoors.common.block.properties.DoorPartProperty;
 import com.chefmooon.differentdoors.common.data.types.DoorMaterialType;
 import com.chefmooon.differentdoors.common.registry.ModAdvancements;
@@ -343,7 +344,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
             addEventParticles(level, state, newState, pos, player, ParticleTypes.WAX_OFF);
             level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
-            if (!player.isCreative()) itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(itemStack));
+            if (!player.getAbilities().instabuild) itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(itemStack));
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
         Optional<BlockState> previousState = WeatheringCopperDoubleDoorBlock.getPrevious(state);
@@ -355,7 +356,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
             addEventParticles(level, state, newState, pos, player, ParticleTypes.SCRAPE);
             level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            if (!player.isCreative()) itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(itemStack));
+            if (!player.getAbilities().instabuild) itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(itemStack));
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
         return InteractionResult.PASS;
@@ -372,7 +373,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
             level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
             addEventParticles(level, state, newState, pos, player, ParticleTypes.WAX_ON);
-            if (!player.isCreative()) itemStack.shrink(1);
+            if (!player.getAbilities().instabuild) itemStack.shrink(1);
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
         return InteractionResult.PASS;
@@ -679,7 +680,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        destroy(level, pos, state, !level.isClientSide && !player.isCreative(), player);
+        destroy(level, pos, state, !level.isClientSide && !player.getAbilities().instabuild, player);
         return super.playerWillDestroy(level, pos, state, player);
     }
 
@@ -746,7 +747,13 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
         BlockPos controllerPos = getController(state, pos);
         BlockState controllerState = level.getBlockState(controllerPos);
 
-        if (dropBlock) Block.dropResources(controllerState, level, controllerPos);
+        if (dropBlock) {
+            if (state.requiresCorrectToolForDrops() && player != null && player.hasCorrectToolForDrops(state)) {
+                Block.dropResources(controllerState, level, controllerPos);
+            } else if (!state.requiresCorrectToolForDrops()) {
+                Block.dropResources(controllerState, level, controllerPos);
+            }
+        }
 
         level.setBlock(controllerPos, state.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 35);
         if (state.getValue(OPEN)) {
