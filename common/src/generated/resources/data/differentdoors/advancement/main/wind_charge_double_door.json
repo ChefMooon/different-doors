@@ -1,0 +1,27 @@
+{
+  "parent": "differentdoors:main/root",
+  "criteria": {
+    "wind_charge_double_door": {
+      "trigger": "differentdoors:double_door_wind_charge"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "differentdoors.advancement.wind_charge_double_door.desc"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:wind_charge"
+    },
+    "title": {
+      "translate": "differentdoors.advancement.wind_charge_double_door"
+    }
+  },
+  "requirements": [
+    [
+      "wind_charge_double_door"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

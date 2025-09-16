@@ -2,6 +2,7 @@ package com.chefmooon.differentdoors.common.block;
 
 import com.chefmooon.differentdoors.common.block.properties.DoorPartProperty;
 import com.chefmooon.differentdoors.common.data.types.DoorMaterialType;
+import com.chefmooon.differentdoors.common.registry.ModAdvancements;
 import com.chefmooon.differentdoors.common.util.TextUtil;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -333,7 +334,10 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
         Optional<BlockState> unwaxedState = WeatheringCopperDoubleDoorBlock.getUnwaxed(state);
         if (unwaxedState.isPresent()) {
             BlockState newState = unwaxedState.get();
-            if (player instanceof ServerPlayer serverPlayer) CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
+            if (player instanceof ServerPlayer serverPlayer) {
+                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
+                ModAdvancements.COPPER_DOUBLE_DOOR_WAX_OFF_TRIGGER.get().trigger(serverPlayer);
+            }
 
             level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
@@ -361,7 +365,10 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
         Optional<BlockState> waxedState = WeatheringCopperDoubleDoorBlock.getWaxed(state);
         if (waxedState.isPresent()) {
             BlockState newState = waxedState.get();
-            if (player instanceof ServerPlayer serverPlayer) CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
+            if (player instanceof ServerPlayer serverPlayer) {
+                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
+                ModAdvancements.COPPER_DOUBLE_DOOR_WAX_ON_TRIGGER.get().trigger(serverPlayer);
+            }
             level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
             addEventParticles(level, state, newState, pos, player, ParticleTypes.WAX_ON);
@@ -664,6 +671,9 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
     protected void onExplosionHit(BlockState blockState, Level level, BlockPos blockPos, Explosion explosion, BiConsumer<ItemStack, BlockPos> biConsumer) {
         if (explosion.canTriggerBlocks() && !blockState.getValue(LOCKED) && getDoorMaterialType().canOpenedByHand() && !blockState.getValue(POWERED)) {
             this.setOpen((Entity) null, level, blockPos, blockState, !this.isOpen(blockState));
+            if (explosion.getIndirectSourceEntity() instanceof ServerPlayer serverPlayer) {
+                ModAdvancements.DOUBLE_DOOR_WIND_CHARGE_TRIGGER.get().trigger(serverPlayer);
+            }
         }
     }
 
@@ -728,6 +738,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
             });
         }
         playSetSwingSound(level, controllerPos, swing);
+        if (player instanceof ServerPlayer serverPlayer) ModAdvancements.DOUBLE_DOOR_CHANGE_STYLE_TRIGGER.get().trigger(serverPlayer);
     }
 
     private void destroy(Level level, BlockPos pos, BlockState state, boolean dropBlock, @Nullable Player player) {

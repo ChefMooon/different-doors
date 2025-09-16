@@ -1,0 +1,33 @@
+{
+  "criteria": {
+    "has_door": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:doors"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/block/stripped_oak_log.png",
+    "description": {
+      "translate": "differentdoors.advancement.root.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "differentdoors:twelve_lite_oak_double_door"
+    },
+    "title": {
+      "translate": "differentdoors.advancement.root"
+    }
+  },
+  "requirements": [
+    [
+      "has_door"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

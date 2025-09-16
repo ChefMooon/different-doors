@@ -1,0 +1,27 @@
+{
+  "parent": "differentdoors:main/copper_double_door_wax_on",
+  "criteria": {
+    "copper_double_door_wax_off": {
+      "trigger": "differentdoors:copper_double_door_wax_off"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "differentdoors.advancement.copper_double_door_wax_off.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:golden_axe"
+    },
+    "title": {
+      "translate": "differentdoors.advancement.copper_double_door_wax_off"
+    }
+  },
+  "requirements": [
+    [
+      "copper_double_door_wax_off"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

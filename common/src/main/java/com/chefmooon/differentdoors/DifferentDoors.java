@@ -18,5 +18,6 @@ public class DifferentDoors {
         ModBlockEntities.init();
 //        ModSounds.init();
         ModRecipeSerializers.init();
+        ModAdvancements.init();
     }
 }

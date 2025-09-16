@@ -1,0 +1,27 @@
+{
+  "parent": "differentdoors:main/copper_doors",
+  "criteria": {
+    "copper_double_door_wax_on": {
+      "trigger": "differentdoors:copper_double_door_wax_on"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "differentdoors.advancement.copper_double_door_wax_on.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:honeycomb"
+    },
+    "title": {
+      "translate": "differentdoors.advancement.copper_double_door_wax_on"
+    }
+  },
+  "requirements": [
+    [
+      "copper_double_door_wax_on"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
