@@ -95,7 +95,7 @@ if (env.MODRINTH_TOKEN) {
         token = System.getenv("MODRINTH_TOKEN") // This is the default. Remember to have the MODRINTH_TOKEN environment variable set or else this will fail, or set it to whatever you want - just make sure it stays private!
         projectId = modrinth_project_id // This can be the project ID or the slug. Either will work!
         versionName = vName
-        versionNumber = project.version // You don't need to set this manually. Will fail if Modrinth has this version already
+        versionNumber = mod_version // You don't need to set this manually. Will fail if Modrinth has this version already
         versionType = mod_version_type // This is the default -- can also be `beta` or `alpha`
         changelog = changelogText
         uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
