@@ -2,6 +2,8 @@
 
 # Different Doors
 
+<center><img alt="Double Doors" src="https://raw.githubusercontent.com/ChefMooon/different-doors/refs/heads/1.21.1-multi/img/different_doors_banner.png" /></center>
+
 A set of versatile doors to add more functional options.
 
 ### Current Features
