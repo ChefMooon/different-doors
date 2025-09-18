@@ -43,7 +43,7 @@ A set of versatile doors to add more functional options.
     Warped   => Vined
 </details>
 <details>
-    <summary>Recipe's</summary>
+    <summary>Recipes</summary>
     <h3>Slide</h3>
     <img alt="Slide Door Recipe" src="https://raw.githubusercontent.com/ChefMooon/different-doors/refs/heads/1.21.1-multi/img/recipe/slide_double_door.png" />
     <h3>Swing</h3>
