@@ -18,6 +18,7 @@ A set of versatile doors to add more functional options.
     - Shift-Right click with a Pickaxe to change
     - Both styles can be crafted
 - A redstone signal can be used to open/close
+- Iron doors can only be opened with redstone
 - Can be waterlogged
 
 <details>
