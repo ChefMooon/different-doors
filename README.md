@@ -1,9 +1,5 @@
 <!--suppress HtmlDeprecatedTag, XmlDeprecatedElement -->
 
-<!-- modrinth_exclude.start -->
-# Different Doors
-<!-- modrinth_exclude.end -->
-
 <center><img alt="Different Doors Banner" src="https://raw.githubusercontent.com/ChefMooon/different-doors/refs/heads/1.21.1-multi/img/different_doors_banner.png" /></center>
 
 ---
