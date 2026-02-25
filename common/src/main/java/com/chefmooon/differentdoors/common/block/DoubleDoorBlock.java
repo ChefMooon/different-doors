@@ -373,6 +373,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
             level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
             addEventParticles(level, state, newState, pos, player, ParticleTypes.WAX_ON);
+            level.playSound(player, pos, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.BLOCKS, 1.0F, 1.0F);
             if (!player.getAbilities().instabuild) itemStack.shrink(1);
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
