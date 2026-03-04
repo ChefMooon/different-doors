@@ -8,16 +8,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class BasicEntityBlock extends BaseEntityBlock {
-    public static final MapCodec<BasicEntityBlock> CODEC = simpleCodec(BasicEntityBlock::new);
+//    public static final MapCodec<BasicEntityBlock> CODEC = simpleCodec(BasicEntityBlock::new);
 
     protected BasicEntityBlock(Properties properties) {
         super(properties);
     }
 
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
-    }
+//    @Override
+//    protected MapCodec<? extends BaseEntityBlock> codec() {
+//        return CODEC;
+//    }
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {

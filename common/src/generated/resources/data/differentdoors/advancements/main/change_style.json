@@ -1,0 +1,31 @@
+{
+  "parent": "differentdoors:main/root",
+  "criteria": {
+    "double_door_change_style_trigger": {
+      "conditions": {},
+      "trigger": "differentdoors:double_door_change_style"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "differentdoors.advancement.change_style.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:golden_pickaxe",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "differentdoors.advancement.change_style"
+    }
+  },
+  "requirements": [
+    [
+      "double_door_change_style_trigger"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

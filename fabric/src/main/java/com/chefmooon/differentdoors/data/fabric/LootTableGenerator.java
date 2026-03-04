@@ -6,7 +6,6 @@ import com.chefmooon.differentdoors.common.registry.fabric.ModBlocksImpl;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -15,11 +14,9 @@ import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
-import java.util.concurrent.CompletableFuture;
-
 public class LootTableGenerator extends FabricBlockLootTableProvider {
-    protected LootTableGenerator(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
-        super(dataOutput, registryLookup);
+    protected LootTableGenerator(FabricDataOutput dataOutput) {
+        super(dataOutput);
     }
 
     @Override
@@ -28,14 +25,14 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
 //        ModBlocksImpl.METAL_DOUBLE_DOOR_VARIANTS.forEach(((doorInfoRecord, blockSupplier) -> dropDoubleDoor(blockSupplier.get())));
 
         dropDoubleDoor(ModBlocksImpl.IRON_DOUBLE_DOOR.get());
-        dropDoubleDoor(ModBlocksImpl.COPPER_DOUBLE_DOOR.get());
-        dropDoubleDoor(ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR.get());
-        dropDoubleDoor(ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get());
-        dropDoubleDoor(ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR.get());
-        dropDoubleDoor(ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR.get());
-        dropDoubleDoor(ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get());
-        dropDoubleDoor(ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get());
-        dropDoubleDoor(ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get());
+//        dropDoubleDoor(ModBlocksImpl.COPPER_DOUBLE_DOOR.get());
+//        dropDoubleDoor(ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR.get());
+//        dropDoubleDoor(ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get());
+//        dropDoubleDoor(ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR.get());
+//        dropDoubleDoor(ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR.get());
+//        dropDoubleDoor(ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get());
+//        dropDoubleDoor(ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get());
+//        dropDoubleDoor(ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get());
     }
 
     private void dropDoubleDoor(Block block) {

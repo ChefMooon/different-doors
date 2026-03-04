@@ -27,10 +27,10 @@ public class BlockModelGenerator {
         ModBlocksImpl.DOUBLE_DOOR_VARIANTS.forEach((doorInfoRecord, block) -> doubleDoorModel(block, null));
 
         doubleDoorModel(ModBlocksImpl.IRON_DOUBLE_DOOR, null);
-        copperDoubleDoorModel(ModBlocksImpl.COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR);
-        copperDoubleDoorModel(ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR);
-        copperDoubleDoorModel(ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR);
-        copperDoubleDoorModel(ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR);
+//        copperDoubleDoorModel(ModBlocksImpl.COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR);
+//        copperDoubleDoorModel(ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR);
+//        copperDoubleDoorModel(ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR);
+//        copperDoubleDoorModel(ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR, ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR);
     }
 
     private static void copperDoubleDoorModel(Supplier<Block> block, Supplier<Block> waxedBlock) {

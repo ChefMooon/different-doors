@@ -27,10 +27,10 @@ public class ItemModelGenerator {
         ModItemsImpl.DOUBLE_DOOR_VARIANTS.forEach((ItemModelGenerator::registerDoubleDoorItemModel));
 //        ModItemsImpl.METAL_DOUBLE_DOOR_VARIANTS.forEach((ItemModelGenerator::registerDoubleDoorItemModel));
         registerDoubleDoorItemModel(new DoorInfoRecord(DoorMaterialType.IRON, null), ModItemsImpl.IRON_DOUBLE_DOOR);
-        registerCopperDoubleDoorItemModel(ModItemsImpl.COPPER_DOUBLE_DOOR, ModItemsImpl.WAXED_COPPER_DOUBLE_DOOR);
-        registerCopperDoubleDoorItemModel(ModItemsImpl.EXPOSED_COPPER_DOUBLE_DOOR, ModItemsImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR);
-        registerCopperDoubleDoorItemModel(ModItemsImpl.OXIDIZED_COPPER_DOUBLE_DOOR, ModItemsImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR);
-        registerCopperDoubleDoorItemModel(ModItemsImpl.WEATHERED_COPPER_DOUBLE_DOOR, ModItemsImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR);
+//        registerCopperDoubleDoorItemModel(ModItemsImpl.COPPER_DOUBLE_DOOR, ModItemsImpl.WAXED_COPPER_DOUBLE_DOOR);
+//        registerCopperDoubleDoorItemModel(ModItemsImpl.EXPOSED_COPPER_DOUBLE_DOOR, ModItemsImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR);
+//        registerCopperDoubleDoorItemModel(ModItemsImpl.OXIDIZED_COPPER_DOUBLE_DOOR, ModItemsImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR);
+//        registerCopperDoubleDoorItemModel(ModItemsImpl.WEATHERED_COPPER_DOUBLE_DOOR, ModItemsImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR);
     }
 
     private static void registerCopperDoubleDoorItemModel(Supplier<Item> item, Supplier<Item> waxedItem) {

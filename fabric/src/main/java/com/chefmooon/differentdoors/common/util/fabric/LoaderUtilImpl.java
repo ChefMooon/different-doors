@@ -20,7 +20,7 @@ public class LoaderUtilImpl {
 
     private static void populateBuildingBlocks(FabricItemGroupEntries entries) {
         for (DoorMaterialType doorMaterialType : DoorMaterialType.values()) {
-            if (doorMaterialType == DoorMaterialType.IRON || doorMaterialType == DoorMaterialType.COPPER) continue;
+            if (doorMaterialType == DoorMaterialType.IRON) continue;
             for (int i = DoorStyleType.values().length - 1; i >= 0; i--) { // Reverse reverse
                 entries.addAfter(doorMaterialType.getPrimaryCraftingIngredient(), ModItemsImpl.DOUBLE_DOOR_VARIANTS.get(new DoorInfoRecord(doorMaterialType, DoorStyleType.values()[i])).get());
             }
@@ -28,14 +28,14 @@ public class LoaderUtilImpl {
 
         // Metal doors
         entries.addAfter(Items.IRON_DOOR, ModItemsImpl.IRON_DOUBLE_DOOR.get());
-        entries.addAfter(Items.COPPER_DOOR, ModItemsImpl.COPPER_DOUBLE_DOOR.get());
-        entries.addAfter(Items.EXPOSED_COPPER_DOOR, ModItemsImpl.EXPOSED_COPPER_DOUBLE_DOOR.get());
-        entries.addAfter(Items.WEATHERED_COPPER_DOOR, ModItemsImpl.WEATHERED_COPPER_DOUBLE_DOOR.get());
-        entries.addAfter(Items.OXIDIZED_COPPER_DOOR, ModItemsImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get());
-        entries.addAfter(Items.WAXED_COPPER_DOOR, ModItemsImpl.WAXED_COPPER_DOUBLE_DOOR.get());
-        entries.addAfter(Items.WAXED_EXPOSED_COPPER_DOOR, ModItemsImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get());
-        entries.addAfter(Items.WAXED_WEATHERED_COPPER_DOOR, ModItemsImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get());
-        entries.addAfter(Items.WAXED_OXIDIZED_COPPER_DOOR, ModItemsImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get());
+//        entries.addAfter(Items.COPPER_DOOR, ModItemsImpl.COPPER_DOUBLE_DOOR.get());
+//        entries.addAfter(Items.EXPOSED_COPPER_DOOR, ModItemsImpl.EXPOSED_COPPER_DOUBLE_DOOR.get());
+//        entries.addAfter(Items.WEATHERED_COPPER_DOOR, ModItemsImpl.WEATHERED_COPPER_DOUBLE_DOOR.get());
+//        entries.addAfter(Items.OXIDIZED_COPPER_DOOR, ModItemsImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get());
+//        entries.addAfter(Items.WAXED_COPPER_DOOR, ModItemsImpl.WAXED_COPPER_DOUBLE_DOOR.get());
+//        entries.addAfter(Items.WAXED_EXPOSED_COPPER_DOOR, ModItemsImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get());
+//        entries.addAfter(Items.WAXED_WEATHERED_COPPER_DOOR, ModItemsImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get());
+//        entries.addAfter(Items.WAXED_OXIDIZED_COPPER_DOOR, ModItemsImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get());
     }
 
     public static boolean isModLoaded(String modId) {

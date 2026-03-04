@@ -2,7 +2,6 @@ package com.chefmooon.differentdoors.common.registry.fabric;
 
 import com.chefmooon.differentdoors.common.crafting.SlideToSwingShapelessRecipe;
 import com.chefmooon.differentdoors.common.crafting.SwingToSlideShapelessRecipe;
-import com.chefmooon.differentdoors.common.crafting.WaxedCopperShaplessRecipe;
 import com.chefmooon.differentdoors.common.registry.ModRecipeSerializers;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,7 +13,7 @@ import java.util.function.Supplier;
 public class ModRecipeSerializersImpl {
     public static final Supplier<RecipeSerializer<?>> SLIDE_TO_SWING = registerRecipeSerializer(ModRecipeSerializers.SLIDE_TO_SWING, SlideToSwingShapelessRecipe.Serializer::new);
     public static final Supplier<RecipeSerializer<?>> SWING_TO_SLIDE = registerRecipeSerializer(ModRecipeSerializers.SWING_TO_SLIDE, SwingToSlideShapelessRecipe.Serializer::new);
-    public static final Supplier<RecipeSerializer<?>> WAXED_COPPER = registerRecipeSerializer(ModRecipeSerializers.WAXED_COPPER, WaxedCopperShaplessRecipe.Serializer::new);
+//    public static final Supplier<RecipeSerializer<?>> WAXED_COPPER = registerRecipeSerializer(ModRecipeSerializers.WAXED_COPPER, WaxedCopperShaplessRecipe.Serializer::new);
 
     public static <B extends RecipeSerializer<?>> Supplier<B> registerRecipeSerializer(ResourceLocation resourceLocation, Supplier<B> supplier) {
         return registerRecipeSerializer(resourceLocation, supplier, BuiltInRegistries.RECIPE_SERIALIZER);

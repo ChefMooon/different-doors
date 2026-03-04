@@ -1,34 +1,29 @@
 package com.chefmooon.differentdoors.common.block;
 
-import com.chefmooon.differentdoors.DifferentDoors;
 import com.chefmooon.differentdoors.common.block.properties.DoorPartProperty;
 import com.chefmooon.differentdoors.common.data.types.DoorMaterialType;
 import com.chefmooon.differentdoors.common.registry.ModAdvancements;
 import com.chefmooon.differentdoors.common.util.TextUtil;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.piston.MovingPistonBlock;
 import net.minecraft.world.level.block.piston.PistonHeadBlock;
@@ -46,17 +41,16 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
-    public static final MapCodec<DoubleDoorBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(DoorMaterialType.CODEC.fieldOf("door_material_type").forGetter(DoubleDoorBlock::getDoorMaterialType), propertiesCodec()).apply(instance, DoubleDoorBlock::new));
+//    public static final MapCodec<DoubleDoorBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(DoorMaterialType.CODEC.fieldOf("door_material_type").forGetter(DoubleDoorBlock::getDoorMaterialType), propertiesCodec()).apply(instance, DoubleDoorBlock::new));
     public enum OpenType { CLOSED, SWING, SLIDE }
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
@@ -104,9 +98,9 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
     private final EnumMap<OpenType, EnumMap<Direction, EnumMap<DoorPartProperty, VoxelShape>>> shapeMap;
     private final EnumMap<DoorPartProperty, DoorPartProperty> extensionMap;
 
-    public MapCodec<? extends DoubleDoorBlock> codec() {
-        return CODEC;
-    }
+//    public MapCodec<? extends DoubleDoorBlock> codec() {
+//        return CODEC;
+//    }
 
     public DoubleDoorBlock(DoorMaterialType doorMaterialType, Properties properties) {
         super(properties);
@@ -257,7 +251,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return switch(type) {
             case LAND, AIR -> state.getValue(OPEN);
             case WATER -> false;
@@ -265,7 +259,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
@@ -282,8 +276,11 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         boolean swing = false;
-        BlockItemStateProperties blockStateProperties = context.getItemInHand().get(DataComponents.BLOCK_STATE);
-        if (blockStateProperties != null && blockStateProperties.get(SWING) != null) swing = Boolean.TRUE.equals(blockStateProperties.get(SWING));
+        CompoundTag tag = context.getItemInHand().getTag();
+        if (tag != null && tag.contains("BlockStateTag")) {
+            String swingValue = tag.getCompound("BlockStateTag").getString(SWING.getName());
+            if (!swingValue.isEmpty()) swing = Boolean.parseBoolean(swingValue);
+        }
         BlockPos blockPos = context.getClickedPos();
         Level level = context.getLevel();
         boolean isWaterlogged = level.getFluidState(blockPos).getType() == Fluids.WATER;
@@ -314,8 +311,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
         }
     }
 
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!getDoorMaterialType().canOpenedByHand()) {
             return InteractionResult.PASS;
         } else {
@@ -331,103 +327,120 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
         }
     }
 
-    public InteractionResult tryUseAxeItem(BlockState state, Level level, BlockPos pos, Player player, ItemStack itemStack) {
-        Optional<BlockState> unwaxedState = WeatheringCopperDoubleDoorBlock.getUnwaxed(state);
-        if (unwaxedState.isPresent()) {
-            BlockState newState = unwaxedState.get();
-            if (player instanceof ServerPlayer serverPlayer) {
-                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
-                ModAdvancements.COPPER_DOUBLE_DOOR_WAX_OFF_TRIGGER.get().trigger(serverPlayer);
-            }
+//    @Override
+//    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+//        if (!getDoorMaterialType().canOpenedByHand()) {
+//            return InteractionResult.PASS;
+//        } else {
+//            BlockPos controllerPos = getController(state, pos);
+//            BlockState controllerState = level.getBlockState(controllerPos);
+//            if (!controllerState.is(this)) return InteractionResult.PASS;
+//            Direction facing = controllerState.getValue(FACING);
+//            boolean swing = controllerState.getValue(SWING);
+//            boolean open = controllerState.getValue(OPEN);
+//
+//            toggleAllParts(level, controllerPos, facing, swing, open, player, pos);
+//            return InteractionResult.sidedSuccess(level.isClientSide);
+//        }
+//    }
 
-            level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
-            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
-            addEventParticles(level, state, newState, pos, player, ParticleTypes.WAX_OFF);
-            level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
-            if (!player.getAbilities().instabuild) itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(itemStack));
-            return InteractionResult.sidedSuccess(level.isClientSide);
-        }
-        Optional<BlockState> previousState = WeatheringCopperDoubleDoorBlock.getPrevious(state);
-        if (previousState.isPresent()) {
-            BlockState newState = previousState.get();
-            if (player instanceof ServerPlayer serverPlayer) CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
+//    public InteractionResult tryUseAxeItem(BlockState state, Level level, BlockPos pos, Player player, ItemStack itemStack) {
+//        Optional<BlockState> unwaxedState = WeatheringCopperDoubleDoorBlock.getUnwaxed(state);
+//        if (unwaxedState.isPresent()) {
+//            BlockState newState = unwaxedState.get();
+//            if (player instanceof ServerPlayer serverPlayer) {
+//                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
+//                ModAdvancements.COPPER_DOUBLE_DOOR_WAX_OFF_TRIGGER.get().trigger(serverPlayer);
+//            }
+//
+//            level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
+//            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
+//            addEventParticles(level, state, newState, pos, player, ParticleTypes.WAX_OFF);
+//            level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
+//            if (!player.getAbilities().instabuild) itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(itemStack));
+//            return InteractionResult.sidedSuccess(level.isClientSide);
+//        }
+//        Optional<BlockState> previousState = WeatheringCopperDoubleDoorBlock.getPrevious(state);
+//        if (previousState.isPresent()) {
+//            BlockState newState = previousState.get();
+//            if (player instanceof ServerPlayer serverPlayer) CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
+//
+//            level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
+//            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
+//            addEventParticles(level, state, newState, pos, player, ParticleTypes.SCRAPE);
+//            level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+//            if (!player.getAbilities().instabuild) itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(itemStack));
+//            return InteractionResult.sidedSuccess(level.isClientSide);
+//        }
+//        return InteractionResult.PASS;
+//    }
 
-            level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
-            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
-            addEventParticles(level, state, newState, pos, player, ParticleTypes.SCRAPE);
-            level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            if (!player.getAbilities().instabuild) itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(itemStack));
-            return InteractionResult.sidedSuccess(level.isClientSide);
-        }
-        return InteractionResult.PASS;
-    }
-
-    public InteractionResult tryUseHoneycombItem(BlockState state, Level level, BlockPos pos, Player player, ItemStack itemStack) {
-        Optional<BlockState> waxedState = WeatheringCopperDoubleDoorBlock.getWaxed(state);
-        if (waxedState.isPresent()) {
-            BlockState newState = waxedState.get();
-            if (player instanceof ServerPlayer serverPlayer) {
-                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
-                ModAdvancements.COPPER_DOUBLE_DOOR_WAX_ON_TRIGGER.get().trigger(serverPlayer);
-            }
-            level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
-            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
-            addEventParticles(level, state, newState, pos, player, ParticleTypes.WAX_ON);
-            level.playSound(player, pos, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.BLOCKS, 1.0F, 1.0F);
-            if (!player.getAbilities().instabuild) itemStack.shrink(1);
-            return InteractionResult.sidedSuccess(level.isClientSide);
-        }
-        return InteractionResult.PASS;
-    }
+//    public InteractionResult tryUseHoneycombItem(BlockState state, Level level, BlockPos pos, Player player, ItemStack itemStack) {
+//        Optional<BlockState> waxedState = WeatheringCopperDoubleDoorBlock.getWaxed(state);
+//        if (waxedState.isPresent()) {
+//            BlockState newState = waxedState.get();
+//            if (player instanceof ServerPlayer serverPlayer) {
+//                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
+//                ModAdvancements.COPPER_DOUBLE_DOOR_WAX_ON_TRIGGER.get().trigger(serverPlayer);
+//            }
+//            level.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
+//            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
+//            addEventParticles(level, state, newState, pos, player, ParticleTypes.WAX_ON);
+//            level.playSound(player, pos, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.BLOCKS, 1.0F, 1.0F);
+//            if (!player.getAbilities().instabuild) itemStack.shrink(1);
+//            return InteractionResult.sidedSuccess(level.isClientSide);
+//        }
+//        return InteractionResult.PASS;
+//    }
 
     // TODO: review during testing, is a levelEvent required or is gameEvent enough on unwax/scrape?
-    private void addEventParticles(Level level, BlockState blockState, BlockState newState, BlockPos pos, Player player, ParticleOptions particleData) {
-        boolean swing = blockState.getValue(SWING);
-        Direction facing = blockState.getValue(FACING);
-        boolean open = blockState.getValue(OPEN);
-        if (open) {
-            forEachAllParts(part -> {
-                if (part.isExtension() || part.xOffset() != 0) {
-                    BlockPos partPos = partPos(part, swing, facing, getController(blockState, pos));
-                    level.gameEvent(GameEvent.BLOCK_CHANGE, partPos, GameEvent.Context.of(player, newState));
-                    addParticle(level, partPos, facing, particleData);
-                }
-            });
-        } else {
-            forEachBasePart(part -> {
-                BlockPos partPos = partPos(part, swing, facing, getController(blockState, pos));
-                level.gameEvent(GameEvent.BLOCK_CHANGE, partPos, GameEvent.Context.of(player, newState));
-                addParticle(level, partPos, facing, particleData);
-            });
-        }
-    }
+//    private void addEventParticles(Level level, BlockState blockState, BlockState newState, BlockPos pos, Player player, ParticleOptions particleData) {
+//        boolean swing = blockState.getValue(SWING);
+//        Direction facing = blockState.getValue(FACING);
+//        boolean open = blockState.getValue(OPEN);
+//        if (open) {
+//            forEachAllParts(part -> {
+//                if (part.isExtension() || part.xOffset() != 0) {
+//                    BlockPos partPos = partPos(part, swing, facing, getController(blockState, pos));
+//                    level.gameEvent(GameEvent.BLOCK_CHANGE, partPos, GameEvent.Context.of(player, newState));
+//                    addParticle(level, partPos, facing, particleData);
+//                }
+//            });
+//        } else {
+//            forEachBasePart(part -> {
+//                BlockPos partPos = partPos(part, swing, facing, getController(blockState, pos));
+//                level.gameEvent(GameEvent.BLOCK_CHANGE, partPos, GameEvent.Context.of(player, newState));
+//                addParticle(level, partPos, facing, particleData);
+//            });
+//        }
+//    }
 
-    private void addParticle(Level level, BlockPos pos, Direction facing, ParticleOptions particleData) {
-        for (int i = 0; i < 16; i++) {
-            double xFactor = facing.getAxis() == Direction.Axis.X ? 0.35 : 0.5;
-            double zFactor = facing.getAxis() == Direction.Axis.Z ? 0.35 : 0.5;
-            double xSpread = facing.getAxis() == Direction.Axis.X ? 0.5 : 0.8;
-            double zSpread = facing.getAxis() == Direction.Axis.Z ? 0.5 : 0.8;
-
-            double faceX = pos.getX() + 0.5 + xFactor * facing.getStepX();
-            double faceY = pos.getY() + 0.5 + 0.5 * facing.getStepY();
-            double faceZ = pos.getZ() + 0.5 + zFactor * facing.getStepZ();
-
-            double offsetX = (level.random.nextDouble() - 0.5) * xSpread;
-            double offsetY = (level.random.nextDouble() - 0.5) * 0.8;
-            double offsetZ = (level.random.nextDouble() - 0.5) * zSpread;
-
-            // Random velocity
-            double speed = 0.2 + level.random.nextDouble() * 0.6; // 0.2 to 0.8
-            double theta = level.random.nextDouble() * 2 * Math.PI;
-            double phi = level.random.nextDouble() * Math.PI;
-            double dx = speed * Math.sin(phi) * Math.cos(theta);
-            double dy = speed * Math.sin(phi) * Math.sin(theta);
-            double dz = speed * Math.cos(phi);
-
-            level.addParticle(particleData, faceX + offsetX, faceY + offsetY, faceZ + offsetZ, dx, dy, dz);
-        }
-    }
+//    private void addParticle(Level level, BlockPos pos, Direction facing, ParticleOptions particleData) {
+//        for (int i = 0; i < 16; i++) {
+//            double xFactor = facing.getAxis() == Direction.Axis.X ? 0.35 : 0.5;
+//            double zFactor = facing.getAxis() == Direction.Axis.Z ? 0.35 : 0.5;
+//            double xSpread = facing.getAxis() == Direction.Axis.X ? 0.5 : 0.8;
+//            double zSpread = facing.getAxis() == Direction.Axis.Z ? 0.5 : 0.8;
+//
+//            double faceX = pos.getX() + 0.5 + xFactor * facing.getStepX();
+//            double faceY = pos.getY() + 0.5 + 0.5 * facing.getStepY();
+//            double faceZ = pos.getZ() + 0.5 + zFactor * facing.getStepZ();
+//
+//            double offsetX = (level.random.nextDouble() - 0.5) * xSpread;
+//            double offsetY = (level.random.nextDouble() - 0.5) * 0.8;
+//            double offsetZ = (level.random.nextDouble() - 0.5) * zSpread;
+//
+//            // Random velocity
+//            double speed = 0.2 + level.random.nextDouble() * 0.6; // 0.2 to 0.8
+//            double theta = level.random.nextDouble() * 2 * Math.PI;
+//            double phi = level.random.nextDouble() * Math.PI;
+//            double dx = speed * Math.sin(phi) * Math.cos(theta);
+//            double dy = speed * Math.sin(phi) * Math.sin(theta);
+//            double dz = speed * Math.cos(phi);
+//
+//            level.addParticle(particleData, faceX + offsetX, faceY + offsetY, faceZ + offsetZ, dx, dy, dz);
+//        }
+//    }
 
     public void setOpen(@Nullable Entity entity, Level level, BlockPos pos, BlockState state) {
         BlockPos controllerPos = getController(state, pos);
@@ -476,7 +489,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
         BlockPos controllerPos = getController(state, pos);
         BlockState controller = level.getBlockState(controllerPos);
         if (!controller.is(this)) return;
@@ -543,23 +556,32 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        BlockItemStateProperties blockStateProperties = stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY);
-        if (blockStateProperties.get(SWING) != null) {
-            boolean isSwinging = Boolean.TRUE.equals((blockStateProperties.get(SWING)));
-            if (isSwinging) {
-                tooltipComponents.add(TextUtil.getTranslatable("tooltip.double_door.swinging").withStyle(ChatFormatting.GRAY));
-            } else {
-                tooltipComponents.add(TextUtil.getTranslatable("tooltip.double_door.sliding").withStyle(ChatFormatting.GRAY));
+    public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, level, tooltip, flag);
+        CompoundTag tag = stack.getTag();
+        if (tag != null) {
+            if (tag.contains("BlockStateTag")) {
+                String swingValue = tag.getCompound("BlockStateTag").getString(SWING.getName());
+                if (!swingValue.isEmpty()) {
+                    boolean isSwinging = Boolean.parseBoolean(swingValue);
+                    if (isSwinging) {
+                        tooltip.add(TextUtil.getTranslatable("tooltip.double_door.swinging").withStyle(ChatFormatting.GRAY));
+                    } else {
+                        tooltip.add(TextUtil.getTranslatable("tooltip.double_door.sliding").withStyle(ChatFormatting.GRAY));
+                    }
+                }
             }
+        } else {
+            tooltip.add(TextUtil.getTranslatable("tooltip.double_door.sliding").withStyle(ChatFormatting.GRAY));
         }
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+    public @NotNull ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
-        stack.set(DataComponents.BLOCK_STATE, stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY).with(DoubleDoorBlock.SWING, state.getValue(SWING)));
+        CompoundTag blockStateTag = stack.getOrCreateTag().getCompound("BlockStateTag");
+        blockStateTag.putString(SWING.getName(), String.valueOf(state.getValue(SWING)));
+        stack.getOrCreateTag().put("BlockStateTag", blockStateTag);
         return stack;
     }
 
@@ -660,26 +682,25 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     private boolean isDoorBlock(BlockState blockState) {
-        return blockState.getBlock() instanceof DoubleDoorBlock ||
-                blockState.getBlock() instanceof WeatheringCopperDoubleDoorBlock;
+        return blockState.getBlock() instanceof DoubleDoorBlock;
     }
 
-    @Override
-    protected void onExplosionHit(BlockState blockState, Level level, BlockPos blockPos, Explosion explosion, BiConsumer<ItemStack, BlockPos> biConsumer) {
-        // TODO: fix wind charge explosion open/closing the door at the same time if more than one door block is hit
-        if (explosion.canTriggerBlocks() && !blockState.getValue(LOCKED) && getDoorMaterialType().canOpenedByHand() && !blockState.getValue(POWERED)) {
-            this.setOpen((Entity) null, level, blockPos, blockState);
-            if (explosion.getIndirectSourceEntity() instanceof ServerPlayer serverPlayer) {
-                ModAdvancements.DOUBLE_DOOR_WIND_CHARGE_TRIGGER.get().trigger(serverPlayer);
-            }
-        }
-        super.onExplosionHit(blockState, level, blockPos, explosion, biConsumer);
-    }
+//    @Override
+//    protected void onExplosionHit(BlockState blockState, Level level, BlockPos blockPos, Explosion explosion, BiConsumer<ItemStack, BlockPos> biConsumer) {
+//        // TODO: fix wind charge explosion open/closing the door at the same time if more than one door block is hit
+//        if (explosion.canTriggerBlocks() && !blockState.getValue(LOCKED) && getDoorMaterialType().canOpenedByHand() && !blockState.getValue(POWERED)) {
+//            this.setOpen((Entity) null, level, blockPos, blockState);
+//            if (explosion.getIndirectSourceEntity() instanceof ServerPlayer serverPlayer) {
+//                ModAdvancements.DOUBLE_DOOR_WIND_CHARGE_TRIGGER.get().trigger(serverPlayer);
+//            }
+//        }
+//        super.onExplosionHit(blockState, level, blockPos, explosion, biConsumer);
+//    }
 
     @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         destroy(level, pos, state, !level.isClientSide && !player.getAbilities().instabuild, player);
-        return super.playerWillDestroy(level, pos, state, player);
+        super.playerWillDestroy(level, pos, state, player);
     }
 
     public void setSwing(Level level, BlockPos controllerPos, BlockState controllerState, ItemStack heldItem, Player player, InteractionHand hand, Boolean swing) {
@@ -722,7 +743,7 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
             });
         }
         playSetSwingSound(level, controllerPos, swing);
-        if (player instanceof ServerPlayer serverPlayer) ModAdvancements.DOUBLE_DOOR_CHANGE_STYLE_TRIGGER.get().trigger(serverPlayer);
+        if (player instanceof ServerPlayer serverPlayer) ModAdvancements.DOUBLE_DOOR_CHANGE_STYLE_TRIGGER.trigger(serverPlayer);
     }
 
     private void destroy(Level level, BlockPos pos, BlockState state, boolean dropBlock, @Nullable Player player) {

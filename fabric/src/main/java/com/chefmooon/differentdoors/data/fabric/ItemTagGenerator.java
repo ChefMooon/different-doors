@@ -18,7 +18,7 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
     protected void addTags(HolderLookup.Provider provider) {
         // Mod Tags
         ModItemsImpl.DOUBLE_DOOR_VARIANTS.forEach(((doorInfoRecord, itemSupplier) -> {
-            if (doorInfoRecord.doorMaterialType() != DoorMaterialType.IRON && doorInfoRecord.doorMaterialType() != DoorMaterialType.COPPER) {
+            if (doorInfoRecord.doorMaterialType() != DoorMaterialType.IRON) {
                 getOrCreateTagBuilder(ModTags.WOODEN_DOUBLE_DOORS_ITEM)
                         .add(itemSupplier.get());
             }
@@ -26,15 +26,15 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(ModTags.DOUBLE_DOORS_ITEM)
                 .addTag(ModTags.WOODEN_DOUBLE_DOORS_ITEM)
-                .add(ModItemsImpl.IRON_DOUBLE_DOOR.get(),
-                        ModItemsImpl.COPPER_DOUBLE_DOOR.get(),
-                        ModItemsImpl.EXPOSED_COPPER_DOUBLE_DOOR.get(),
-                        ModItemsImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get(),
-                        ModItemsImpl.WEATHERED_COPPER_DOUBLE_DOOR.get(),
-                        ModItemsImpl.WAXED_COPPER_DOUBLE_DOOR.get(),
-                        ModItemsImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get(),
-                        ModItemsImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(),
-                        ModItemsImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get()
+                .add(ModItemsImpl.IRON_DOUBLE_DOOR.get()
+//                        ModItemsImpl.COPPER_DOUBLE_DOOR.get(),
+//                        ModItemsImpl.EXPOSED_COPPER_DOUBLE_DOOR.get(),
+//                        ModItemsImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get(),
+//                        ModItemsImpl.WEATHERED_COPPER_DOUBLE_DOOR.get(),
+//                        ModItemsImpl.WAXED_COPPER_DOUBLE_DOOR.get(),
+//                        ModItemsImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get(),
+//                        ModItemsImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(),
+//                        ModItemsImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get()
                 );
     }
 }

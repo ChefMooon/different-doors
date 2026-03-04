@@ -19,7 +19,7 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
     protected void addTags(HolderLookup.Provider provider) {
         // Mod Tags
         ModBlocksImpl.DOUBLE_DOOR_VARIANTS.forEach(((doorInfoRecord, blockSupplier) -> {
-            if (doorInfoRecord.doorMaterialType() != DoorMaterialType.IRON && doorInfoRecord.doorMaterialType() != DoorMaterialType.COPPER) {
+            if (doorInfoRecord.doorMaterialType() != DoorMaterialType.IRON) {
                 getOrCreateTagBuilder(ModTags.WOODEN_DOUBLE_DOORS)
                         .add(blockSupplier.get());
             }
@@ -27,15 +27,15 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
         getOrCreateTagBuilder(ModTags.DOUBLE_DOORS)
                 .addTag(ModTags.WOODEN_DOUBLE_DOORS)
-                .add(ModBlocksImpl.IRON_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get()
+                .add(ModBlocksImpl.IRON_DOUBLE_DOOR.get()
+//                        ModBlocksImpl.COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get()
                 );
 
         // Vanilla Tags
@@ -43,15 +43,15 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 .add(blockSupplier.get())));
 
         getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(ModBlocksImpl.IRON_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(),
-                        ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get()
+                .add(ModBlocksImpl.IRON_DOUBLE_DOOR.get()
+//                        ModBlocksImpl.COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(),
+//                        ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get()
                 );
 
         // TODO: Decide do I add modded doors to vanilla tag?

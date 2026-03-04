@@ -11,6 +11,6 @@ public class TextUtil {
     }
 
     public static ResourceLocation res(String string) {
-        return ResourceLocation.fromNamespaceAndPath(DifferentDoors.MOD_ID, string);
+        return new ResourceLocation(DifferentDoors.MOD_ID, string);
     }
 }

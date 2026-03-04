@@ -1,7 +1,0 @@
-{
-  "parent": "differentdoors:block/template_double_door_swing_left_open_ext",
-  "textures": {
-    "all": "differentdoors:block/exposed_copper_double_door_swing",
-    "particle": "differentdoors:block/particle/exposed_copper_double_door"
-  }
-}

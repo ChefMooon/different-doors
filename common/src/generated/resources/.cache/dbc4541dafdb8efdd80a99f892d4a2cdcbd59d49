@@ -1,7 +1,3 @@
-// 1.21.1	2025-09-16T13:32:39.5916606	Different Doors/Advancements
-e8e2e665d485a4568fc9c9f25d4d45983754d071 data\differentdoors\advancement\main\root.json
-ce27f51b87dcf108921b86b80a8c986bc76b2b2a data\differentdoors\advancement\main\copper_double_door_wax_on.json
-c1aa756253ab5f138fd81a9ed0b757e77671d53d data\differentdoors\advancement\main\copper_doors.json
-78598899ad36a4dee39e2cd4c87a2d9b57c110de data\differentdoors\advancement\main\wind_charge_double_door.json
-78117a19bc12474528195c21d2a65c11ef1bc1d7 data\differentdoors\advancement\main\copper_double_door_wax_off.json
-dce5c68f83a5070cff87ffeaf1bd9f985155be5a data\differentdoors\advancement\main\change_style.json
+// 1.20.1	2026-03-04T15:35:04.8480562	Different Doors/Advancements
+ed654512ff2331b40e78a13e85d5e180a100d990 data\differentdoors\advancements\main\root.json
+f6d7159fce68428fd681786794764d2267e00a9e data\differentdoors\advancements\main\change_style.json

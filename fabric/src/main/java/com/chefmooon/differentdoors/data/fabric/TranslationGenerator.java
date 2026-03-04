@@ -3,22 +3,18 @@ package com.chefmooon.differentdoors.data.fabric;
 import com.chefmooon.differentdoors.DifferentDoors;
 import com.chefmooon.differentdoors.common.data.types.DoorMaterialType;
 import com.chefmooon.differentdoors.common.data.types.DoorStyleType;
-import com.chefmooon.differentdoors.common.registry.ModBlocks;
 import com.chefmooon.differentdoors.common.registry.fabric.ModBlocksImpl;
 import com.chefmooon.differentdoors.common.tag.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.minecraft.core.HolderLookup;
-
-import java.util.concurrent.CompletableFuture;
 
 public class TranslationGenerator extends FabricLanguageProvider {
-    protected TranslationGenerator(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
-        super(dataOutput, "en_us", registryLookup);
+    protected TranslationGenerator(FabricDataOutput dataOutput) {
+        super(dataOutput, "en_us");
     }
 
     @Override
-    public void generateTranslations(HolderLookup.Provider provider, TranslationBuilder translationBuilder) {
+    public void generateTranslations(TranslationBuilder translationBuilder) {
         String MOD_ID = DifferentDoors.MOD_ID;
         String FORMATTED_MOD_ID = "Different Doors";
         String SUBTITLE = MOD_ID + ".subtitles.";
@@ -28,7 +24,7 @@ public class TranslationGenerator extends FabricLanguageProvider {
         translationBuilder.add("itemGroup." + MOD_ID, FORMATTED_MOD_ID);
 
         for (DoorMaterialType doorMaterialType : DoorMaterialType.values()) {
-            if (doorMaterialType == DoorMaterialType.IRON || doorMaterialType == DoorMaterialType.COPPER) continue;
+            if (doorMaterialType == DoorMaterialType.IRON) continue;
             for (DoorStyleType doorStyleType : DoorStyleType.values()) {
                 String doorName = doorStyleType.getSerializedName() + "_" + doorMaterialType.getSerializedName();
                 translationBuilder.add("block." + MOD_ID + "." + doorName + "_double_door", capitalize(doorName) + " Double Door");
@@ -36,20 +32,20 @@ public class TranslationGenerator extends FabricLanguageProvider {
         }
 
         translationBuilder.add(ModBlocksImpl.IRON_DOUBLE_DOOR.get(), "Iron Double Door");
-        translationBuilder.add(ModBlocksImpl.COPPER_DOUBLE_DOOR.get(), "Copper Double Door");
-        translationBuilder.add(ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR.get(), "Exposed Copper Double Door");
-        translationBuilder.add(ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get(), "Oxidized Copper Double Door");
-        translationBuilder.add(ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR.get(), "Weathered Copper Double Door");
-        translationBuilder.add(ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR.get(), "Waxed Copper Double Door");
-        translationBuilder.add(ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get(), "Waxed Exposed Copper Double Door");
-        translationBuilder.add(ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(), "Waxed Oxidized Copper Double Door");
-        translationBuilder.add(ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get(), "Waxed Weathered Copper Double Door");
+//        translationBuilder.add(ModBlocksImpl.COPPER_DOUBLE_DOOR.get(), "Copper Double Door");
+//        translationBuilder.add(ModBlocksImpl.EXPOSED_COPPER_DOUBLE_DOOR.get(), "Exposed Copper Double Door");
+//        translationBuilder.add(ModBlocksImpl.OXIDIZED_COPPER_DOUBLE_DOOR.get(), "Oxidized Copper Double Door");
+//        translationBuilder.add(ModBlocksImpl.WEATHERED_COPPER_DOUBLE_DOOR.get(), "Weathered Copper Double Door");
+//        translationBuilder.add(ModBlocksImpl.WAXED_COPPER_DOUBLE_DOOR.get(), "Waxed Copper Double Door");
+//        translationBuilder.add(ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get(), "Waxed Exposed Copper Double Door");
+//        translationBuilder.add(ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(), "Waxed Oxidized Copper Double Door");
+//        translationBuilder.add(ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get(), "Waxed Weathered Copper Double Door");
 
         // Tags
-        translationBuilder.add(ModTags.WOODEN_DOUBLE_DOORS_ITEM, "Wooden Double Doors");
-        translationBuilder.add(ModTags.DOUBLE_DOORS_ITEM, "Double Doors");
-        translationBuilder.add(ModTags.WOODEN_DOUBLE_DOORS, "Wooden Double Doors");
-        translationBuilder.add(ModTags.DOUBLE_DOORS, "Double Doors");
+        translationBuilder.add("tag.item." + MOD_ID + "." + ModTags.WOODEN_DOUBLE_DOORS_ITEM.location().getPath(), "Wooden Double Doors");
+        translationBuilder.add("tag.item." + MOD_ID + "." + ModTags.DOUBLE_DOORS_ITEM.location().getPath(), "Double Doors");
+        translationBuilder.add("tag.block." + MOD_ID + "." + ModTags.WOODEN_DOUBLE_DOORS.location().getPath(), "Wooden Double Doors");
+        translationBuilder.add("tag.block." + MOD_ID + "." + ModTags.DOUBLE_DOORS.location().getPath(), "Double Doors");
 
         // Subtitles
         translationBuilder.add(SUBTITLE + "double_door.open", "Double Door Opening");

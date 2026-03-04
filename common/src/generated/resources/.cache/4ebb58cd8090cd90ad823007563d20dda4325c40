@@ -1,5 +1,5 @@
-// 1.21.1	2025-09-16T13:32:39.6878995	Different Doors/Tags for minecraft:block
-173d48195bd0658fe6285403b0e947ead1434a68 data\differentdoors\tags\block\wooden_double_doors.json
-78f4d7320b29498ef341615b85eaf9a618753b08 data\minecraft\tags\block\mineable\pickaxe.json
-173d48195bd0658fe6285403b0e947ead1434a68 data\minecraft\tags\block\mineable\axe.json
-577b7f0010a996bbdf6fb2c0a36b7b84fb9f8fe5 data\differentdoors\tags\block\double_doors.json
+// 1.20.1	2026-03-04T15:35:04.9287467	Different Doors/Tags for minecraft:block
+f0d58bd0bebc23311fc23bf2f86b79757c8d7ca2 data\minecraft\tags\blocks\mineable\pickaxe.json
+75eb4beacc352f4c5a2de2b879a867e1ba8e4e6a data\minecraft\tags\blocks\mineable\axe.json
+0dbb1e1aa452dd8bf6851f0ab0a68d1f907c4826 data\differentdoors\tags\blocks\double_doors.json
+75eb4beacc352f4c5a2de2b879a867e1ba8e4e6a data\differentdoors\tags\blocks\wooden_double_doors.json

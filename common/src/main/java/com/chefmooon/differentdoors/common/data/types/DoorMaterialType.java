@@ -1,6 +1,5 @@
 package com.chefmooon.differentdoors.common.data.types;
 
-import com.mojang.serialization.Codec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -30,10 +29,10 @@ public enum DoorMaterialType implements StringRepresentable {
     WARPED(MapColor.WARPED_STEM, 3.0F, 3.0F, true, false, SoundEvents.NETHER_WOOD_DOOR_OPEN, SoundEvents.NETHER_WOOD_DOOR_CLOSE, SoundEvents.NETHER_WOOD_HIT, SoundEvents.NETHER_WOOD_HIT, SoundType.NETHER_WOOD, NoteBlockInstrument.BASS, Items.WARPED_DOOR, Items.WARPED_PLANKS, CreativeModeTabs.BUILDING_BLOCKS),
     
     IRON(MapColor.METAL, 5.0F, 5.0F, false, false, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.METAL_HIT, SoundEvents.METAL_HIT, SoundType.METAL, null, Items.IRON_DOOR, Items.IRON_INGOT, CreativeModeTabs.REDSTONE_BLOCKS),
-    COPPER(MapColor.COLOR_ORANGE, 3.0F, 6.0F, true, false, SoundEvents.COPPER_DOOR_OPEN, SoundEvents.COPPER_DOOR_CLOSE, SoundEvents.METAL_HIT, SoundEvents.METAL_HIT, SoundType.COPPER, null, Items.COPPER_DOOR, Items.COPPER_INGOT, CreativeModeTabs.REDSTONE_BLOCKS),
+//    COPPER(MapColor.COLOR_ORANGE, 3.0F, 6.0F, true, false, SoundEvents.COPPER_DOOR_OPEN, SoundEvents.COPPER_DOOR_CLOSE, SoundEvents.METAL_HIT, SoundEvents.METAL_HIT, SoundType.COPPER, null, Items.COPPER_DOOR, Items.COPPER_INGOT, CreativeModeTabs.REDSTONE_BLOCKS),
     ;
 
-    public static final Codec<DoorMaterialType> CODEC = Codec.stringResolver(DoorMaterialType::name, DoorMaterialType::valueOf);
+//    public static final Codec<DoorMaterialType> CODEC = Codec.stringResolver(DoorMaterialType::name, DoorMaterialType::valueOf);
 
     private final MapColor mapColor;
     private final Float destroyTime;

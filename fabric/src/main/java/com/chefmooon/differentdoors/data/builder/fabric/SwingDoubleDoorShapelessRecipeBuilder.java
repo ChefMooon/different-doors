@@ -1,37 +1,30 @@
 package com.chefmooon.differentdoors.data.builder.fabric;
 
 import com.chefmooon.differentdoors.common.block.DoubleDoorBlock;
-import com.chefmooon.differentdoors.common.crafting.SlideToSwingShapelessRecipe;
-import com.chefmooon.differentdoors.common.crafting.SwingToSlideShapelessRecipe;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRequirements;
-import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.CriterionTriggerInstance;
+import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.data.recipes.RecipeBuilder;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.*;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.function.Consumer;
 
-public class SwingDoubleDoorShapelessRecipeBuilder implements RecipeBuilder {
+public class SwingDoubleDoorShapelessRecipeBuilder extends CraftingRecipeBuilder implements RecipeBuilder {
     private final RecipeCategory category;
     private final Item result;
     private final int count;
     private final NonNullList<Ingredient> ingredients = NonNullList.create();
-    private final Map<String, Criterion<?>> criteria = new LinkedHashMap();
+//    private final Map<String, Criterion<?>> criteria = new LinkedHashMap();
+    private final Advancement.Builder advancement = Advancement.Builder.recipeAdvancement();
     @Nullable
     private String group;
     private boolean swing = Boolean.FALSE;
@@ -78,8 +71,8 @@ public class SwingDoubleDoorShapelessRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    public SwingDoubleDoorShapelessRecipeBuilder unlockedBy(String name, Criterion<?> criterion) {
-        this.criteria.put(name, criterion);
+    public SwingDoubleDoorShapelessRecipeBuilder unlockedBy(String name, CriterionTriggerInstance criterionTrigger) {
+        this.advancement.addCriterion(name, criterionTrigger);
         return this;
     }
 
@@ -97,25 +90,26 @@ public class SwingDoubleDoorShapelessRecipeBuilder implements RecipeBuilder {
         return this.result;
     }
 
-    public void save(RecipeOutput recipeOutput, ResourceLocation id) {
-        this.ensureValid(id);
-        Advancement.Builder builder = recipeOutput.advancement().addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id)).rewards(AdvancementRewards.Builder.recipe(id)).requirements(AdvancementRequirements.Strategy.OR);
-        Objects.requireNonNull(builder);
-        this.criteria.forEach(builder::addCriterion);
+    public void save(Consumer<FinishedRecipe> finishedRecipeConsumer, ResourceLocation recipeId) {
+        this.ensureValid(recipeId);
+        this.advancement.parent(ROOT_RECIPE_ADVANCEMENT).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId)).rewards(net.minecraft.advancements.AdvancementRewards.Builder.recipe(recipeId)).requirements(RequirementsStrategy.OR);
         ItemStack itemStack = new ItemStack(this.result, this.count);
-        itemStack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(DoubleDoorBlock.SWING, swing));
-        if (swing) {
-            SlideToSwingShapelessRecipe slideToSwingShapelessRecipe = new SlideToSwingShapelessRecipe((String)Objects.requireNonNullElse(this.group, ""), RecipeBuilder.determineBookCategory(this.category), itemStack, this.ingredients);
-            recipeOutput.accept(id, slideToSwingShapelessRecipe, builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
-        } else {
-            SwingToSlideShapelessRecipe swingToSlideShapelessRecipe = new SwingToSlideShapelessRecipe((String)Objects.requireNonNullElse(this.group, ""), RecipeBuilder.determineBookCategory(this.category), itemStack, this.ingredients);
-            recipeOutput.accept(id, swingToSlideShapelessRecipe, builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
-        }
+        CompoundTag blockStateTag = new CompoundTag();
+        blockStateTag.putString(DoubleDoorBlock.SWING.getName(), String.valueOf(swing));
+        itemStack.getOrCreateTag().put("BlockStateTag", blockStateTag);
+//        if (swing) {
+//            SlideToSwingShapelessRecipe slideToSwingShapelessRecipe = new SlideToSwingShapelessRecipe((String)Objects.requireNonNullElse(this.group, ""), RecipeBuilder.determineBookCategory(this.category), itemStack, this.ingredients);
+//            finishedRecipeConsumer.accept(id, slideToSwingShapelessRecipe, builder.build(recipeId.withPrefix("recipes/" + this.category.getFolderName() + "/"))));
+//        } else {
+//            SwingToSlideShapelessRecipe swingToSlideShapelessRecipe = new SwingToSlideShapelessRecipe((String)Objects.requireNonNullElse(this.group, ""), RecipeBuilder.determineBookCategory(this.category), itemStack, this.ingredients);
+//            finishedRecipeConsumer.accept(id, swingToSlideShapelessRecipe, builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
+//        }
+        finishedRecipeConsumer.accept(new ShapelessRecipeBuilder.Result(recipeId, this.result, this.count, this.group == null ? "" : this.group, determineBookCategory(this.category), this.ingredients, this.advancement, recipeId.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
     private void ensureValid(ResourceLocation id) {
-        if (this.criteria.isEmpty()) {
-            throw new IllegalStateException("No way of obtaining recipe " + String.valueOf(id));
+        if (this.advancement.getCriteria().isEmpty()) {
+            throw new IllegalStateException("No way of obtaining recipe " + id);
         }
     }
 }

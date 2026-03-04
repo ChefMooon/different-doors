@@ -41,17 +41,18 @@ public class DoubleDoorBlockImpl extends DoubleDoorBlock {
                         doubleDoorBlock.setSwing(level, controllerPos, controllerState, heldItem, player, hand, !state.getValue(DoubleDoorBlock.SWING));
                         return InteractionResult.SUCCESS;
                     }
-                } else if (heldItem.is(ItemTags.AXES) || heldItem.is(Items.HONEYCOMB)) {
-                    BlockPos blockPos = hit.getBlockPos();
-                    BlockState state = level.getBlockState(blockPos);
-                    if (state.getBlock() instanceof DoubleDoorBlock doubleDoorBlock) {
-                        if (doubleDoorBlock.getDoorMaterialType() == DoorMaterialType.COPPER) {
-                            return heldItem.is(Items.HONEYCOMB) ?
-                                    doubleDoorBlock.tryUseHoneycombItem(state, level, blockPos, player, heldItem) :
-                                    doubleDoorBlock.tryUseAxeItem(state, level, blockPos, player, heldItem);
-                        }
-                    }
                 }
+//                else if (heldItem.is(ItemTags.AXES) || heldItem.is(Items.HONEYCOMB)) {
+//                    BlockPos blockPos = hit.getBlockPos();
+//                    BlockState state = level.getBlockState(blockPos);
+//                    if (state.getBlock() instanceof DoubleDoorBlock doubleDoorBlock) {
+//                        if (doubleDoorBlock.getDoorMaterialType() == DoorMaterialType.COPPER) {
+//                            return heldItem.is(Items.HONEYCOMB) ?
+//                                    doubleDoorBlock.tryUseHoneycombItem(state, level, blockPos, player, heldItem) :
+//                                    doubleDoorBlock.tryUseAxeItem(state, level, blockPos, player, heldItem);
+//                        }
+//                    }
+//                }
             }
 
             return InteractionResult.PASS;
