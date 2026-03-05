@@ -7,7 +7,6 @@ license = "${mod_license}"
 modId = "${mod_id}"
 version = "${mod_version}"
 displayName = "${mod_name}"
-logoBlur = false
 authors = "${mod_authors}"
 description = '''
 ${mod_description}
@@ -15,9 +14,9 @@ ${mod_description}
 logoFile = "assets/differentdoors/icon.png"
 
 [[dependencies.${mod_id}]]
-modId = "neoforge"
+modId = "forge"
 mandatory = true
-versionRange = "[21.0,)"
+versionRange = "[47.1.0,)"
 ordering = "NONE"
 side = "BOTH"
 

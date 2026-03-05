@@ -102,7 +102,7 @@ publishMods {
         projectId = curseforge_project_id
 
         minecraftVersions.addAll(minecraft_supported_versions.split(","))
-        javaVersions.add(JavaVersion.VERSION_21)
+        javaVersions.add(JavaVersion.VERSION_17)
 
         requires("fabric-api")
     }

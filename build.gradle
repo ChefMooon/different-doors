@@ -52,7 +52,7 @@ subprojects {
 
         inputs.properties replaceProperties
 
-        filesMatching(["META-INF/neoforge.mods.toml", "fabric.mod.json", "pack.mcmeta"]) {
+        filesMatching(["META-INF/mods.toml", "fabric.mod.json", "pack.mcmeta"]) {
             expand replaceProperties + [project: project]
         }
     }
