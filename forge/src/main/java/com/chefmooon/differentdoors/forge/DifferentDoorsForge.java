@@ -1,7 +1,10 @@
 package com.chefmooon.differentdoors.forge;
 
 import com.chefmooon.differentdoors.DifferentDoors;
-import com.chefmooon.differentdoors.common.registry.forge.*;
+import com.chefmooon.differentdoors.common.registry.forge.ModBlocksImpl;
+import com.chefmooon.differentdoors.common.registry.forge.ModCreativeTabsImpl;
+import com.chefmooon.differentdoors.common.registry.forge.ModItemsImpl;
+import com.chefmooon.differentdoors.common.registry.forge.ModRecipeSerializersImpl;
 import com.chefmooon.differentdoors.common.util.forge.LoaderUtilImpl;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -18,7 +21,6 @@ public class DifferentDoorsForge {
         ModItemsImpl.register(modEventBus);
         ModCreativeTabsImpl.register(modEventBus);
         ModRecipeSerializersImpl.register(modEventBus);
-//        ModAdvancementsImpl.register(modEventBus);
 
         LoaderUtilImpl.init(modEventBus);
     }

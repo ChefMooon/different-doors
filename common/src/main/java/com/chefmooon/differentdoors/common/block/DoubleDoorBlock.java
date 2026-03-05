@@ -685,18 +685,6 @@ public class DoubleDoorBlock extends Block implements SimpleWaterloggedBlock {
         return blockState.getBlock() instanceof DoubleDoorBlock;
     }
 
-//    @Override
-//    protected void onExplosionHit(BlockState blockState, Level level, BlockPos blockPos, Explosion explosion, BiConsumer<ItemStack, BlockPos> biConsumer) {
-//        // TODO: fix wind charge explosion open/closing the door at the same time if more than one door block is hit
-//        if (explosion.canTriggerBlocks() && !blockState.getValue(LOCKED) && getDoorMaterialType().canOpenedByHand() && !blockState.getValue(POWERED)) {
-//            this.setOpen((Entity) null, level, blockPos, blockState);
-//            if (explosion.getIndirectSourceEntity() instanceof ServerPlayer serverPlayer) {
-//                ModAdvancements.DOUBLE_DOOR_WIND_CHARGE_TRIGGER.get().trigger(serverPlayer);
-//            }
-//        }
-//        super.onExplosionHit(blockState, level, blockPos, explosion, biConsumer);
-//    }
-
     @Override
     public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         destroy(level, pos, state, !level.isClientSide && !player.getAbilities().instabuild, player);
