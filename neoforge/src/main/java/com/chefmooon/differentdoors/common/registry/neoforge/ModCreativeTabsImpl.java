@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 
 public class ModCreativeTabsImpl {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, DifferentDoors.MOD_ID);
-    public static final Supplier<CreativeModeTab> TAB_EXAMPLE_MOD = CREATIVE_MODE_TAB.register(DifferentDoors.MOD_ID,
+    public static final Supplier<CreativeModeTab> TAB_DIFFERENT_DOORS = CREATIVE_MODE_TAB.register(DifferentDoors.MOD_ID,
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup." + DifferentDoors.MOD_ID))
                     .icon(() -> new ItemStack(ModItemsImpl.DOUBLE_DOOR_VARIANTS.get(new DoorInfoRecord(DoorMaterialType.OAK, DoorStyleType.TWELVE_LITE)).get()))

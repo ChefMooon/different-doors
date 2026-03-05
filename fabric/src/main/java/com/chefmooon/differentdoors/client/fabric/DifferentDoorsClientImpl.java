@@ -24,7 +24,6 @@ public class DifferentDoorsClientImpl implements ClientModInitializer {
                 ModBlocksImpl.WAXED_EXPOSED_COPPER_DOUBLE_DOOR.get(),
                 ModBlocksImpl.WAXED_OXIDIZED_COPPER_DOUBLE_DOOR.get(),
                 ModBlocksImpl.WAXED_WEATHERED_COPPER_DOUBLE_DOOR.get());
-//        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocksImpl.SIMPLE_LARGE_DOOR.get(), RenderType.cutout()); // TODO : remove after testing
 
         ModItemPropertiesImpl.addCustomItemProperties();
     }

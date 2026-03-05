@@ -4,9 +4,7 @@ import com.chefmooon.differentdoors.common.util.TextUtil;
 import net.minecraft.resources.ResourceLocation;
 
 public class ModBlocks {
-    public static final ResourceLocation TEST_DOOR = block("test_door");
     public static final ResourceLocation DOUBLE_DOOR = block("double_door");
-    public static final ResourceLocation SIMPLE_LARGE_DOOR = block("simple_large_door");
 
     public static final ResourceLocation IRON_DOUBLE_DOOR = block("iron_double_door");
     public static final ResourceLocation COPPER_DOUBLE_DOOR = block("copper_double_door");

@@ -9,14 +9,7 @@ public class ModItems {
     public static Item.Properties basicItem() {
         return new Item.Properties();
     }
-
-    public static Item.Properties noStack() {
-        return new Item.Properties().stacksTo(1);
-    }
-
-//    public static final ResourceLocation TEST_ITEM = item("test_item");
     public static final ResourceLocation DOUBLE_DOOR = item("double_door");
-    public static final ResourceLocation SIMPLE_LARGE_DOOR = item("simple_large_door");
 
     public static final ResourceLocation IRON_DOUBLE_DOOR = item("iron_double_door");
     public static final ResourceLocation COPPER_DOUBLE_DOOR = item("copper_double_door");
