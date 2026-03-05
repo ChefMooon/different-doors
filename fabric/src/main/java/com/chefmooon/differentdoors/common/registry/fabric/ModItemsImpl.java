@@ -19,8 +19,6 @@ import static com.chefmooon.differentdoors.common.registry.ModItems.basicItem;
 public class ModItemsImpl {
     public static final HashMap<DoorInfoRecord, Supplier<Item>> DOUBLE_DOOR_VARIANTS = new HashMap<>();
 
-//    public static final Supplier<Item> SIMPLE_LARGE_DOOR = registerItemWithTab(ModItems.SIMPLE_LARGE_DOOR, new BlockItem(ModBlocksImpl.SIMPLE_LARGE_DOOR.get(), basicItem())); // TODO : remove after testing
-
     public static final Supplier<Item> IRON_DOUBLE_DOOR = registerItemWithTab(ModItems.IRON_DOUBLE_DOOR,
             new DoubleDoorBlockItemImpl(ModBlocksImpl.IRON_DOUBLE_DOOR.get(),
                     basicItem()));

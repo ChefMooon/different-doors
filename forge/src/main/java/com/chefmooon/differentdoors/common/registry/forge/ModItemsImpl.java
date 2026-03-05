@@ -30,9 +30,6 @@ public class ModItemsImpl {
 
     public static final HashMap<DoorInfoRecord, Supplier<Item>> DOUBLE_DOOR_VARIANTS = new HashMap<>();
 
-//    public static final Supplier<Item> TEST_ITEM = registerItemWithTab(ModItems.TEST_ITEM, () -> new Item(basicItem()));
-//    public static final Supplier<Item> LARGE_DOOR = registerItemWithTab(ModItems.LARGE_DOOR, () -> new BlockItem(ModBlocksImpl.LARGE_DOOR.get(), basicItem()));
-
     public static final Supplier<Item> IRON_DOUBLE_DOOR = registerItemWithTab(ModItems.IRON_DOUBLE_DOOR,
             () -> new DoubleDoorBlockItemImpl(ModBlocksImpl.IRON_DOUBLE_DOOR.get(),
                     basicItem()));

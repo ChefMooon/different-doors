@@ -23,8 +23,6 @@ public class ModBlocksImpl {
 
     public static final HashMap<DoorInfoRecord, Supplier<Block>> DOUBLE_DOOR_VARIANTS = new HashMap<>();
 
-//    public static final Supplier<Block> LARGE_DOOR = registerBlock(ModBlocks.LARGE_DOOR, () -> new LargeDoorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
-
     public static final Supplier<Block> IRON_DOUBLE_DOOR = registerBlock(ModBlocks.IRON_DOUBLE_DOOR,
             () -> new DoubleDoorBlockImpl(DoorMaterialType.IRON,
                     BlockBehaviour.Properties.of().mapColor(DoorMaterialType.IRON.getMapColor())
