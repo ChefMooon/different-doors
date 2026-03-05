@@ -3,4 +3,4 @@ Before updating, please **back-up** your world. If you encounter a bug please op
 
 ### Fixed
 
-- Fixed missing wax on sound for copper doors.
+- [1.21.1 only] Fixed missing wax on sound for copper doors.
